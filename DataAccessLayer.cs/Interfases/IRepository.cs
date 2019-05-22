@@ -10,6 +10,7 @@ namespace DataAccessLayer.cs.Interfases
     {
         void Add(T entity);
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(System.Linq.Expressions.Expression<Func<T, bool>> pred);
         T Find(int id);
         void Remove(T entity);
         void Edit(T entity);
