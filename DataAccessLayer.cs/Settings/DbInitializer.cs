@@ -13,6 +13,7 @@ namespace DataAccessLayer.cs.Settings
         {
             //base.Seed(context);
 
+
         }
     }
 }
