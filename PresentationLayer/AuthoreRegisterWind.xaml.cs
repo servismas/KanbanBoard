@@ -10,21 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PresentationLayer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AuthoreRegisterWind.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AuthoreRegisterWind : Window
     {
-        public MainWindow()
+        public AuthoreRegisterWind()
         {
             InitializeComponent();
-            AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-            authoreRegisterWind.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            teamBlock.Visibility = Visibility.Visible;
+            teamBox.Visibility = Visibility.Visible;
+            btn1.Content = "Continue";
+            btn2.Content = "Cancel";
         }
     }
 }
