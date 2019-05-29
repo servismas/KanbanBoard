@@ -13,5 +13,7 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         [OperationContract]
         bool CheckCredationals(string login, string pass);
 
+        string HashPass(string pass);
+
     }
 }
