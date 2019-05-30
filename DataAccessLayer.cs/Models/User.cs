@@ -14,8 +14,9 @@ namespace DataAccessLayer.cs.Models
         public string Mail { get; set; }
         [Required]
         public string Password { get; set; }
-        public string Photo { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
+        public int? ProfileId { get; set; }
+        //public virtual Profile Profile { get; set; }
         public int? TeamId { get; set; }
         //public virtual Team Team { get; set; }
     }
