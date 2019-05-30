@@ -24,5 +24,12 @@ namespace PresentationLayer
         {
             InitializeComponent();
         }
+        private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = new Button();
+            button.Content = "Input title";
+            //button.HorizontalContentAlignment = Left;
+            ColumnSP.Children.Add(button);
+        }
     }
 }

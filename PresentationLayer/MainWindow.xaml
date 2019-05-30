@@ -7,6 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel Orientation="Horizontal">
+            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
+                <StackPanel Name="ColumnSP">
+                    <Button Width="100" Foreground="Brown">
+                        <TextBlock Text="Task" Width="96">
+
+                        </TextBlock>
+                    </Button>
+                    <Button x:Name="AddNewTaskBtn" HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                </StackPanel>
+
+            </Border>
+            <StackPanel></StackPanel>
+            <StackPanel></StackPanel>
+            <StackPanel></StackPanel>
+            
+        </StackPanel>
+
     </Grid>
 </Window>

@@ -28,6 +28,7 @@
          public virtual DbSet<Column> Columns { get; set; }
          public virtual DbSet<Card> Cards { get; set; }
          public virtual DbSet<Board> Boards { get; set; }
+         public virtual DbSet<Attachment> Attachments { get; set; }
     }
 
     //public class MyEntity
