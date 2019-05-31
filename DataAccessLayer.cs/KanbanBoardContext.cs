@@ -17,7 +17,7 @@
         public KanbanBoardContext()
             : base("name=KanbanBoardContext")
         {
-            Database.SetInitializer(new DbInitializer());
+           // Database.SetInitializer(new DbInitializer());
         }
 
         // Добавьте DbSet для каждого типа сущности, который требуется включить в модель. Дополнительные сведения 
@@ -25,6 +25,7 @@
 
          public virtual DbSet<User> Users { get; set; }
          public virtual DbSet<Team> Teams { get; set; }
+         public virtual DbSet<Profile> Profiles { get; set; }
          public virtual DbSet<Column> Columns { get; set; }
          public virtual DbSet<Card> Cards { get; set; }
          public virtual DbSet<Board> Boards { get; set; }

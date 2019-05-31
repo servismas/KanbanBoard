@@ -12,7 +12,7 @@ namespace DataAccessLayer.cs.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public int? TeamId { get; set; }
+        //public int? TeamId { get; set; }
         //public virtual Team Team { get; set; }
         public virtual ICollection<Column> Columns { get; set; }
     }

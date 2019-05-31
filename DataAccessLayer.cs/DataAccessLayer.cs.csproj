@@ -51,6 +51,11 @@
   <ItemGroup>
     <Compile Include="Interfases\IRepository.cs" />
     <Compile Include="KanbanBoardContext.cs" />
+    <Compile Include="Migrations\201905311724276_Initial.cs" />
+    <Compile Include="Migrations\201905311724276_Initial.Designer.cs">
+      <DependentUpon>201905311724276_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Card.cs" />
@@ -62,10 +67,14 @@
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Settings\DbInitializer.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905311724276_Initial.resx">
+      <DependentUpon>201905311724276_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

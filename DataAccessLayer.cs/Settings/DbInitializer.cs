@@ -21,9 +21,11 @@ namespace DataAccessLayer.cs.Settings
 
             Board board = new Board { Name = "Board" };
 
-            Column column = new Column { Name = "Column" };
+            Column column1 = new Column { Name = "Column1" };
+            Column column2 = new Column { Name = "Column2" };
 
-            Card card = new Card { Name = "Card" };
+            Card card1 = new Card { Name = "Card1" };
+            Card card2 = new Card { Name = "Card2" };
 
             context.Users.Add(user1);
             context.Users.Add(user2);
@@ -32,9 +34,24 @@ namespace DataAccessLayer.cs.Settings
 
             context.Boards.Add(board);
 
-            context.Columns.Add(column);
+            context.Columns.Add(column1);
 
-            context.Cards.Add(card);
+            context.Cards.Add(card1);
+            context.Cards.Add(card2);
+
+            //context.SaveChanges();
+
+            //team.Users.Add(user1);
+            //team.Users.Add(user2);
+
+            //column1.Cards.Add(card1);
+            //column1.Cards.Add(card2);
+
+            //card1.Users.Add(user1);
+            //card2.Users.Add(user2);
+
+            //board.Columns.Add(column1);
+            //board.Columns.Add(column2);
 
             context.SaveChanges();
         }

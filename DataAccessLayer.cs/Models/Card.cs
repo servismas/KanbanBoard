@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace DataAccessLayer.cs.Models
         [Required]
         public DateTime ExpireDate { get; set; }
         public int? ColumnId { get; set; }
-        //public virtual Column Column { get; set; }
+        public virtual Column Column { get; set; }
         public virtual ICollection<Attachment> Attachments { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }

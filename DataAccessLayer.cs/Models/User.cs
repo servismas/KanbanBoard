@@ -16,8 +16,8 @@ namespace DataAccessLayer.cs.Models
         public string Password { get; set; }
         public bool? IsDeleted { get; set; }
         public int? ProfileId { get; set; }
-        //public virtual Profile Profile { get; set; }
+        public virtual Profile Profile { get; set; }
         public int? TeamId { get; set; }
-        //public virtual Team Team { get; set; }
+        public virtual Team Team { get; set; }
     }
 }
