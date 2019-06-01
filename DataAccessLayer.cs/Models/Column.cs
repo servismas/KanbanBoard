@@ -9,6 +9,10 @@ namespace DataAccessLayer.cs.Models
 {
     public class Column
     {
+        public Column()
+        {
+            Cards = new List<Card>();
+        }
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }

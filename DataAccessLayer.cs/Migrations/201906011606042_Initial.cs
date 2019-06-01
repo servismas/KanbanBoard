@@ -83,11 +83,8 @@ namespace DataAccessLayer.cs.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
-                        BoardId = c.Int(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Boards", t => t.BoardId)
-                .Index(t => t.BoardId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Boards",
@@ -95,21 +92,24 @@ namespace DataAccessLayer.cs.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
+                        TeamId = c.Int(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Teams", t => t.TeamId)
+                .Index(t => t.TeamId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Boards", "TeamId", "dbo.Teams");
+            DropForeignKey("dbo.Columns", "Board_Id", "dbo.Boards");
             DropForeignKey("dbo.Users", "Card_Id", "dbo.Cards");
             DropForeignKey("dbo.Users", "TeamId", "dbo.Teams");
-            DropForeignKey("dbo.Teams", "BoardId", "dbo.Boards");
-            DropForeignKey("dbo.Columns", "Board_Id", "dbo.Boards");
             DropForeignKey("dbo.Users", "ProfileId", "dbo.Profiles");
             DropForeignKey("dbo.Cards", "ColumnId", "dbo.Columns");
             DropForeignKey("dbo.Attachments", "CardId", "dbo.Cards");
-            DropIndex("dbo.Teams", new[] { "BoardId" });
+            DropIndex("dbo.Boards", new[] { "TeamId" });
             DropIndex("dbo.Users", new[] { "Card_Id" });
             DropIndex("dbo.Users", new[] { "TeamId" });
             DropIndex("dbo.Users", new[] { "ProfileId" });

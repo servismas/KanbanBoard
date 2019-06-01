@@ -14,18 +14,30 @@ namespace ConsoleAppTest
     {
         static void Main(string[] args)
         {
-            KanbanBoardContext db = new KanbanBoardContext();
-            IRepository<User> repository = new Repository<User>(db);
-            User user1 = new User { Mail = "asd@asd.com", Password = "asd" };
-            User user2 = new User { Mail = "qwerty@qwerty.com", Password = "qwerty" };
-            repository.Add(user1);
-            repository.Add(user2);
-
-            var users = db.Users.ToList();
-            foreach (User u in users)
+        KanbanBoardContext db;
+            using (db = new KanbanBoardContext())
             {
-                Console.WriteLine(u.Mail);
+                IRepository<User> repository = new Repository<User>(db);
+                User user1 = new User { Mail = "mail@asd.com", Password = "pass" };
+                User user2 = new User { Mail = "mail@qwerty.com", Password = "pass_qwerty" };
+                repository.Add(user1);
+                repository.Add(user2);
+
+                //DateTime date = new DateTime();
+                //var cards = db.Cards.ToList();
+                //foreach(Card card in cards)
+                //{
+                //    date = card.CreationDate;
+                //}
+
+                var users = db.Users.ToList();
+                foreach (User u in users)
+                {
+                    Console.WriteLine(u.Mail);
+                }
+                //Console.ReadLine();
             }
+
         }
     }
 }

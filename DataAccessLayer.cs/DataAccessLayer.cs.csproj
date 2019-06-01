@@ -51,9 +51,13 @@
   <ItemGroup>
     <Compile Include="Interfases\IRepository.cs" />
     <Compile Include="KanbanBoardContext.cs" />
-    <Compile Include="Migrations\201905311724276_Initial.cs" />
-    <Compile Include="Migrations\201905311724276_Initial.Designer.cs">
-      <DependentUpon>201905311724276_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201906011606042_Initial.cs" />
+    <Compile Include="Migrations\201906011606042_Initial.Designer.cs">
+      <DependentUpon>201906011606042_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906011627254_Nullable date.cs" />
+    <Compile Include="Migrations\201906011627254_Nullable date.Designer.cs">
+      <DependentUpon>201906011627254_Nullable date.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attachment.cs" />
@@ -72,8 +76,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905311724276_Initial.resx">
-      <DependentUpon>201905311724276_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906011606042_Initial.resx">
+      <DependentUpon>201906011606042_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906011627254_Nullable date.resx">
+      <DependentUpon>201906011627254_Nullable date.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

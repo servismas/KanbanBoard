@@ -7,23 +7,82 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <!--<StackPanel Orientation="Horizontal">
+            <ListBox x:Name="lb">
+                <ListBox.ItemsPanel>
+
+                    <ItemsPanelTemplate>
+                        <StackPanel>
+
+                        </StackPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
+                            <StackPanel>
+                                <TextBlock Text="Task" Width="96">
+
+                                </TextBlock>
+                                <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                                <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
+                                <Button HorizontalContentAlignment="Left" Content="{Binding Name}" Width="100" Click="MoveTaskBtn_Click"/>
+                            </StackPanel>
+
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>-->
+
+        <StackPanel Name="MainStackPanel" Orientation="Horizontal">
             <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
-                <StackPanel Name="ColumnSP">
+                <StackPanel>
+
+                    <Button BorderThickness="0" Width="100" Foreground="Brown">
+
+                        <TextBlock Text="Task" Width="96">
+
+                        </TextBlock>
+
+                    </Button>
+
+                    <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                    <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
+                </StackPanel>
+
+            </Border>
+            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
+                <StackPanel>
                     <Button Width="100" Foreground="Brown">
                         <TextBlock Text="Task" Width="96">
 
                         </TextBlock>
                     </Button>
-                    <Button x:Name="AddNewTaskBtn" HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                    <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                    <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
                 </StackPanel>
 
             </Border>
+            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
+                <StackPanel>
+                    <Button Width="100" Foreground="Brown">
+                        <TextBlock Text="Task" Width="96">
+
+                        </TextBlock>
+                    </Button>
+                    <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                    <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
+                </StackPanel>
+
+            </Border>
+
             <StackPanel></StackPanel>
             <StackPanel></StackPanel>
-            <StackPanel></StackPanel>
-            
+
+
         </StackPanel>
+
 
     </Grid>
 </Window>

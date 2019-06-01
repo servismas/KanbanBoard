@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer.cs\DataAccessLayer.cs.csproj">
+      <Project>{865EE140-59BB-4B45-B3CB-35E2E053DDCE}</Project>
+      <Name>DataAccessLayer.cs</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
