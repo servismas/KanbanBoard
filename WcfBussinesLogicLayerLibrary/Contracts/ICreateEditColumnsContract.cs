@@ -14,11 +14,13 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         [OperationContract]
         void AddNewColumn(ColumnDTO newColumn);
         [OperationContract]
-        void EditeColumnName(ColumnDTO editColumn, string newName);
+        void EditeColumnName(ColumnDTO editColumn);
 
         [OperationContract]
-        void AddCard(CardDTO newCard);
+        void DeleteColumn(ColumnDTO deleteColumn);
+
         [OperationContract]
-        void DeleteCard(CardDTO deleteCard);
+        List<ColumnDTO> GetColumn(BoardDTO userBoard);
+
     }
 }

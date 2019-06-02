@@ -12,13 +12,16 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
     public interface ICreateEditeTeamContract
     {
         [OperationContract]
-        void AddNewName(string newName);
+        void CreateNewTeam(TeamDTO newTeam);
 
         [OperationContract]
-        void AddUserToTeam(UserDTO user);
+        void EditTeam(TeamDTO editTeam);
 
         [OperationContract]
-        void DeleteUserFromTeam(UserDTO deleteUser);
+        void DeleteTeam(TeamDTO deleteTeam);
+
+        [OperationContract]
+        List<TeamDTO> GetAllUsersTeams(UserDTO user);
         
     }
 }

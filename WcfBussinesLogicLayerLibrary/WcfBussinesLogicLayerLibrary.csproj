@@ -56,13 +56,13 @@
     <Compile Include="Contracts\ICreateEditeTeamContract.cs" />
     <Compile Include="Contracts\ICreateEditeUserContract.cs" />
     <Compile Include="Contracts\ILogOnUserContract.cs" />
-    <Compile Include="Contracts\IRegistrationUserContract.cs" />
     <Compile Include="ModelsDTO\BoardDTO.cs" />
     <Compile Include="ModelsDTO\CardDTO.cs" />
     <Compile Include="ModelsDTO\ColumnDTO.cs" />
     <Compile Include="ModelsDTO\TeamDTO.cs" />
     <Compile Include="ModelsDTO\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BoardService.cs" />
     <Compile Include="Services\ColumnsService.cs" />
     <Compile Include="Services\LogOn.cs" />
   </ItemGroup>

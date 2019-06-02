@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.cs.Interfases;
+﻿using AutoMapper;
+using DataAccessLayer.cs.Interfases;
 using DataAccessLayer.cs.Models;
 using DataAccessLayer.cs.Repository;
 using System;
@@ -13,39 +14,58 @@ namespace WcfBussinesLogicLayerLibrary.Services
 {
     public class ColumnsService : ICreateEditColumnsContract
     {
-        private readonly IRepository<Card> CardRepos;
-        private readonly IRepository<Column> ColumRepos;
-        public ColumnsService(IRepository<Card> _card, IRepository<Column> _column)
-        {
-            CardRepos = _card;
-            ColumRepos = _column;
-        }
+        //private readonly IRepository<Card> CardRepos;
+        //private readonly IRepository<Column> ColumRepos;
+        //public ColumnsService(IRepository<Card> _card, IRepository<Column> _column)
+        //{
+        //    CardRepos = _card;
+        //    ColumRepos = _column;
+        //}
 
-        public void AddCard(CardDTO newCard)
-        {
-            Card newEntityCard=new Card();
 
-            // newEntityCard.Attachment = newCard.Attachment;
-            newEntityCard.Column.Id = newCard.Column.Id;
-            newEntityCard.Date = newCard.Date;
-            newEntityCard.Description = newCard.Description;
-            newEntityCard.Name = newCard.Name;
-           // newEntityCard.Users. = newCard.Users;
+        //public void AddCard(CardDTO newCard)
+        //{
+        //    Mapper.Initialize(cfg => cfg.CreateMap(typeof(CardDTO), typeof(Card)));
+        //    Card cardEntyti =(Card) Mapper.Map(newCard, typeof(CardDTO), typeof(Card));
+        //    CardRepos.Add(cardEntyti);
+        //}
 
-            CardRepos.Add(newEntityCard);
-        }
+        //public void AddNewColumn(ColumnDTO newColumn)
+        //{
+        //    Mapper.Initialize(cfg => cfg.CreateMap(typeof(ColumnDTO), typeof(Column)));
+        //    Column columnEntyti = (Column)Mapper.Map(newColumn, typeof(ColumnDTO), typeof(Column));
+        //    ColumRepos.Add(columnEntyti);
+        //}
 
+        //public void DeleteCard(CardDTO deleteCard)
+        //{
+        //    Mapper.Initialize(cfg => cfg.CreateMap(typeof(CardDTO), typeof(Card)));
+        //    Card cardEntyti = (Card)Mapper.Map(deleteCard, typeof(CardDTO), typeof(Card));
+        //    CardRepos.Remove(cardEntyti);
+        //}
+
+        //public void EditeColumnName(ColumnDTO editColumn)
+        //{
+        //    Mapper.Initialize(cfg => cfg.CreateMap(typeof(ColumnDTO), typeof(Column)));
+        //    Column columnEntyti = (Column)Mapper.Map(editColumn, typeof(ColumnDTO), typeof(Column));
+        //    ColumRepos.Add(columnEntyti);
+        //}
         public void AddNewColumn(ColumnDTO newColumn)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteCard(CardDTO deleteCard)
+        public void DeleteColumn(ColumnDTO deleteColumn)
         {
             throw new NotImplementedException();
         }
 
-        public void EditeColumnName(ColumnDTO editColumn, string newName)
+        public void EditeColumnName(ColumnDTO editColumn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ColumnDTO> GetColumn(BoardDTO userBoard)
         {
             throw new NotImplementedException();
         }

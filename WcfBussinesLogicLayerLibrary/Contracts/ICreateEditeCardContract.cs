@@ -11,26 +11,18 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
     [ServiceContract]
     public interface ICreateEditeCardContract
     {
+        
         [OperationContract]
-        void AddUser(UserDTO workUser);
+        void CreateCard(CardDTO newCard);
 
         [OperationContract]
-        void DeleteUser(UserDTO deleteWorkUser);
+        void EditeCard(CardDTO editCard);
 
         [OperationContract]
-        void AddCardName(string name);
+        void DeleteCard(CardDTO deleteCard);
 
         [OperationContract]
-        void AddCardDescription(string description);
-
-        [OperationContract]
-        void AddCardDate(DateTime date);
-
-        [OperationContract]
-        void AddAttachment(string path);
-
-        [OperationContract]
-        void DeleteAttachment(string attachment);
+        List<CardDTO> GetAllColumnCards(ColumnDTO column);
 
 
     }

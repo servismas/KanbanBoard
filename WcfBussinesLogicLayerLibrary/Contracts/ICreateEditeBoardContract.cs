@@ -15,18 +15,12 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         void CreateBoard(BoardDTO newBoard);
 
         [OperationContract]
-        void AddColumn(ColumnDTO newColumn);
+        void DeleteBoard(BoardDTO deleteBoard);
 
         [OperationContract]
-        void DeleteColumn(ColumnDTO deleteColumn);
+        void EditeBoardName(BoardDTO editBoard);
 
         [OperationContract]
-        void AddUser(UserDTO newUser);
-
-        [OperationContract]
-        void DeleteUser(UserDTO deleteUser);
-
-        [OperationContract]
-        void EditeBoardName(string newBoardName);
+        List<BoardDTO> GetAllUsersBoards(UserDTO user);
     }
 }

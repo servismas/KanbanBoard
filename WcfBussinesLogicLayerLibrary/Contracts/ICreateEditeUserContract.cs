@@ -12,26 +12,16 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
     public interface ICreateEditeUserContract
     {
         [OperationContract]
-        void AddUserName(string email);
+        void AddUser(UserDTO newUser);
 
-        bool ValidUserMail(string email); //внутрішній метод на зовні не віддаєм
-
-        [OperationContract]
-        void AdduserPass(string pas);
-
-        string EncodePass(string pas); //внутрішній метод на зовні не віддаєм
+        bool ValidationUser(string pass); //подумати докрутити токени
 
         [OperationContract]
-        void ChangePhoto(string newPhoto);
+        void DeleteUser(UserDTO deleteUser);
 
         [OperationContract]
-        void ChangeDeleteFlag(UserDTO user);
+        void EditeUser(UserDTO editeUser);
 
-        [OperationContract]
-        void JoinToBoard(BoardDTO newBoard);
-
-        [OperationContract]
-        void UnsubscribeFromBoard(BoardDTO oldBoard);
-
+        
     }
 }
