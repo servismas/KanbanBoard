@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.cs.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -18,6 +19,9 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
 
         [OperationContract]
         void DeleteColumn(ColumnDTO deleteColumn);
+
+        [OperationContract]
+        ColumnDTO GetColumn(Column column);
 
         [OperationContract]
         List<ColumnDTO> GetColumn(BoardDTO userBoard);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.cs.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -22,5 +23,8 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
 
         [OperationContract]
         List<BoardDTO> GetAllUsersBoards(UserDTO user);
+
+        [OperationContract]
+        BoardDTO GetBoard(Board board);
     }
 }
