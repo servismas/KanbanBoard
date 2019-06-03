@@ -24,6 +24,6 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         [OperationContract]
         List<CardDTO> GetAllColumnCards(ColumnDTO column);
 
-
+        
     }
 }

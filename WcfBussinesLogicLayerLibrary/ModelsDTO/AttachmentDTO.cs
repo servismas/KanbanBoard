@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace WcfBussinesLogicLayerLibrary.ModelsDTO
 {
-    public class ColumnDTO
+    public class AttachmentDTO
     {
-        public ColumnDTO()
-        {
-            Cards = new List<Card>();
-        }
         public int Id { get; set; }
-        
-        public string Name { get; set; }
-        public virtual List<Card> Cards { get; set; }
+        public string Path { get; set; }
+        public int? CardId { get; set; }
+
+        public Card Card { get; set; }
     }
 }

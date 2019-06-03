@@ -15,9 +15,9 @@ namespace WcfBussinesLogicLayerLibrary.Services
     {
 
         private readonly IRepository<Board> BoardRepos;
-        private readonly IRepository<User> UsersRepos;
+        private readonly IRepository<UserService> UsersRepos;
 
-        public BoardService(IRepository<Board> _board, IRepository<User> _users)
+        public BoardService(IRepository<Board> _board, IRepository<UserService> _users)
         {
             BoardRepos = _board;
             UsersRepos = _users;
@@ -44,7 +44,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public List<BoardDTO> GetAllUsersBoards(UserDTO user)
         {
-            User userEntity = UsersRepos.Find(user.Id);
+            UserService userEntity = UsersRepos.Find(user.Id);
             List<Board> boards = new List<Board>();
             foreach (var b in userEntity.Boards)
             {

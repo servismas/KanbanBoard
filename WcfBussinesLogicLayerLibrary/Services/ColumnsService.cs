@@ -22,14 +22,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             BoardRepos = _board;
             ColumRepos = _column;
         }
-
-
-        //public void AddCard(CardDTO newCard)
-        //{
-        //    Mapper.Initialize(cfg => cfg.CreateMap(typeof(CardDTO), typeof(Card)));
-        //    Card cardEntyti =(Card) Mapper.Map(newCard, typeof(CardDTO), typeof(Card));
-        //    CardRepos.Add(cardEntyti);
-        //}
+                       
 
         public void AddNewColumn(ColumnDTO newColumn)
         {
