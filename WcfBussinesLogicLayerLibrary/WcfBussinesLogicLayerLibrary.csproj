@@ -50,9 +50,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ICreateEditAttachmentContract.cs" />
     <Compile Include="Contracts\ICreateEditColumnsContract.cs" />
     <Compile Include="Contracts\ICreateEditeBoardContract.cs" />
     <Compile Include="Contracts\ICreateEditeCardContract.cs" />
+    <Compile Include="Contracts\ICreateEditeProfileContract.cs" />
     <Compile Include="Contracts\ICreateEditeTeamContract.cs" />
     <Compile Include="Contracts\ICreateEditeUserContract.cs" />
     <Compile Include="Contracts\ILogOnUserContract.cs" />
