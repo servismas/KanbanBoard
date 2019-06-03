@@ -27,7 +27,7 @@ namespace DataAccessLayer.cs.Migrations
                         Name = c.String(nullable: false),
                         Description = c.String(nullable: false),
                         CreationDate = c.DateTime(nullable: false),
-                        ExpireDate = c.DateTime(nullable: false),
+                        ExpireDate = c.DateTime(),
                         ColumnId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -102,10 +102,10 @@ namespace DataAccessLayer.cs.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Boards", "TeamId", "dbo.Teams");
-            DropForeignKey("dbo.Columns", "Board_Id", "dbo.Boards");
             DropForeignKey("dbo.Users", "Card_Id", "dbo.Cards");
             DropForeignKey("dbo.Users", "TeamId", "dbo.Teams");
+            DropForeignKey("dbo.Boards", "TeamId", "dbo.Teams");
+            DropForeignKey("dbo.Columns", "Board_Id", "dbo.Boards");
             DropForeignKey("dbo.Users", "ProfileId", "dbo.Profiles");
             DropForeignKey("dbo.Cards", "ColumnId", "dbo.Columns");
             DropForeignKey("dbo.Attachments", "CardId", "dbo.Cards");

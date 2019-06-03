@@ -54,7 +54,9 @@ namespace PresentationLayer
         }
         private void CardBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Description","Edit Task Window");
+            CardEditWindow cardEditWindow = new CardEditWindow();
+            cardEditWindow.ShowDialog();
+            //MessageBox.Show("Description","Edit Task Window");
         }
 
         private void MoveTaskBtn_Click(object sender, RoutedEventArgs e)
@@ -96,6 +98,76 @@ namespace PresentationLayer
         {
             return Columns(sender).IndexOf(((sender as Button).Parent as StackPanel).Parent as Border);
         }
+
+
+        private void Button_MouseMove(object sender, MouseEventArgs e)
+        {
+            //Button dragSource = sender as Button;
+            Button button = sender as Button;
+            if (button != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                //dragSource.AllowDrop = true;
+                //DataObject data = new DataObject(typeof(Button), dragSource);
+                //DragDrop.DoDragDrop(dragSource, data, DragDropEffects.Copy | DragDropEffects.Move);
+                DragDrop.DoDragDrop(button, button.Content, DragDropEffects.Copy | DragDropEffects.Move);
+            }
+            //DragDrop.DoDragDrop(b, b.Content, DragDropEffects.Copy);
+        }
+
+        private void Border_Drop(object sender, DragEventArgs e)
+        {
+            MessageBox.Show("");
+        }
+
+        private void Button_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void Button_DragLeave(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void Button_DragOver(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void Button_Drop(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void Button_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
+
+        //private void Border_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    (sender as Border).AllowDrop
+        //}
+
+
+
+
+
+        //private void ListViewOnMouseMove(object sender, MouseEventArgs mouseEventArgs)
+        //{
+        //    //dragSource = (sender as ListView);
+        //    if (mouseEventArgs.LeftButton == MouseButtonState.Pressed)
+        //    {
+        //        if (dragSource.SelectedItems.Count > 0)
+        //        {
+        //            var items = (dragSource.SelectedItems as IList);
+        //            dragSource.AllowDrop = true;
+        //            DataObject dataObject = new DataObject(typeof(Collection), items);
+        //            DragDrop.DoDragDrop((sender as ListView), dataObject, DragDropEffects.Copy);
+        //        }
+        //    }
+        //}
+
 
     }
 }

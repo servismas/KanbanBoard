@@ -14,8 +14,7 @@ namespace ConsoleAppTest
     {
         static void Main(string[] args)
         {
-        KanbanBoardContext db;
-            using (db = new KanbanBoardContext())
+            using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 IRepository<User> repository = new Repository<User>(db);
                 User user1 = new User { Mail = "mail@asd.com", Password = "pass" };

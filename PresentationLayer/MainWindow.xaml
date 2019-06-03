@@ -1,4 +1,5 @@
-﻿<Window x:Class="PresentationLayer.MainWindow"
+﻿
+<Window x:Class="PresentationLayer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -37,50 +38,44 @@
 
         <StackPanel Name="MainStackPanel" Orientation="Horizontal">
             <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
+                <StackPanel x:Name="sp1">
+                    <Button BorderThickness="0" Width="100" Background="LightGray" Foreground="Brown">
+                        <TextBlock Text="ColumnName" Width="96">
+                        </TextBlock>
+                    </Button>
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
+                    <Button Background="LightGray" HorizontalContentAlignment="Left" Content="DragMe" Width="100" AllowDrop="True" MouseMove="Button_MouseMove" />
+                </StackPanel>
+            </Border>
+            <Border Margin="5" Padding="5" AllowDrop="True" Background="LightGray" CornerRadius="5" Drop="Border_Drop">
                 <StackPanel>
+                    <Button BorderThickness="0" Width="100" Background="LightGray" Foreground="Brown">
+                        <TextBlock Text="ColumnName" Width="96">
+                        </TextBlock>
+                    </Button>
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
+                </StackPanel>
 
+            </Border>
+            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
+                <StackPanel>
                     <Button BorderThickness="0" Width="100" Foreground="Brown">
-
-                        <TextBlock Text="Task" Width="96">
-
-                        </TextBlock>
-
-                    </Button>
-
-                    <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
-                    <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
-                </StackPanel>
-
-            </Border>
-            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
-                <StackPanel>
-                    <Button Width="100" Foreground="Brown">
-                        <TextBlock Text="Task" Width="96">
-
+                        <TextBlock Text="ColumnName" Width="96">
                         </TextBlock>
                     </Button>
-                    <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
-                    <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
-                </StackPanel>
-
-            </Border>
-            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
-                <StackPanel>
-                    <Button Width="100" Foreground="Brown">
-                        <TextBlock Text="Task" Width="96">
-
-                        </TextBlock>
-                    </Button>
-                    <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
-                    <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
                 </StackPanel>
 
             </Border>
 
+            
+            
             <StackPanel></StackPanel>
             <StackPanel></StackPanel>
-
-
+            <Button Content="Button" Height="57" Margin="0,150,0,0" VerticalAlignment="Top" AllowDrop="True" Width="107" MouseMove="Button_MouseMove" DragEnter="Button_DragEnter" DragLeave="Button_DragLeave" DragOver="Button_DragOver" Drop="Button_Drop" GiveFeedback="Button_GiveFeedback"/>
         </StackPanel>
 
 

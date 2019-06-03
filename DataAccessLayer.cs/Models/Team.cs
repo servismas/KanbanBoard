@@ -12,12 +12,12 @@ namespace DataAccessLayer.cs.Models
         public Team()
         {
             Users = new List<User>();
+            Boards = new List<Board>();
         }
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        //public int? BoardId { get; set; }
-        //public virtual Board Board { get; set; }
+        public virtual ICollection<Board> Boards { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

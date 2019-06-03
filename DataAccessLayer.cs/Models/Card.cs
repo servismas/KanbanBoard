@@ -20,8 +20,8 @@ namespace DataAccessLayer.cs.Models
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        //[Required]
-        public DateTime? CreationDate { get; set; }
+        [Required]
+        public DateTime CreationDate { get; set; }
         //[Required]
         public DateTime? ExpireDate { get; set; }
         public int? ColumnId { get; set; }
