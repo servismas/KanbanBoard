@@ -8,14 +8,14 @@
 
     public class KanbanBoardContext : DbContext
     {
-        static KanbanBoardContext()
-        {
-            Database.SetInitializer<KanbanBoardContext>(new DbInitializer());
-        }
+        //static KanbanBoardContext()
+        //{
+        //    Database.SetInitializer<KanbanBoardContext>(new DbInitializer());
+        //}
         public KanbanBoardContext()
             : base("name=KanbanBoardContext")
         {
-             //Database.SetInitializer(new DbInitializer());
+             Database.SetInitializer(new DbInitializer());
         }
 
         public virtual DbSet<User> Users { get; set; }

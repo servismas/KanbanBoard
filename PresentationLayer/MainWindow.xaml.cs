@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.cs.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,13 @@ namespace PresentationLayer
     {
         //public Card card;
         public int counter;
-        List<Card> cards = new List<Card>();
+        public static ObservableCollection <Card> cards;
         public MainWindow()
         {
             InitializeComponent();
-            
+            cards = new ObservableCollection<Card>();
+            cards.CollectionChanged += Cards_CollectionChanged;
+            sp2.DataContext = cards;
             //cards.Add(GenerateNewCard());
             //cards.Add(GenerateNewCard());
             //cards.Add(GenerateNewCard());
@@ -35,13 +38,21 @@ namespace PresentationLayer
             //cards.Add(GenerateNewCard());
 
             //lb.ItemsSource = cards;
-           
+
         }
+
+        private void Cards_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
         {
 
             Button button = new Button();
-            button.Content = GenerateNewCard().Name;
+            //button.Content = GenerateNewCard().Name;
+            CardEditWindow cardEditWindow = new CardEditWindow();
+            cardEditWindow.ShowDialog();
             button.Click += CardBtn_Click;
             button.HorizontalContentAlignment = HorizontalAlignment.Left;
             
@@ -49,6 +60,9 @@ namespace PresentationLayer
         }
         public Card GenerateNewCard()
         {
+            CardEditWindow cardEditWindow = new CardEditWindow();
+            cardEditWindow.ShowDialog();
+           // if(cardEditWindow.DialogResult == DialogResult.
             Card card = new Card { CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "asdasd", Name = "Task" + counter++ };
             return card;
         }
@@ -104,8 +118,9 @@ namespace PresentationLayer
         {
             //Button dragSource = sender as Button;
             Button button = sender as Button;
-            if (button != null && e.LeftButton == MouseButtonState.Pressed)
+            if (/*button != null && */e.LeftButton == MouseButtonState.Pressed)
             {
+            MessageBox.Show("Button_MouseMove");
                 //dragSource.AllowDrop = true;
                 //DataObject data = new DataObject(typeof(Button), dragSource);
                 //DragDrop.DoDragDrop(dragSource, data, DragDropEffects.Copy | DragDropEffects.Move);
@@ -116,31 +131,36 @@ namespace PresentationLayer
 
         private void Border_Drop(object sender, DragEventArgs e)
         {
-            MessageBox.Show("");
+            MessageBox.Show("Border_Drop");
         }
 
         private void Button_DragEnter(object sender, DragEventArgs e)
         {
+            MessageBox.Show("Button_DragEnter");
 
         }
 
         private void Button_DragLeave(object sender, DragEventArgs e)
         {
+            MessageBox.Show("Button_DragLeave");
 
         }
 
         private void Button_DragOver(object sender, DragEventArgs e)
         {
+            MessageBox.Show("Button_DragOver");
 
         }
 
         private void Button_Drop(object sender, DragEventArgs e)
         {
+            MessageBox.Show("Button_Drop");
 
         }
 
         private void Button_GiveFeedback(object sender, GiveFeedbackEventArgs e)
         {
+            MessageBox.Show("Button_GiveFeedback");
 
         }
 

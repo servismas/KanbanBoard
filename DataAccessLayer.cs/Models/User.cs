@@ -9,6 +9,10 @@ namespace DataAccessLayer.cs.Models
 {
     public class User
     {
+        public User()
+        {
+            Teams = new List<Team>();
+        }
         public int Id { get; set; }
         [Required]
         public string Mail { get; set; }
@@ -18,6 +22,6 @@ namespace DataAccessLayer.cs.Models
         public int? ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
         public int? TeamId { get; set; }
-        public virtual Team Team { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
     }
 }

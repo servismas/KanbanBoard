@@ -49,7 +49,16 @@
                 </StackPanel>
             </Border>
             <Border Margin="5" Padding="5" AllowDrop="True" Background="LightGray" CornerRadius="5" Drop="Border_Drop">
-                <StackPanel>
+                <StackPanel x:Name="sp2">
+
+                    <ItemsControl ItemsSource="{Binding cards}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <Button Content="{Binding Name}"/>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+                    
                     <Button BorderThickness="0" Width="100" Background="LightGray" Foreground="Brown">
                         <TextBlock Text="ColumnName" Width="96">
                         </TextBlock>

@@ -22,7 +22,6 @@ namespace DataAccessLayer.cs.Models
         public string Description { get; set; }
         [Required]
         public DateTime CreationDate { get; set; }
-        //[Required]
         public DateTime? ExpireDate { get; set; }
         public int? ColumnId { get; set; }
         public virtual Column Column { get; set; }
