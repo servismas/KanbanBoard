@@ -48,7 +48,6 @@ namespace PresentationLayer
 
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
         {
-
             Button button = new Button();
             //button.Content = GenerateNewCard().Name;
             CardEditWindow cardEditWindow = new CardEditWindow();
