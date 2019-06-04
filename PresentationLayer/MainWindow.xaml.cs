@@ -30,6 +30,42 @@ namespace PresentationLayer
             InitializeComponent();
             AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
             authoreRegisterWind.ShowDialog();
+            cards = new ObservableCollection<Card>();
+            cards.CollectionChanged += Cards_CollectionChanged;
+            sp2.DataContext = cards;
+            //cards.Add(GenerateNewCard());
+            //cards.Add(GenerateNewCard());
+            //cards.Add(GenerateNewCard());
+            //cards.Add(GenerateNewCard());
+            //cards.Add(GenerateNewCard());
+
+            //lb.ItemsSource = cards;
+
+        }
+
+        private void Cards_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = new Button();
+            //button.Content = GenerateNewCard().Name;
+            CardEditWindow cardEditWindow = new CardEditWindow();
+            cardEditWindow.ShowDialog();
+            button.Click += CardBtn_Click;
+            button.HorizontalContentAlignment = HorizontalAlignment.Left;
+            
+            ColumnCards(sender).Add(button);
+        }
+        public Card GenerateNewCard()
+        {
+            CardEditWindow cardEditWindow = new CardEditWindow();
+            cardEditWindow.ShowDialog();
+           // if(cardEditWindow.DialogResult == DialogResult.
+            Card card = new Card { CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "asdasd", Name = "Task" + counter++ };
+            return card;
         }
         private void CardBtn_Click(object sender, RoutedEventArgs e)
         {
