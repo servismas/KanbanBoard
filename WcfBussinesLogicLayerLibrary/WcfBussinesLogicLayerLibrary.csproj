@@ -66,10 +66,12 @@
     <Compile Include="ModelsDTO\TeamDTO.cs" />
     <Compile Include="ModelsDTO\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="Services\BoardService.cs" />
     <Compile Include="Services\CardService.cs" />
     <Compile Include="Services\ColumnsService.cs" />
     <Compile Include="Services\LogOn.cs" />
+    <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>

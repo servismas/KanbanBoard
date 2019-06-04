@@ -46,7 +46,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
         }
 
         
-        public List<ColumnDTO> GetColumn(BoardDTO userBoard)
+        public List<ColumnDTO> GetColumn(AttachmentdDTO userBoard)
         {
             var boardEntity = BoardRepos.Find(userBoard.Id);
             List<Column> columnsEntity = new List<Column>();

@@ -13,18 +13,18 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
     public interface ICreateEditeBoardContract
     {
         [OperationContract]
-        void CreateBoard(BoardDTO newBoard);
+        void CreateBoard(AttachmentdDTO newBoard);
 
         [OperationContract]
-        void DeleteBoard(BoardDTO deleteBoard);
+        void DeleteBoard(AttachmentdDTO deleteBoard);
 
         [OperationContract]
-        void EditeBoardName(BoardDTO editBoard);
+        void EditeBoardName(AttachmentdDTO editBoard);
 
         [OperationContract]
-        List<BoardDTO> GetAllUsersBoards(UserDTO user);
+        List<AttachmentdDTO> GetAllUsersBoards(TeamDTO userTeam);
 
         [OperationContract]
-        BoardDTO GetBoard(Board board);
+        AttachmentdDTO GetBoard(Board board);
     }
 }

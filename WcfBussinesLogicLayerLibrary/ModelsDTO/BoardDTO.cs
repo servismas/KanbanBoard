@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace WcfBussinesLogicLayerLibrary.ModelsDTO
 {
-    public class BoardDTO
+    public class AttachmentdDTO
     {
-        public BoardDTO()
+        public AttachmentdDTO()
         {
             Columns = new List<Column>();
         }

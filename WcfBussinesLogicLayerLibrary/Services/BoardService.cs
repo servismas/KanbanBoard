@@ -15,50 +15,50 @@ namespace WcfBussinesLogicLayerLibrary.Services
     {
 
         private readonly IRepository<Board> BoardRepos;
-        private readonly IRepository<UserService> UsersRepos;
+        private readonly IRepository<Team> TeamRepos;
 
-        public BoardService(IRepository<Board> _board, IRepository<UserService> _users)
+        public BoardService(IRepository<Board> _board, IRepository<Team> _team)
         {
             BoardRepos = _board;
-            UsersRepos = _users;
+            TeamRepos = _team;
         }
 
-        public void CreateBoard(BoardDTO newBoard)
+        public void CreateBoard(AttachmentdDTO newBoard)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
-            Board boardEntyti = (Board)Mapper.Map(newBoard, typeof(BoardDTO), typeof(Board));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(AttachmentdDTO), typeof(Board)));
+            Board boardEntyti = (Board)Mapper.Map(newBoard, typeof(AttachmentdDTO), typeof(Board));
             BoardRepos.Add(boardEntyti);
         }
 
-        public void DeleteBoard(BoardDTO deleteBoard)
+        public void DeleteBoard(AttachmentdDTO deleteBoard)
         {
             BoardRepos.Remove(BoardRepos.Find(deleteBoard.Id));
         }
 
-        public void EditeBoardName(BoardDTO editBoard)
+        public void EditeBoardName(AttachmentdDTO editBoard)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
-            Board boardEntyti = (Board)Mapper.Map(editBoard, typeof(BoardDTO), typeof(Board));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(AttachmentdDTO), typeof(Board)));
+            Board boardEntyti = (Board)Mapper.Map(editBoard, typeof(AttachmentdDTO), typeof(Board));
             BoardRepos.Edit(boardEntyti);
         }
 
-        public List<BoardDTO> GetAllUsersBoards(UserDTO user)
+        public List<AttachmentdDTO> GetAllUsersBoards(TeamDTO userTeam)  
         {
-            UserService userEntity = UsersRepos.Find(user.Id);
+            Team teamEntity = TeamRepos.Find(userTeam.Id);
             List<Board> boards = new List<Board>();
-            foreach (var b in userEntity.Boards)
+            foreach (var b in teamEntity.Boards)
             {
                 boards.Add(b);
             }
 
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<BoardDTO>)));
-            return (List<BoardDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<BoardDTO>));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<AttachmentdDTO>)));
+            return (List<AttachmentdDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<AttachmentdDTO>));
         }
 
-        public BoardDTO GetBoard(Board board)
+        public AttachmentdDTO GetBoard(Board board)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Board), typeof(BoardDTO)));
-            return (BoardDTO)Mapper.Map(board, typeof(Board), typeof(BoardDTO));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Board), typeof(AttachmentdDTO)));
+            return (AttachmentdDTO)Mapper.Map(board, typeof(Board), typeof(AttachmentdDTO));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.cs.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -18,7 +19,7 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         [OperationContract]
         List<AttachmentDTO> GetAttachments(CardDTO card);
         [OperationContract]
-        AttachmentDTO GetAttachment(Attachment attachment);
+        AttachmentDTO GetAttachmentDTO(Attachment attachment);
 
 
     }
