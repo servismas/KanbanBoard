@@ -4,6 +4,7 @@ using DataAccessLayer.cs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfBussinesLogicLayerLibrary.Contracts;
@@ -11,12 +12,13 @@ using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace WcfBussinesLogicLayerLibrary.Services
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class TeamService : ICreateEditeTeamContract
     {
         private readonly IRepository<Team> TeamRepos;
-        private readonly IRepository<UserService> UsersRepos;
+        private readonly IRepository<User> UsersRepos;
 
-        public TeamService(IRepository<Team> _team, IRepository<UserService> _users)
+        public TeamService(IRepository<Team> _team, IRepository<User> _users)
         {
             TeamRepos = _team;
             UsersRepos = _users;
@@ -43,7 +45,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public List<TeamDTO> GetAllUsersTeams(UserDTO user)
         {
-            UserService userEntity = UsersRepos.Find(user.Id);
+            User userEntity = UsersRepos.Find(user.Id);
             List<Team> teams = new List<Team>();
             foreach (var t in userEntity.Teams)           //написано під можливість декількох команд
             {

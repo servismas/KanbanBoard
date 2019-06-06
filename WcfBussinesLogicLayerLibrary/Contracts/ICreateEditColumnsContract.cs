@@ -24,7 +24,7 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         ColumnDTO GetColumn(Column column);
 
         [OperationContract]
-        List<ColumnDTO> GetColumn(AttachmentdDTO userBoard);
+        List<ColumnDTO> GetUserColumn(BoardDTO userBoard);
 
     }
 }

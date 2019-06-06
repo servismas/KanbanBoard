@@ -4,6 +4,7 @@ using DataAccessLayer.cs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfBussinesLogicLayerLibrary.Contracts;
@@ -12,8 +13,10 @@ using Profile = DataAccessLayer.cs.Models.Profile;
 
 namespace WcfBussinesLogicLayerLibrary.Services
 {
-    class ProfileService : ICreateEditeProfileContract
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class ProfileService : ICreateEditeProfileContract
     {
+       
         private readonly IRepository<DataAccessLayer.cs.Models.Profile> ProfileRepos;
         
 

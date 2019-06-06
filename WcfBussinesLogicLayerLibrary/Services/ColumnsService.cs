@@ -5,6 +5,7 @@ using DataAccessLayer.cs.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfBussinesLogicLayerLibrary.Contracts;
@@ -12,6 +13,7 @@ using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace WcfBussinesLogicLayerLibrary.Services
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ColumnsService : ICreateEditColumnsContract
     {
         private readonly IRepository<Board> BoardRepos;
@@ -46,7 +48,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
         }
 
         
-        public List<ColumnDTO> GetColumn(AttachmentdDTO userBoard)
+        public List<ColumnDTO> GetUserColumn(BoardDTO userBoard)
         {
             var boardEntity = BoardRepos.Find(userBoard.Id);
             List<Column> columnsEntity = new List<Column>();

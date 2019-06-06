@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,6 +65,10 @@
     <ProjectReference Include="..\DataAccessLayer.cs\DataAccessLayer.cs.csproj">
       <Project>{865EE140-59BB-4B45-B3CB-35E2E053DDCE}</Project>
       <Name>DataAccessLayer.cs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WcfBussinesLogicLayerLibrary\WcfBussinesLogicLayerLibrary.csproj">
+      <Project>{D87ED364-71EF-4AEE-9BF1-82762B7F696A}</Project>
+      <Name>WcfBussinesLogicLayerLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

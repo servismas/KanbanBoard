@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using WcfBussinesLogicLayerLibrary.Contracts;
 using System.Security.Cryptography;
+using System.ServiceModel;
 
 namespace WcfBussinesLogicLayerLibrary.Services
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class LogOn : ILogOnUserContract
     {
+       
         public bool CheckCredationals(string login, string pass)
         {
             

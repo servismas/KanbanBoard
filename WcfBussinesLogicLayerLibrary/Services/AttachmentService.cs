@@ -4,6 +4,7 @@ using DataAccessLayer.cs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfBussinesLogicLayerLibrary.Contracts;
@@ -11,6 +12,7 @@ using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace WcfBussinesLogicLayerLibrary.Services
 {
+    [ServiceBehavior(InstanceContextMode=InstanceContextMode.Single)]
     public class AttachmentService : ICreateEditAttachmentContract
     {
 
@@ -24,8 +26,8 @@ namespace WcfBussinesLogicLayerLibrary.Services
         }
         public void AddNewAttachment(AttachmentDTO newAttachment)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(AttachmentdDTO), typeof(Attachment)));
-            Attachment attachmentEntyti = (Attachment)Mapper.Map(newAttachment, typeof(AttachmentdDTO), typeof(Attachment));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(AttachmentDTO), typeof(Attachment)));
+            Attachment attachmentEntyti = (Attachment)Mapper.Map(newAttachment, typeof(AttachmentDTO), typeof(Attachment));
             AttachmentRepos.Add(attachmentEntyti);
         }
 
@@ -50,7 +52,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 attachments.Add(a);
             }
 
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Attachment>), typeof(List<AttachmentdDTO>)));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Attachment>), typeof(List<AttachmentDTO>)));
             return (List<AttachmentDTO>)Mapper.Map(attachments, typeof(List<Attachment>), typeof(List<AttachmentDTO>));
         }
     }

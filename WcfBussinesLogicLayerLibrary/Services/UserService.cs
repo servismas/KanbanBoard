@@ -4,6 +4,7 @@ using DataAccessLayer.cs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WcfBussinesLogicLayerLibrary.Contracts;
@@ -11,6 +12,7 @@ using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace WcfBussinesLogicLayerLibrary.Services
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class UserService : ICreateEditeUserContract
     {
         private readonly IRepository<User> UsersRepos;
