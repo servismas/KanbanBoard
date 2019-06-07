@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.cs.Models;
+﻿using DataAccessLayer.cs;
+using DataAccessLayer.cs.Models;
+using DataAccessLayer.cs.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,172 +25,146 @@ namespace PresentationLayer
     public partial class MainWindow : Window
     {
         //public Card card;
-        public int counter;
-        public static ObservableCollection <Card> cards;
+        public int counter=1;
+        public static ObservableCollection <Card> cards1, cards2, cards3, cards4;
+        public static ObservableCollection<Column> board;
+        Repository<Card> cardsRepository;
+        Repository<Column> columnRepository;
+        CompositeCollection cc = new CompositeCollection();
         public MainWindow()
         {
             InitializeComponent();
-            AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-            authoreRegisterWind.ShowDialog();
-            cards = new ObservableCollection<Card>();
-            cards.CollectionChanged += Cards_CollectionChanged;
-            sp2.DataContext = cards;
-            //cards.Add(GenerateNewCard());
-            //cards.Add(GenerateNewCard());
-            //cards.Add(GenerateNewCard());
-            //cards.Add(GenerateNewCard());
-            //cards.Add(GenerateNewCard());
-
-            //lb.ItemsSource = cards;
-
+            // AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+            // authoreRegisterWind.ShowDialog();
+            ReadFromDb();
         }
-
-        private void Cards_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        public void ReadFromDb()
         {
-            throw new NotImplementedException();
-        }
+            board = new ObservableCollection<Column>();
 
+            cards1 = new ObservableCollection<Card>();
+            cards2 = new ObservableCollection<Card>();
+            cards3 = new ObservableCollection<Card>();
+            cards4 = new ObservableCollection<Card>();
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                cardsRepository = new Repository<Card>(db);
+                columnRepository = new Repository<Column>(db);
+                main_listBox.ItemsSource = board;
+
+                foreach (Column column in columnRepository.GetAll())
+                {
+                    board.Add(column);
+                    //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == column.Id))
+                    //{
+                    //    board.
+                    //    cards1.Add(card);
+                    //}
+                }
+                foreach (Card card in board[0].Cards)
+                {
+                    
+                    CardButton b = new CardButton();
+                    b.Content = card.Name;
+                    main_listBox.Items.Add(b);
+                    //cards1.Add(card);
+                }
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 2))
+                {
+                    cards2.Add(card);
+                }
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 3))
+                {
+                    cards3.Add(card);
+                }
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 4))
+                {
+                    cards4.Add(card);
+                }
+
+
+                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 1))
+                //{
+                //    cards1.Add(card);
+                //}
+                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 2))
+                //{
+                //    cards2.Add(card);
+                //}
+                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 3))
+                //{
+                //    cards3.Add(card);
+                //}
+                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 4))
+                //{
+                //    cards4.Add(card);
+                //}
+                
+                
+                
+                //cards2.Add(new Card { Name = "xdfsdfg", Description = "dfgasdfgasfdgasfgsafgasfg" });
+            }
+            //borderListBox.ItemsSource = cards1;
+            //borderListBox2.ItemsSource = cards2;
+            //borderListBox3.ItemsSource = cards3;
+            //borderListBox4.ItemsSource = cards4;
+        }
+        private void ListBox_Drop(object sender, DragEventArgs e)
+        {
+            //UIElement _element = (UIElement)e.Data.GetData("Object");
+            ////ListBox _sourceListBox = (ListBox)_element;
+            //ListBox _destinationListBox = (ListBox)sender;
+            //while (/*(VisualTreeHelper.GetParent(_element) != null) || */!(_element is ListBox))
+            //{
+            //    _element = (UIElement)VisualTreeHelper.GetParent(_element);
+            //}
+            //using (KanbanBoardContext db = new KanbanBoardContext())
+            //{
+            //    cardsRepository = new Repository<Card>(db);
+            //    columnRepository = new Repository<Column>(db);
+                
+            //    CardButton b = (CardButton)e.Data.GetData("Object");
+            //    //MessageBox.Show(b.Tag.ToString());
+            //    Card c = cardsRepository.Find((int)b.Tag);
+            //    c.ColumnId = MainStackPanel.Children.IndexOf(_destinationListBox);
+            //    //c.Column = columnRepository.Find((int)c.ColumnId);
+            //    cardsRepository.Edit(c);
+            //}
+
+            //ReadFromDb();
+
+        }
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
         {
-            Button button = new Button();
-            //button.Content = GenerateNewCard().Name;
             CardEditWindow cardEditWindow = new CardEditWindow();
+            cardEditWindow.Owner = this;
             cardEditWindow.ShowDialog();
-            button.Click += CardBtn_Click;
-            button.HorizontalContentAlignment = HorizontalAlignment.Left;
-            
-            ColumnCards(sender).Add(button);
         }
-        public Card GenerateNewCard()
-        {
-            CardEditWindow cardEditWindow = new CardEditWindow();
-            cardEditWindow.ShowDialog();
-           // if(cardEditWindow.DialogResult == DialogResult.
-            Card card = new Card { CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "asdasd", Name = "Task" + counter++ };
-            return card;
-        }
-        private void CardBtn_Click(object sender, RoutedEventArgs e)
-        {
-            CardEditWindow cardEditWindow = new CardEditWindow();
-            cardEditWindow.ShowDialog();
-            //MessageBox.Show("Description","Edit Task Window");
-        }
-
-        private void MoveTaskBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (ColumnCards(sender).Count > 3)
-            {
-                Button b = new Button();
-                b = (ColumnCards(sender)[ColumnCards(sender).Count - 1]) as Button;
-
-                if (NextColumnCards(sender) != null)
-                {
-                    ColumnCards(sender).Remove(b);
-                    NextColumnCards(sender).Add(b);
-                }
-            }
-        }
-
-
-        public UIElementCollection ColumnCards(object sender)
-        {
-            return ((sender as Button).Parent as StackPanel).Children;
-        }
-        public UIElementCollection NextColumnCards(object sender)
-        {
-            try
-            {
-                return ((Columns(sender)[ColumnIndex(sender) + 1] as Border).Child as StackPanel).Children;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        public UIElementCollection Columns(object sender)
-        {
-            return ((((sender as Button).Parent as StackPanel).Parent as Border).Parent as StackPanel).Children;
-        }
-        public int ColumnIndex(object sender)
-        {
-            return Columns(sender).IndexOf(((sender as Button).Parent as StackPanel).Parent as Border);
-        }
-
-
         private void Button_MouseMove(object sender, MouseEventArgs e)
         {
-            //Button dragSource = sender as Button;
-            Button button = sender as Button;
-            if (/*button != null && */e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
-            MessageBox.Show("Button_MouseMove");
-                //dragSource.AllowDrop = true;
-                //DataObject data = new DataObject(typeof(Button), dragSource);
-                //DragDrop.DoDragDrop(dragSource, data, DragDropEffects.Copy | DragDropEffects.Move);
-                DragDrop.DoDragDrop(button, button.Content, DragDropEffects.Copy | DragDropEffects.Move);
+                MessageBox.Show("Button_MouseMove");
+                // Package the data.
+                DataObject data = new DataObject();
+                data.SetData("Object", this);
+
+                // Inititate the drag-and-drop operation.
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
             }
-            //DragDrop.DoDragDrop(b, b.Content, DragDropEffects.Copy);
         }
-
-        private void Border_Drop(object sender, DragEventArgs e)
+        private void Button_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("Border_Drop");
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                MessageBox.Show("Button_PreviewMouseMove");
+                // Package the data.
+                DataObject data = new DataObject();
+                data.SetData("Object", this);
+
+                // Inititate the drag-and-drop operation.
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
+            }
         }
-
-        private void Button_DragEnter(object sender, DragEventArgs e)
-        {
-            MessageBox.Show("Button_DragEnter");
-
-        }
-
-        private void Button_DragLeave(object sender, DragEventArgs e)
-        {
-            MessageBox.Show("Button_DragLeave");
-
-        }
-
-        private void Button_DragOver(object sender, DragEventArgs e)
-        {
-            MessageBox.Show("Button_DragOver");
-
-        }
-
-        private void Button_Drop(object sender, DragEventArgs e)
-        {
-            MessageBox.Show("Button_Drop");
-
-        }
-
-        private void Button_GiveFeedback(object sender, GiveFeedbackEventArgs e)
-        {
-            MessageBox.Show("Button_GiveFeedback");
-
-        }
-
-        //private void Border_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    (sender as Border).AllowDrop
-        //}
-
-
-
-
-
-        //private void ListViewOnMouseMove(object sender, MouseEventArgs mouseEventArgs)
-        //{
-        //    //dragSource = (sender as ListView);
-        //    if (mouseEventArgs.LeftButton == MouseButtonState.Pressed)
-        //    {
-        //        if (dragSource.SelectedItems.Count > 0)
-        //        {
-        //            var items = (dragSource.SelectedItems as IList);
-        //            dragSource.AllowDrop = true;
-        //            DataObject dataObject = new DataObject(typeof(Collection), items);
-        //            DragDrop.DoDragDrop((sender as ListView), dataObject, DragDropEffects.Copy);
-        //        }
-        //    }
-        //}
-
-
     }
 }
