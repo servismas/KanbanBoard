@@ -23,9 +23,14 @@ namespace DataAccessLayer.cs.Settings
 
             Column column1 = new Column { Name = "testColumn1" };
             Column column2 = new Column { Name = "testColumn2" };
+            Column column3 = new Column { Name = "testColumn3" };
+            Column column4 = new Column { Name = "testColumn4" };
 
-            Card card1 = new Card { Name = "testCard1", CreationDate = DateTime.Now, ExpireDate = null, Description = "Description from database" };
-            Card card2 = new Card { Name = "testCard2", CreationDate = DateTime.Now, ExpireDate = null, Description = "Description from database" };
+            Card card1 = new Card { Name = "testCard1", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description1 from database" };
+            Card card2 = new Card { Name = "testCard2", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description2 from database" };
+            Card card3 = new Card { Name = "testCard3", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description3 from database" };
+            Card card4 = new Card { Name = "testCard4", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description4 from database" };
+            Card card5 = new Card { Name = "testCard5", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description5 from database" };
 
             context.Users.Add(user1);
             context.Users.Add(user2);
@@ -35,9 +40,15 @@ namespace DataAccessLayer.cs.Settings
             context.Boards.Add(board);
 
             context.Columns.Add(column1);
+            context.Columns.Add(column2);
+            context.Columns.Add(column3);
+            context.Columns.Add(column4);
 
             context.Cards.Add(card1);
             context.Cards.Add(card2);
+            context.Cards.Add(card3);
+            context.Cards.Add(card4);
+            context.Cards.Add(card5);
 
 
             team.Users.Add(user1);
@@ -50,12 +61,20 @@ namespace DataAccessLayer.cs.Settings
 
             column1.Cards.Add(card1);
             column1.Cards.Add(card2);
+            column1.Cards.Add(card3);
+            column1.Cards.Add(card4);
+            column1.Cards.Add(card5);
 
             card1.Users.Add(user1);
             card2.Users.Add(user2);
+            //card3.Users.Add(user2);
+            //card4.Users.Add(user2);
+            //card5.Users.Add(user2);
 
             board.Columns.Add(column1);
             board.Columns.Add(column2);
+            board.Columns.Add(column3);
+            board.Columns.Add(column4);
 
 
             context.SaveChanges();

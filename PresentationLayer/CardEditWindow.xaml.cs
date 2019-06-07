@@ -24,29 +24,60 @@ namespace PresentationLayer
     /// 
     public partial class CardEditWindow : Window
     {
-
+        int cardId;
         Attachment attachment;
-        public CardEditWindow()
+        Card card;
+        public CardEditWindow(int _cardId = 0)
         {
+
             InitializeComponent();
+            // cardId = _cardId;
+            if (_cardId != 0)
+            {
+                cardId = _cardId;
+                using (KanbanBoardContext db = new KanbanBoardContext())
+                {
+                    card = new Card();
+                    Repository<Card> cardRep = new Repository<Card>(db);
+                    card = cardRep.Find(_cardId);
 
-
+                    cardName_tb.Text = card.Name;
+                    cardDescription_tb.Text = card.Description;
+                    //card.CreationDate = DateTime.Now=
+                    cardExpireDate_dp.SelectedDate = (DateTime)card.ExpireDate;
+                    //card.ColumnId = 1;//має приходить в конструктор
+                    //card.Column = db.Columns.Find(card.ColumnId);
+                }
+            }
         }
 
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
+
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
-                Card card = new Card();
+                // Card card = new Card();
                 Repository<Card> cardRep = new Repository<Card>(db);
                 //card = rep.Find(1);
 
+
+                if (card == null)
+                {
+                    card = new Card();
+                    card.CreationDate = DateTime.Now;
+                    card.ColumnId = 1; // перевырить чи не треба додавать Column
+                    card.ExpireDate = DateTime.Now.AddDays(10);
+
+                }
+                else
+                    card.ExpireDate = cardExpireDate_dp.SelectedDate;
+
+
                 card.Name = cardName_tb.Text;
                 card.Description = cardDescription_tb.Text;
-                card.CreationDate = DateTime.Now;
-                card.ExpireDate = cardExpireDate_dp.DisplayDate;
-                card.ColumnId = 1;//має приходить в конструктор
-                card.Column = db.Columns.Find(card.ColumnId);
+                //card.CreationDate = DateTime.Now;
+                //card.ColumnId = cardId;//має приходить в конструктор //не трогать якшо едітиться???
+                //card.Column = db.Columns.Find(card.ColumnId);
 
                 //cardRep.Add(card);
 
@@ -64,10 +95,23 @@ namespace PresentationLayer
                 //}
 
 
-                cardRep.Add(card);
-                MainWindow.cards.Add(card);
+                //if (card.Id == cardRep.Find(card.Id).Id)
+                //{
+                try/////////////////////////костиль
+                {
+                    cardRep.Edit(card);
+                }
+                catch (Exception)
+                {
+                    cardRep.Add(card);
+                }
+                //cardRep.Add(card);
+                //cardRep.Edit(card);
+                //MainWindow.cards.Add(card);
                 //this.DialogResult = true;
                 //this.Closed +=
+                //ReadFromDb();
+                (this.Owner as MainWindow).ReadFromDb();
                 this.Close();
             }
         }
