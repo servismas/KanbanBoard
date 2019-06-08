@@ -11,8 +11,8 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
     {
         public CardDTO()
         {
-            Attachments = new List<Attachment>();
-            Users = new List<User>();
+            Attachments = new List<AttachmentDTO>();
+            Users = new List<UserDTO>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,8 +20,8 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
         public DateTime CreationDate { get; set; }
         public DateTime? ExpireDate { get; set; }
         public int? ColumnId { get; set; }
-        public virtual Column Column { get; set; }
-        public virtual List<Attachment> Attachments { get; set; }
-        public virtual List<User> Users { get; set; }
+        public ColumnDTO Column { get; set; }
+        public List<AttachmentDTO> Attachments { get; set; }
+        public List<UserDTO> Users { get; set; }
     }
 }

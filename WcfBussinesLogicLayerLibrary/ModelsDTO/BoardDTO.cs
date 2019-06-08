@@ -11,14 +11,14 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
     {
         public BoardDTO()
         {
-            Columns = new List<Column>();
+            Columns = new List<ColumnDTO>();
         }
         public int Id { get; set; }
        
         public string Name { get; set; }
         public int? TeamId { get; set; }
-        public Team Team { get; set; }
-        public List<Column> Columns { get; set; }
+        public TeamDTO Team { get; set; }
+        public List<ColumnDTO> Columns { get; set; }
 
     }
 }

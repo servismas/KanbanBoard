@@ -11,14 +11,14 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
     {
         public TeamDTO()
         {
-            Users = new List<User>();
-            Boards = new List<Board>();
+            Users = new List<UserDTO>();
+            Boards = new List<BoardDTO>();
         }
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public virtual List<Board> Boards { get; set; }
-        public virtual List<User> Users { get; set; }
+        public List<BoardDTO> Boards { get; set; }
+        public List<UserDTO> Users { get; set; }
 
     }
 }

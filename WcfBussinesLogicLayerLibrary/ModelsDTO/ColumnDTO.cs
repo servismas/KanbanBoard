@@ -11,11 +11,11 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
     {
         public ColumnDTO()
         {
-            Cards = new List<Card>();
+            Cards = new List<CardDTO>();
         }
         public int Id { get; set; }
         
         public string Name { get; set; }
-        public virtual List<Card> Cards { get; set; }
+        public virtual List<CardDTO> Cards { get; set; }
     }
 }

@@ -13,6 +13,6 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
         public string Path { get; set; }
         public int? CardId { get; set; }
 
-        public Card Card { get; set; }
+        public CardDTO Card { get; set; }
     }
 }
