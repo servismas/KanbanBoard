@@ -22,16 +22,25 @@
             <TextBox Text="{Binding Login}"/>
             <TextBlock Text="Your Pasword:"/>
             <PasswordBox Name="textPass"/>
-            <TextBlock Visibility="Collapsed" Text="Enter Team Name" Name="teamBlock"/>
-            <TextBox Visibility="Collapsed" Text="Team name" Name="teamBox"/>
+
+            <TextBlock Visibility="Collapsed" Text="Enter First Name" Name="FirstNameBlock"/>
+            <TextBox Visibility="Collapsed" Text="{Binding FirstName}" Name="FirstNameBox"/>
+            <TextBlock Visibility="Collapsed" Text="Enter Second Name" Name="SecondNameBlock"/>
+            <TextBox Visibility="Collapsed" Text="{Binding SecondName}" Name="SecondNameBox"/>
+            <TextBlock Visibility="Collapsed" Text="Select Photo" Name="PhotoBlock"/>
+            <TextBox Visibility="Collapsed" Text="{Binding Photo}" Name="PhotoBox"/>
+            <TextBlock Visibility="Collapsed" Text="Our Team" Name="TeamBlock"/>
+            <TextBox Visibility="Collapsed" Text="{Binding TeamName}" Name="TeamBox"/>
             
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>                    
                 </Grid.ColumnDefinitions>
-                <Button Content="LogOn" Margin="10" Command="{Binding LoginOK}" CommandParameter="{Binding ElementName=textPass}"/>
-                <Button Grid.Column="1" Content="Registration" Margin="10" Name="btn2"/>
+                <Button Content="LogOn" Margin="10" Command="{Binding LoginOK}" CommandParameter="{Binding ElementName=textPass}" Name="LogBtn"/>
+                <Button Grid.Column="1" Content="Registration" Margin="10" Name="RegBtn" />
+                <Button  Visibility="Collapsed" Content="Continue" Margin="10" Command="{Binding Registration}" Name="ContBtn"/>
+                <Button Visibility="Collapsed" Grid.Column="1" Content="Cancel" Margin="10" Name="CanslBtn" />
             </Grid>
         </StackPanel>
     </Grid>

@@ -12,6 +12,7 @@ namespace PresentationLayer.ViewModels
 {
     public class LoginRegistrationViewModel
     {
+        //LogOn
         public string Login { get; set; }
         public string Pass { get; set; }
         public UserDTO CurrentUser { get; set; }
@@ -30,7 +31,7 @@ namespace PresentationLayer.ViewModels
                  {
                      Pass = (obj as PasswordBox).Password;
                      string heshPass = HeshPass(Pass);
-                     CurrentUser = LogOnClient.CheckCredationals(Login, heshPass);                    
+                     CurrentUser = LogOnClient.CheckCredationals(Login, heshPass);   //не хоче чомусь з хеш               
                  }));
             }
 
@@ -48,11 +49,52 @@ namespace PresentationLayer.ViewModels
 
         public string HeshPass(string Pass)
         {
-            byte[] bytePass = Encoding.Unicode.GetBytes(Pass);
+            byte[] bytePass = Encoding.ASCII.GetBytes(Pass);
             byte[] heshbyte = SHA512.Create().ComputeHash(bytePass);
-            return Encoding.Unicode.GetString(heshbyte);
+            return Encoding.ASCII.GetString(heshbyte);
         }
 
+        //Registration
+
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+
+        public string Photo { get; set; }
+        public string TeamName { get; set; }
+
+        private RelayCommand registration;
+        public RelayCommand Registration
+        {
+
+
+            get
+            {
+                return registration ??
+                 (registration = new RelayCommand(obj =>
+                 {
+                         
+                 }));
+            }
+
+
+        }
+
+        private RelayCommand cancel;
+        public RelayCommand Cancel
+        {
+
+
+            get
+            {
+                return cancel ??
+                 (cancel = new RelayCommand(obj =>
+                 {
+                     
+                 }));
+            }
+
+
+        }
 
     }
 }
