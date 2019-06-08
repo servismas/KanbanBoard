@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace PresentationLayer
 {
@@ -34,8 +35,9 @@ namespace PresentationLayer
         public MainWindow()
         {
             InitializeComponent();
-            // AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-            // authoreRegisterWind.ShowDialog();
+             AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+             authoreRegisterWind.ShowDialog();
+             UserDTO curUser = authoreRegisterWind.curUser;
             ReadFromDb();
         }
         public void ReadFromDb()

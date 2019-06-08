@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace WcfBussinesLogicLayerLibrary.Contracts
 {
@@ -11,9 +12,7 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
     public interface ILogOnUserContract
     {
         [OperationContract]
-        bool CheckCredationals(string login, string pass);
-
-        string HashPass(string pass);
+        UserDTO CheckCredationals(string login, string pass);           
 
     }
 }

@@ -19,9 +19,9 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="User Name: "/>
-            <TextBox Text="enter e-mail"/>
+            <TextBox Text="{Binding Login}"/>
             <TextBlock Text="Your Pasword:"/>
-            <PasswordBox/>
+            <PasswordBox Name="textPass"/>
             <TextBlock Visibility="Collapsed" Text="Enter Team Name" Name="teamBlock"/>
             <TextBox Visibility="Collapsed" Text="Team name" Name="teamBox"/>
             
@@ -30,8 +30,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>                    
                 </Grid.ColumnDefinitions>
-                <Button Content="LogOn" Margin="10" Name="btn1"/>
-                <Button Grid.Column="1" Content="Registration" Margin="10" Click="Button_Click" Name="btn2"/>
+                <Button Content="LogOn" Margin="10" Command="{Binding LoginOK}" CommandParameter="{Binding ElementName=textPass}"/>
+                <Button Grid.Column="1" Content="Registration" Margin="10" Name="btn2"/>
             </Grid>
         </StackPanel>
     </Grid>

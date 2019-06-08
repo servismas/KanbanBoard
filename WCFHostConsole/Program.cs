@@ -30,7 +30,7 @@ namespace WCFHostConsole
             BoardService boardtService = new BoardService(repsitoryBoard, repsitoryTeam);
             CardService cardService = new CardService(repsitoryCard, repsitoryColumn);
             ColumnsService columnsService = new ColumnsService(repsitoryBoard, repsitoryColumn);
-            LogOn logOn = new LogOn();
+            LogOn logOn = new LogOn(repsitoryUser);
             ProfileService profileService = new ProfileService(repsitoryProfile);
             TeamService teamService = new TeamService(repsitoryTeam, repsitoryUser);
             UserService userService = new UserService(repsitoryUser);

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f9444155-e697-4e29-927b-4c9a709c9ad8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8738/Design_Time_Addresses/service/ProfMex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="e42c88e2-f4a1-4437-9e9a-749a0fd71271" SourceId="1" SourceUrl="http://localhost:8738/Design_Time_Addresses/service/ProfMex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="bf3c53e0-84ca-4a47-844b-fc9af78a25b0" SourceId="1" SourceUrl="http://localhost:8738/Design_Time_Addresses/service/ProfMex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="fd3233f3-a865-4ac2-b4cd-a1455ba19794" SourceId="1" SourceUrl="http://localhost:8738/Design_Time_Addresses/service/ProfMex" />
+    <MetadataFile FileName="WcfBussinesLogicLayerLibrary.ModelsDTO.xsd" MetadataType="Schema" ID="96a01aaa-10da-4f4d-a72a-09c446e9520c" SourceId="1" SourceUrl="http://localhost:8738/Design_Time_Addresses/service/ProfMex" />
+    <MetadataFile FileName="DataAccessLayer.cs.Models.xsd" MetadataType="Schema" ID="d78fde67-b7ea-4a52-a101-e769d9fec184" SourceId="1" SourceUrl="http://localhost:8738/Design_Time_Addresses/service/ProfMex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

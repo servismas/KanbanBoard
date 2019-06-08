@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PresentationLayer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace PresentationLayer
 {
@@ -19,17 +21,23 @@ namespace PresentationLayer
     /// </summary>
     public partial class AuthoreRegisterWind : Window
     {
+        public UserDTO curUser = null;
         public AuthoreRegisterWind()
         {
             InitializeComponent();
+            LoginRegistrationViewModel loginClass = new LoginRegistrationViewModel();
+            DataContext = loginClass;
+            curUser = loginClass.CurrentUser;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            teamBlock.Visibility = Visibility.Visible;
-            teamBox.Visibility = Visibility.Visible;
-            btn1.Content = "Continue";
-            btn2.Content = "Cancel";
-        }
+      
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    teamBlock.Visibility = Visibility.Visible;
+        //    teamBox.Visibility = Visibility.Visible;
+        //    btn1.Content = "Continue";
+        //    btn2.Content = "Cancel";
+        //}
     }
 }

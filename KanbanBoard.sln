@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFHostConsole", "WCFHostConsole\WCFHostConsole.csproj", "{146BC28A-1964-41B3-A810-1B5489B24BD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "PresentationLayer\PresentationLayer.csproj", "{DF3A5368-BED3-4312-9E5E-ED4C66A06200}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D87ED364-71EF-4AEE-9BF1-82762B7F696A} = {D87ED364-71EF-4AEE-9BF1-82762B7F696A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

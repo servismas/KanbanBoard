@@ -14,7 +14,7 @@ namespace DataAccessLayer.cs.Settings
     {
         protected override void Seed(KanbanBoardContext context)
         {
-            User user1 = new User { Mail = "qwerty@qwerty.com", Password = "qwerty" };
+            User user1 = new User { Mail = "qwerty@qwerty.com", Password = "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍" };
             User user2 = new User { Mail = "asd@asd.com", Password = "asd" };
 
             Team team = new Team { Name = "testTeam" };
