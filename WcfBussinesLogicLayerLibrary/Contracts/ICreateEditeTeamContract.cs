@@ -22,6 +22,8 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
 
         [OperationContract]
         List<TeamDTO> GetAllUsersTeams(UserDTO user);
-        
+
+        [OperationContract]
+        List<TeamDTO> GetAllTeams();
     }
 }

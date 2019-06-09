@@ -39,7 +39,7 @@
                 </Grid.ColumnDefinitions>
                 <Button Content="LogOn" Margin="10" Command="{Binding LoginOK}" CommandParameter="{Binding ElementName=textPass}" Name="LogBtn"/>
                 <Button Grid.Column="1" Content="Registration" Margin="10" Name="RegBtn" Click="RegBtn_Click"/>
-                <Button  Visibility="Collapsed" Content="Continue" Margin="10" Command="{Binding Registration}" Name="ContBtn"/>
+                <Button  Visibility="Collapsed" Content="Continue" Margin="10" Command="{Binding Registration}" CommandParameter="{Binding ElementName=textPass}" Name="ContBtn"/>
                 <Button Visibility="Collapsed" Grid.Column="1" Content="Cancel" Margin="10" Name="CanslBtn" Command="{Binding Cancel}" />
             </Grid>
         </StackPanel>

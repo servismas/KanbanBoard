@@ -43,6 +43,31 @@ namespace WcfBussinesLogicLayerLibrary.Services
             TeamRepos.Edit(teamEntyti);
         }
 
+        public List<TeamDTO> GetAllTeams()
+        {
+            List<TeamDTO> returnList = new List<TeamDTO>();
+            try
+            {
+
+            
+            List<Team> teams = new List<Team>();
+            foreach (var team in TeamRepos.GetAll())
+            {
+                teams.Add(team);
+            }
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
+            returnList = (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
+            Mapper.Reset();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return returnList;
+        }
+
         public List<TeamDTO> GetAllUsersTeams(UserDTO user)
         {
             User userEntity = UsersRepos.Find(user.Id);

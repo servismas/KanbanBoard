@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using AutoMapper;
+using Microsoft.Win32;
+using PresentationLayer.TeamService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,10 +18,25 @@ namespace PresentationLayer.ViewModels
 {
     public class LoginRegistrationViewModel :INotifyPropertyChanged
     {
-       
+        public LoginRegistrationViewModel()
+        {
+           // CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
+
+           //// TeamDTO[] teamsDTO = teamClient.GetAllTeams();
+           // foreach (var team in teamClient.GetAllTeams())
+           // {
+           //     TeamName.Add(team.Name);
+           // }
+
+            
+        }
+
+
+
         //LogOn
         public string Login { get; set; }
         public string Pass { get; set; }
+        public string HeshPass { get; set; }
         public UserDTO CurrentUser { get; set; }
 
         private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
@@ -35,8 +52,8 @@ namespace PresentationLayer.ViewModels
                  (loginOK = new RelayCommand(obj =>
                  {
                      Pass = (obj as PasswordBox).Password;
-                     string heshPass = HeshPass(Pass);
-                     CurrentUser = LogOnClient.CheckCredationals(Login, heshPass);   //не хоче чомусь з хеш               
+                     HeshPass = CreateHeshPass(Pass);
+                     CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);   //не хоче чомусь з хеш               
                  }));
             }
 
@@ -52,7 +69,7 @@ namespace PresentationLayer.ViewModels
                 return false;
         }
 
-        public string HeshPass(string Pass)
+        public string CreateHeshPass(string Pass)
         {
             byte[] bytePass = Encoding.Unicode.GetBytes(Pass);
             byte[] heshbyte = SHA512.Create().ComputeHash(bytePass);
@@ -91,7 +108,27 @@ namespace PresentationLayer.ViewModels
                 return registration ??
                  (registration = new RelayCommand(obj =>
                  {
-                         
+                     UserService.CreateEditeUserContractClient userServiceClient = new UserService.CreateEditeUserContractClient();
+                     UserDTO regUser=new UserDTO();
+                     regUser.IsDeleted = false;
+                     regUser.Mail = Login;
+                     regUser.Password = CreateHeshPass(Pass = (obj as PasswordBox).Password);
+                     ProfileService.CreateEditeProfileContractClient profileClient = new ProfileService.CreateEditeProfileContractClient();
+                     ProfileDTO newProf = new ProfileDTO();
+
+                     newProf.FirstName = FirstName;
+                     newProf.SecondName = SecondName;
+                     newProf.Photo = Photo;
+                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileService.ProfileDTO)));
+                     ProfileService.ProfileDTO prof = (ProfileService.ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileService.ProfileDTO));
+                     Mapper.Reset();
+                     profileClient.AddProfile(prof);
+
+                     regUser.Profile = newProf;
+                     Mapper.Reset();
+                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(PresentationLayer.UserService.UserDTO)));
+                     UserService.UserDTO returnList = (UserService.UserDTO)Mapper.Map(regUser, typeof(UserDTO), typeof(PresentationLayer.UserService.UserDTO));
+                     userServiceClient.AddUser(returnList);
                  }));
             }
 

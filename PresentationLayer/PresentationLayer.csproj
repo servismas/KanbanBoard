@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -46,6 +49,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -165,9 +171,6 @@
     <None Include="Connected Services\ProfileService\WcfBussinesLogicLayerLibrary.ModelsDTO.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\TeamService\PresentationLayer.TeamService.TeamDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\TeamService\service.wsdl" />
     <None Include="Connected Services\TeamService\service.xsd">
       <SubType>Designer</SubType>
@@ -190,6 +193,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DataAccessLayer.cs.Models.Profile.datasource" />
+    <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.TeamDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
