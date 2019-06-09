@@ -30,14 +30,23 @@ namespace PresentationLayer
             curUser = loginClass.CurrentUser;
         }
 
-      
+        private void RegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LogBtn.Visibility = Visibility.Collapsed;
+            RegBtn.Visibility = Visibility.Collapsed;
+            FirstNameBlock.Visibility = Visibility.Visible;
+            FirstNameBox.Visibility = Visibility.Visible;
+            SecondNameBlock.Visibility = Visibility.Visible;
+            SecondNameBox.Visibility = Visibility.Visible;
+            PhotoBox.Visibility = Visibility.Visible;
+            TeamBlock.Visibility = Visibility.Visible;
+            TeamBox.Visibility = Visibility.Visible;
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    teamBlock.Visibility = Visibility.Visible;
-        //    teamBox.Visibility = Visibility.Visible;
-        //    btn1.Content = "Continue";
-        //    btn2.Content = "Cancel";
-        //}
+            ContBtn.Visibility = Visibility.Visible;
+            CanslBtn.Visibility = Visibility.Visible;
+        }
+        
+
+       
     }
 }

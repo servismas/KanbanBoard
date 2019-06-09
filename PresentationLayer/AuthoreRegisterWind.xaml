@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,10 +27,10 @@
             <TextBox Visibility="Collapsed" Text="{Binding FirstName}" Name="FirstNameBox"/>
             <TextBlock Visibility="Collapsed" Text="Enter Second Name" Name="SecondNameBlock"/>
             <TextBox Visibility="Collapsed" Text="{Binding SecondName}" Name="SecondNameBox"/>
-            <TextBlock Visibility="Collapsed" Text="Select Photo" Name="PhotoBlock"/>
-            <TextBox Visibility="Collapsed" Text="{Binding Photo}" Name="PhotoBox"/>
+
+            <Button Visibility="Collapsed" Content="{Binding Photo}" Name="PhotoBox" Margin="0,5,0,3" Command="{Binding AddPhoto}"/>
             <TextBlock Visibility="Collapsed" Text="Our Team" Name="TeamBlock"/>
-            <TextBox Visibility="Collapsed" Text="{Binding TeamName}" Name="TeamBox"/>
+            <ComboBox Visibility="Collapsed" ItemsSource="{Binding TeamName}" Name="TeamBox" IsEditable="True"/>
             
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -38,9 +38,9 @@
                     <ColumnDefinition/>                    
                 </Grid.ColumnDefinitions>
                 <Button Content="LogOn" Margin="10" Command="{Binding LoginOK}" CommandParameter="{Binding ElementName=textPass}" Name="LogBtn"/>
-                <Button Grid.Column="1" Content="Registration" Margin="10" Name="RegBtn" />
+                <Button Grid.Column="1" Content="Registration" Margin="10" Name="RegBtn" Click="RegBtn_Click"/>
                 <Button  Visibility="Collapsed" Content="Continue" Margin="10" Command="{Binding Registration}" Name="ContBtn"/>
-                <Button Visibility="Collapsed" Grid.Column="1" Content="Cancel" Margin="10" Name="CanslBtn" />
+                <Button Visibility="Collapsed" Grid.Column="1" Content="Cancel" Margin="10" Name="CanslBtn" Command="{Binding Cancel}" />
             </Grid>
         </StackPanel>
     </Grid>
