@@ -20,15 +20,15 @@ namespace PresentationLayer.ViewModels
     {
         public LoginRegistrationViewModel()
         {
-           // CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
+            CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
 
-           //// TeamDTO[] teamsDTO = teamClient.GetAllTeams();
-           // foreach (var team in teamClient.GetAllTeams())
-           // {
-           //     TeamName.Add(team.Name);
-           // }
+            // TeamDTO[] teamsDTO = teamClient.GetAllTeams();
+            foreach (var team in teamClient.GetAllTeams())
+            {
+                TeamName.Add(team.Name);
+            }
 
-            
+
         }
 
 
@@ -53,8 +53,8 @@ namespace PresentationLayer.ViewModels
                  {
                      Pass = (obj as PasswordBox).Password;
                      HeshPass = CreateHeshPass(Pass);
-                     CurrentUser = LogOnClient.CheckCredationals("qwerty@qwerty.com", "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍"); //тестово
-                     // CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);             
+                    // CurrentUser = LogOnClient.CheckCredationals("qwerty@qwerty.com", "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍"); //тестово
+                      CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);             
                  }));
             }
 
@@ -120,9 +120,11 @@ namespace PresentationLayer.ViewModels
                      newProf.FirstName = FirstName;
                      newProf.SecondName = SecondName;
                      newProf.Photo = Photo;
+
+                     Mapper.Reset();
                      Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
                      ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
-                     Mapper.Reset();
+                     
                      profileClient.AddProfile(prof);
 
                      regUser.Profile = newProf;
