@@ -27,6 +27,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
        
         public void CreateCard(CardDTO newCard)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(CardDTO), typeof(Card)));
             Card cardEntyti = (Card)Mapper.Map(newCard, typeof(CardDTO), typeof(Card));
             CardRepos.Add(cardEntyti);
@@ -39,6 +40,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditeCard(CardDTO editCard)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(CardDTO), typeof(Card)));
             Card cardEntyti = (Card)Mapper.Map(editCard, typeof(CardDTO), typeof(Card));
             CardRepos.Edit(cardEntyti);
@@ -52,7 +54,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 cards.Add(c);
             }
-
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Card>), typeof(List<CardDTO>)));
             return (List<CardDTO>)Mapper.Map(cards, typeof(List<Card>), typeof(List<CardDTO>));
         }

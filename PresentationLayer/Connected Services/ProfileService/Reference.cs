@@ -9,130 +9,35 @@
 //------------------------------------------------------------------------------
 
 namespace PresentationLayer.ProfileService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ProfileDTO", Namespace="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO")]
-    [System.SerializableAttribute()]
-    public partial class ProfileDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FirstNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PhotoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SecondNameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FirstName {
-            get {
-                return this.FirstNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FirstNameField, value) != true)) {
-                    this.FirstNameField = value;
-                    this.RaisePropertyChanged("FirstName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Photo {
-            get {
-                return this.PhotoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PhotoField, value) != true)) {
-                    this.PhotoField = value;
-                    this.RaisePropertyChanged("Photo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SecondName {
-            get {
-                return this.SecondNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SecondNameField, value) != true)) {
-                    this.SecondNameField = value;
-                    this.RaisePropertyChanged("SecondName");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ProfileService.ICreateEditeProfileContract")]
     public interface ICreateEditeProfileContract {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/AddProfile", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/AddProfileResponse")]
-        void AddProfile(PresentationLayer.ProfileService.ProfileDTO newProfile);
+        void AddProfile(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO newProfile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/AddProfile", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/AddProfileResponse")]
-        System.Threading.Tasks.Task AddProfileAsync(PresentationLayer.ProfileService.ProfileDTO newProfile);
+        System.Threading.Tasks.Task AddProfileAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO newProfile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/EditeProfile", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/EditeProfileResponse")]
-        void EditeProfile([System.ServiceModel.MessageParameterAttribute(Name="editeProfile")] PresentationLayer.ProfileService.ProfileDTO editeProfile1);
+        void EditeProfile([System.ServiceModel.MessageParameterAttribute(Name="editeProfile")] WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO editeProfile1);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/EditeProfile", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/EditeProfileResponse")]
-        System.Threading.Tasks.Task EditeProfileAsync(PresentationLayer.ProfileService.ProfileDTO editeProfile);
+        System.Threading.Tasks.Task EditeProfileAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO editeProfile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/GetProfileDTO", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/GetProfileDTOResponse")]
-        PresentationLayer.ProfileService.ProfileDTO GetProfileDTO(DataAccessLayer.cs.Models.Profile profile);
+        WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO GetProfileDTO(DataAccessLayer.cs.Models.Profile profile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/GetProfileDTO", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/GetProfileDTOResponse")]
-        System.Threading.Tasks.Task<PresentationLayer.ProfileService.ProfileDTO> GetProfileDTOAsync(DataAccessLayer.cs.Models.Profile profile);
+        System.Threading.Tasks.Task<WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO> GetProfileDTOAsync(DataAccessLayer.cs.Models.Profile profile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/GetProfile", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/GetProfileResponse")]
-        DataAccessLayer.cs.Models.Profile GetProfile(PresentationLayer.ProfileService.ProfileDTO profileDTO);
+        DataAccessLayer.cs.Models.Profile GetProfile(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO profileDTO);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeProfileContract/GetProfile", ReplyAction="http://tempuri.org/ICreateEditeProfileContract/GetProfileResponse")]
-        System.Threading.Tasks.Task<DataAccessLayer.cs.Models.Profile> GetProfileAsync(PresentationLayer.ProfileService.ProfileDTO profileDTO);
+        System.Threading.Tasks.Task<DataAccessLayer.cs.Models.Profile> GetProfileAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO profileDTO);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -162,35 +67,35 @@ namespace PresentationLayer.ProfileService {
                 base(binding, remoteAddress) {
         }
         
-        public void AddProfile(PresentationLayer.ProfileService.ProfileDTO newProfile) {
+        public void AddProfile(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO newProfile) {
             base.Channel.AddProfile(newProfile);
         }
         
-        public System.Threading.Tasks.Task AddProfileAsync(PresentationLayer.ProfileService.ProfileDTO newProfile) {
+        public System.Threading.Tasks.Task AddProfileAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO newProfile) {
             return base.Channel.AddProfileAsync(newProfile);
         }
         
-        public void EditeProfile(PresentationLayer.ProfileService.ProfileDTO editeProfile1) {
+        public void EditeProfile(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO editeProfile1) {
             base.Channel.EditeProfile(editeProfile1);
         }
         
-        public System.Threading.Tasks.Task EditeProfileAsync(PresentationLayer.ProfileService.ProfileDTO editeProfile) {
+        public System.Threading.Tasks.Task EditeProfileAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO editeProfile) {
             return base.Channel.EditeProfileAsync(editeProfile);
         }
         
-        public PresentationLayer.ProfileService.ProfileDTO GetProfileDTO(DataAccessLayer.cs.Models.Profile profile) {
+        public WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO GetProfileDTO(DataAccessLayer.cs.Models.Profile profile) {
             return base.Channel.GetProfileDTO(profile);
         }
         
-        public System.Threading.Tasks.Task<PresentationLayer.ProfileService.ProfileDTO> GetProfileDTOAsync(DataAccessLayer.cs.Models.Profile profile) {
+        public System.Threading.Tasks.Task<WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO> GetProfileDTOAsync(DataAccessLayer.cs.Models.Profile profile) {
             return base.Channel.GetProfileDTOAsync(profile);
         }
         
-        public DataAccessLayer.cs.Models.Profile GetProfile(PresentationLayer.ProfileService.ProfileDTO profileDTO) {
+        public DataAccessLayer.cs.Models.Profile GetProfile(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO profileDTO) {
             return base.Channel.GetProfile(profileDTO);
         }
         
-        public System.Threading.Tasks.Task<DataAccessLayer.cs.Models.Profile> GetProfileAsync(PresentationLayer.ProfileService.ProfileDTO profileDTO) {
+        public System.Threading.Tasks.Task<DataAccessLayer.cs.Models.Profile> GetProfileAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO profileDTO) {
             return base.Channel.GetProfileAsync(profileDTO);
         }
     }

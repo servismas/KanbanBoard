@@ -28,6 +28,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void AddNewColumn(ColumnDTO newColumn)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(ColumnDTO), typeof(Column)));
             Column columnEntyti = (Column)Mapper.Map(newColumn, typeof(ColumnDTO), typeof(Column));
             ColumRepos.Add(columnEntyti);
@@ -35,7 +36,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditeColumnName(ColumnDTO editColumn)
         {
-                                 
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(ColumnDTO), typeof(Column)));
             Column columnEntyti = (Column)Mapper.Map(editColumn, typeof(ColumnDTO), typeof(Column));
             ColumRepos.Edit(columnEntyti);
@@ -57,7 +58,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 columnsEntity.Add(c);
             }
 
-            
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Column>), typeof(List<ColumnDTO>)));
             return (List<ColumnDTO>)Mapper.Map( columnsEntity, typeof(List<Column>), typeof(List<ColumnDTO>));
             
@@ -65,6 +66,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public ColumnDTO GetColumn(Column column)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(Column), typeof(ColumnDTO)));
             return (ColumnDTO)Mapper.Map(column, typeof(Column), typeof(ColumnDTO));
         }

@@ -27,6 +27,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void CreateBoard(BoardDTO newBoard)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
             Board boardEntyti = (Board)Mapper.Map(newBoard, typeof(BoardDTO), typeof(Board));
             BoardRepos.Add(boardEntyti);
@@ -39,6 +40,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditeBoardName(BoardDTO editBoard)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
             Board boardEntyti = (Board)Mapper.Map(editBoard, typeof(BoardDTO), typeof(Board));
             BoardRepos.Edit(boardEntyti);
@@ -52,13 +54,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 boards.Add(b);
             }
-
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<BoardDTO>)));
             return (List<BoardDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<BoardDTO>));
         }
 
         public BoardDTO GetBoard(Board board)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(Board), typeof(BoardDTO)));
             return (BoardDTO)Mapper.Map(board, typeof(Board), typeof(BoardDTO));
         }

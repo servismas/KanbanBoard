@@ -14,8 +14,7 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         [OperationContract]
         void AddUser(UserDTO newUser);
 
-        bool ValidationUser(string pass); //подумати докрутити токени
-
+        
         [OperationContract]
         void DeleteUser(UserDTO deleteUser);
 

@@ -158,9 +158,6 @@
     <None Include="Connected Services\ProfileService\DataAccessLayer.cs.Models.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ProfileService\PresentationLayer.ProfileService.ProfileDTO.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\ProfileService\service.wsdl" />
     <None Include="Connected Services\ProfileService\service.xsd">
       <SubType>Designer</SubType>
@@ -193,6 +190,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DataAccessLayer.cs.Models.Profile.datasource" />
+    <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.TeamDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">

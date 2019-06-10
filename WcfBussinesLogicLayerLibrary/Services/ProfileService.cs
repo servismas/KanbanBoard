@@ -27,6 +27,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void AddProfile(ProfileDTO newProfile)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(Profile)));
             Profile profileEntyti = (Profile)Mapper.Map(newProfile, typeof(ProfileDTO), typeof(Profile));
             ProfileRepos.Add(profileEntyti);
@@ -34,6 +35,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditeProfile(ProfileDTO editeProfile)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(Profile)));
             Profile profileEntyti = (Profile)Mapper.Map(editeProfile, typeof(ProfileDTO), typeof(Profile));
             ProfileRepos.Edit(profileEntyti);
@@ -41,12 +43,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public Profile GetProfile(ProfileDTO profileDTO)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(Profile)));
             return (Profile)Mapper.Map(profileDTO, typeof(ProfileDTO), typeof(Profile));
         }
 
         public ProfileDTO GetProfileDTO(Profile profile)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(Profile), typeof(ProfileDTO)));
             return (ProfileDTO)Mapper.Map(profile, typeof(Profile), typeof(ProfileDTO));
         }

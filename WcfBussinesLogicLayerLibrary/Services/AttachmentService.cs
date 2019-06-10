@@ -26,6 +26,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
         }
         public void AddNewAttachment(AttachmentDTO newAttachment)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(AttachmentDTO), typeof(Attachment)));
             Attachment attachmentEntyti = (Attachment)Mapper.Map(newAttachment, typeof(AttachmentDTO), typeof(Attachment));
             AttachmentRepos.Add(attachmentEntyti);
@@ -38,6 +39,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public AttachmentDTO GetAttachmentDTO(Attachment attachment)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(Attachment), typeof(AttachmentDTO)));
             return (AttachmentDTO)Mapper.Map(attachment, typeof(Attachment), typeof(AttachmentDTO));
         }
@@ -51,7 +53,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 attachments.Add(a);
             }
-
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Attachment>), typeof(List<AttachmentDTO>)));
             return (List<AttachmentDTO>)Mapper.Map(attachments, typeof(List<Attachment>), typeof(List<AttachmentDTO>));
         }

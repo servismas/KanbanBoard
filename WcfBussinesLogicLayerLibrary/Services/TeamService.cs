@@ -26,6 +26,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void CreateNewTeam(TeamDTO newTeam)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(TeamDTO), typeof(Team)));
             Team teamEntyti = (Team)Mapper.Map(newTeam, typeof(TeamDTO), typeof(Team));
             TeamRepos.Add(teamEntyti);
@@ -38,6 +39,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditTeam(TeamDTO editTeam)
         {
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(TeamDTO), typeof(Team)));
             Team teamEntyti = (Team)Mapper.Map(editTeam, typeof(TeamDTO), typeof(Team));
             TeamRepos.Edit(teamEntyti);
@@ -46,25 +48,16 @@ namespace WcfBussinesLogicLayerLibrary.Services
         public List<TeamDTO> GetAllTeams()
         {
             List<TeamDTO> returnList = new List<TeamDTO>();
-            try
-            {
-
-            
             List<Team> teams = new List<Team>();
             foreach (var team in TeamRepos.GetAll())
             {
                 teams.Add(team);
             }
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
-            returnList = (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
-            Mapper.Reset();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
+                Mapper.Reset();
+                Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
+                returnList = (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
+               
+           
             return returnList;
         }
 
@@ -76,7 +69,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 teams.Add(t);
             }
-
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
             return (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
         }

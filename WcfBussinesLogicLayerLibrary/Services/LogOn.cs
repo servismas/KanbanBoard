@@ -41,9 +41,10 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
             if (userEntity != null)
             {
+                Mapper.Reset();
                 Mapper.Initialize(cfg => cfg.CreateMap(typeof(User), typeof(UserDTO)));
                 currentUser = (UserDTO)Mapper.Map(userEntity, typeof(User), typeof(UserDTO));
-            }
+            }       
             Mapper.Reset();
             return currentUser;
         }
