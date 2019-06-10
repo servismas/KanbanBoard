@@ -1,4 +1,4 @@
-﻿<Window x:Name="BoardWindow" x:Class="PresentationLayer.MainWindow"
+﻿<Window x:Class="PresentationLayer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PresentationLayer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <StackPanel x:Name="MainStackPanel" Orientation="Horizontal">
         <ListBox Name="main_listBox" Margin="5" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -18,92 +18,47 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border CornerRadius="15" BorderBrush="Black" BorderThickness="1">
-                        
                         <StackPanel Margin="10">
                             <TextBlock Text="{Binding Name}"></TextBlock>
                             <Button Content="AddNewTask" Click="AddNewTaskBtn_Click"></Button>
-                            <ListBox>
-                                <ItemsControl ItemsSource="{Binding Foo}" />
+                            <Button Content="MoveTask" Click="MoveTaskBtn_Click"></Button>
+                            <ListBox ItemsSource="{Binding Cards}" AllowDrop="True" Drop="ListBox_Drop" >
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel>
+                                        </StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="15" BorderBrush="Black" BorderThickness="1">
+                                            <StackPanel Margin="10">
+                                                <local:CardButton></local:CardButton>
+                                                <!--<TextBox Text="{Binding Name}"></TextBox>-->
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
                             </ListBox>
-                            <!--<TextBlock Text="{Binding Description}"></TextBlock>
-                            <TextBlock Text="{Binding ExpireDay}"></TextBlock>-->
-                            <!--<ProgressBar Grid.Row="2" Grid.Column="0" Value="{Binding Age}" Maximum="100"></ProgressBar>
-                            <Image Grid.RowSpan="3" Grid.Column="1" Source="{Binding img}"></Image>-->
                         </StackPanel>
                     </Border>
-
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-
-
-
-
         <!--<StackPanel Name="MainStackPanel" Orientation="Horizontal">
-            <StackPanel>
-                <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Add new task" Click="AddNewTaskBtn_Click"/>
-
-            </StackPanel>
-
-            <ListBox MinWidth="50" x:Name="borderListBox" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                        --><!--<TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
-                            <TextBlock FontSize="16" Text="{Binding Path=Company.Title}" HorizontalAlignment="Center" />--><!--
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox MinWidth="50" x:Name="borderListBox2" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                        --><!--<TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
-                            <TextBlock FontSize="16" Text="{Binding Path=Company.Title}" HorizontalAlignment="Center" />--><!--
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox MinWidth="50" x:Name="borderListBox3" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                        --><!--<TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
-                            <TextBlock FontSize="16" Text="{Binding Path=Company.Title}" HorizontalAlignment="Center" />--><!--
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox MinWidth="50" x:Name="borderListBox4" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                        --><!--<TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
-                            <TextBlock FontSize="16" Text="{Binding Path=Company.Title}" HorizontalAlignment="Center" />--><!--
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            --><!--<Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
-                <StackPanel x:Name="sp1">
+            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
+                <StackPanel>
                     <Button BorderThickness="0" Width="100" Background="LightGray" Foreground="Brown">
                         <TextBlock Text="ColumnName" Width="96">
                         </TextBlock>
                     </Button>
-                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
-                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
-                    <Button Background="LightGray" HorizontalContentAlignment="Left" Content="DragMe" Width="100" AllowDrop="True" MouseMove="Button_MouseMove" />
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click" PreviewMouseMove="Button_PreviewMouseMove"/>
+                    <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Move task" AllowDrop="True" Width="100" Click="MoveTaskBtn_Click"/>
                 </StackPanel>
             </Border>
-            <Border Margin="5" Padding="5" AllowDrop="True" Background="LightGray" CornerRadius="5" Drop="Border_Drop">
-                <StackPanel x:Name="sp2">
-
-                    <ItemsControl ItemsSource="{Binding cards}">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <Button Content="{Binding Name}"/>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
-                    </ItemsControl>
-                    
+            <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5" Drop="Border_Drop">
+                <StackPanel>
                     <Button BorderThickness="0" Width="100" Background="LightGray" Foreground="Brown">
                         <TextBlock Text="ColumnName" Width="96">
                         </TextBlock>
@@ -125,43 +80,12 @@
 
             </Border>
 
-            
-            --><!--
-            <Button Content="Button" Height="57" Margin="0,150,0,0" VerticalAlignment="Top" AllowDrop="True" Width="107" PreviewMouseMove="Button_PreviewMouseMove"/>
-        </StackPanel>-->
-       
-        
-        
-        
-        <!--<StackPanel Orientation="Horizontal">
-            <ListBox x:Name="lb">
-                <ListBox.ItemsPanel>
+            <StackPanel></StackPanel>
+            <StackPanel></StackPanel>
 
-                    <ItemsPanelTemplate>
-                        <StackPanel>
 
-                        </StackPanel>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Margin="5" Padding="5" Background="LightGray" CornerRadius="5">
-                            <StackPanel>
-                                <TextBlock Text="Task" Width="96">
-
-                                </TextBlock>
-                                <Button HorizontalContentAlignment="Left" Content="Add new task" Width="100" Click="AddNewTaskBtn_Click"/>
-                                <Button HorizontalContentAlignment="Left" Content="Move task" Width="100" Click="MoveTaskBtn_Click"/>
-                                <Button HorizontalContentAlignment="Left" Content="{Binding Name}" Width="100" Click="MoveTaskBtn_Click"/>
-                            </StackPanel>
-
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
         </StackPanel>-->
 
 
-
-    </Grid>
+    </StackPanel>
 </Window>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8734/Design_Time_Addresses/service?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" />
+  <xs:complexType name="BoardDTO">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" minOccurs="0" name="Columns" nillable="true" type="q1:ArrayOfColumn" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" minOccurs="0" name="Team" nillable="true" type="q2:Team" />
+      <xs:element minOccurs="0" name="TeamId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BoardDTO" nillable="true" type="tns:BoardDTO" />
+  <xs:complexType name="TeamDTO">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" minOccurs="0" name="Boards" nillable="true" type="q3:ArrayOfBoard" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" minOccurs="0" name="Users" nillable="true" type="q4:ArrayOfUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeamDTO" nillable="true" type="tns:TeamDTO" />
+  <xs:complexType name="ArrayOfBoardDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BoardDTO" nillable="true" type="tns:BoardDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBoardDTO" nillable="true" type="tns:ArrayOfBoardDTO" />
+</xs:schema>

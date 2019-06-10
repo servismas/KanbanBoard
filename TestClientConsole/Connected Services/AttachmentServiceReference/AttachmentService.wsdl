@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AttachmentService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8741/Design_Time_Addresses/service?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8741/Design_Time_Addresses/service?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8741/Design_Time_Addresses/service?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO" />
+      <xsd:import schemaLocation="http://localhost:8741/Design_Time_Addresses/service?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICreateEditAttachmentContract_AddNewAttachment_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewAttachment" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditAttachmentContract_AddNewAttachment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewAttachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditAttachmentContract_DeleteAtachment_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAtachment" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditAttachmentContract_DeleteAtachment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAtachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditAttachmentContract_GetAttachments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttachments" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditAttachmentContract_GetAttachments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttachmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditAttachmentContract_GetAttachmentDTO_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttachmentDTO" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditAttachmentContract_GetAttachmentDTO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttachmentDTOResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICreateEditAttachmentContract">
+    <wsdl:operation name="AddNewAttachment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/AddNewAttachment" message="tns:ICreateEditAttachmentContract_AddNewAttachment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/AddNewAttachmentResponse" message="tns:ICreateEditAttachmentContract_AddNewAttachment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAtachment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/DeleteAtachment" message="tns:ICreateEditAttachmentContract_DeleteAtachment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/DeleteAtachmentResponse" message="tns:ICreateEditAttachmentContract_DeleteAtachment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachments">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/GetAttachments" message="tns:ICreateEditAttachmentContract_GetAttachments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/GetAttachmentsResponse" message="tns:ICreateEditAttachmentContract_GetAttachments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachmentDTO">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/GetAttachmentDTO" message="tns:ICreateEditAttachmentContract_GetAttachmentDTO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditAttachmentContract/GetAttachmentDTOResponse" message="tns:ICreateEditAttachmentContract_GetAttachmentDTO_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AttachService" type="tns:ICreateEditAttachmentContract">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewAttachment">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditAttachmentContract/AddNewAttachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAtachment">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditAttachmentContract/DeleteAtachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachments">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditAttachmentContract/GetAttachments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachmentDTO">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditAttachmentContract/GetAttachmentDTO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AttachmentService">
+    <wsdl:port name="AttachService" binding="tns:AttachService">
+      <soap:address location="http://localhost:8741/Design_Time_Addresses/service/Attach" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -31,7 +31,7 @@ namespace PresentationLayer
             {
                 // Package the data.
                 DataObject data = new DataObject();
-                data.SetData("Object", this);
+                data.SetData("Object", sender/*this*/);
 
                 // Inititate the drag-and-drop operation.
                 DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TeamService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8739/Design_Time_Addresses/service?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8739/Design_Time_Addresses/service?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8739/Design_Time_Addresses/service?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO" />
+      <xsd:import schemaLocation="http://localhost:8739/Design_Time_Addresses/service?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICreateEditeTeamContract_CreateNewTeam_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewTeam" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeTeamContract_CreateNewTeam_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeTeamContract_EditTeam_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditTeam" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeTeamContract_EditTeam_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeTeamContract_DeleteTeam_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTeam" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeTeamContract_DeleteTeam_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeTeamContract_GetAllUsersTeams_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersTeams" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeTeamContract_GetAllUsersTeams_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersTeamsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICreateEditeTeamContract">
+    <wsdl:operation name="CreateNewTeam">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/CreateNewTeam" message="tns:ICreateEditeTeamContract_CreateNewTeam_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/CreateNewTeamResponse" message="tns:ICreateEditeTeamContract_CreateNewTeam_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditTeam">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/EditTeam" message="tns:ICreateEditeTeamContract_EditTeam_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/EditTeamResponse" message="tns:ICreateEditeTeamContract_EditTeam_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTeam">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/DeleteTeam" message="tns:ICreateEditeTeamContract_DeleteTeam_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/DeleteTeamResponse" message="tns:ICreateEditeTeamContract_DeleteTeam_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersTeams">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/GetAllUsersTeams" message="tns:ICreateEditeTeamContract_GetAllUsersTeams_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditeTeamContract/GetAllUsersTeamsResponse" message="tns:ICreateEditeTeamContract_GetAllUsersTeams_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Team" type="tns:ICreateEditeTeamContract">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateNewTeam">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditeTeamContract/CreateNewTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditTeam">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditeTeamContract/EditTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTeam">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditeTeamContract/DeleteTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersTeams">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditeTeamContract/GetAllUsersTeams" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TeamService">
+    <wsdl:port name="Team" binding="tns:Team">
+      <soap:address location="http://localhost:8739/Design_Time_Addresses/service/TeamService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

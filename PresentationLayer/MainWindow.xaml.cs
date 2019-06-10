@@ -25,11 +25,12 @@ namespace PresentationLayer
     public partial class MainWindow : Window
     {
         //public Card card;
-        public int counter=1;
-        public static ObservableCollection <Card> cards1, cards2, cards3, cards4;
+        public int counter = 1;
+        public static ObservableCollection<Card> cards1, cards2, cards3, cards4;
         public static ObservableCollection<Column> board;
-        Repository<Card> cardsRepository;
+        Repository<Board> boardRepository;
         Repository<Column> columnRepository;
+        Repository<Card> cardsRepository;
         CompositeCollection cc = new CompositeCollection();
         public MainWindow()
         {
@@ -48,39 +49,54 @@ namespace PresentationLayer
             cards4 = new ObservableCollection<Card>();
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
-                cardsRepository = new Repository<Card>(db);
+                boardRepository = new Repository<Board>(db);
                 columnRepository = new Repository<Column>(db);
+                cardsRepository = new Repository<Card>(db);
                 main_listBox.ItemsSource = board;
+
+                boardRepository.GetAll();
+
 
                 foreach (Column column in columnRepository.GetAll())
                 {
                     board.Add(column);
-                    //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == column.Id))
-                    //{
-                    //    board.
-                    //    cards1.Add(card);
-                    //}
+                    //                    cardsRepository.GetAll();
+                    int i =column.Cards.Count;////////////////////костиль
+
                 }
-                foreach (Card card in board[0].Cards)
+                //foreach (Column column in board)
+
+                //{
+                //    foreach (Card card in board[0].Cards)
+                //    { }
+                //}
                 {
-                    
-                    CardButton b = new CardButton();
-                    b.Content = card.Name;
-                    main_listBox.Items.Add(b);
+
+                    //Button b = new Button();
+                    //b.Content = card.Name;
+                    //main_listBox.Items.Add(b);
                     //cards1.Add(card);
                 }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 2))
-                {
-                    cards2.Add(card);
-                }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 3))
-                {
-                    cards3.Add(card);
-                }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 4))
-                {
-                    cards4.Add(card);
-                }
+                //foreach (Card card in board[0].Cards)
+                //{
+
+                //    CardButton b = new CardButton();
+                //    b.Content = card.Name;
+                //    //main_listBox.Items.Add(b);
+                //    //cards1.Add(card);
+                //}
+                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 2))
+                //{
+                //    cards2.Add(card);
+                //}
+                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 3))
+                //{
+                //    cards3.Add(card);
+                //}
+                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 4))
+                //{
+                //    cards4.Add(card);
+                //}
 
 
                 //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 1))
@@ -99,9 +115,9 @@ namespace PresentationLayer
                 //{
                 //    cards4.Add(card);
                 //}
-                
-                
-                
+
+
+
                 //cards2.Add(new Card { Name = "xdfsdfg", Description = "dfgasdfgasfdgasfgsafgasfg" });
             }
             //borderListBox.ItemsSource = cards1;
@@ -111,29 +127,45 @@ namespace PresentationLayer
         }
         private void ListBox_Drop(object sender, DragEventArgs e)
         {
-            //UIElement _element = (UIElement)e.Data.GetData("Object");
-            ////ListBox _sourceListBox = (ListBox)_element;
-            //ListBox _destinationListBox = (ListBox)sender;
-            //while (/*(VisualTreeHelper.GetParent(_element) != null) || */!(_element is ListBox))
-            //{
-            //    _element = (UIElement)VisualTreeHelper.GetParent(_element);
-            //}
+            UIElement _element = (UIElement)e.Data.GetData("Object");
+            //ListBox _sourceListBox = (ListBox)_element;
+            ListBox _destinationListBox = (ListBox)sender;
+            while (/*(VisualTreeHelper.GetParent(_element) != null) || */!(_element is ListBox))
+            {
+                _element = (UIElement)VisualTreeHelper.GetParent(_element);
+            }
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                cardsRepository = new Repository<Card>(db);
+                columnRepository = new Repository<Column>(db);
+
+                //CardButton b = (CardButton)e.Data.GetData("Object");
+                Button b = (Button)e.Data.GetData("Object");
+
+
+                //MessageBox.Show(b.Tag.ToString());
+                Card c = cardsRepository.Find((int)b.Tag);
+                c.ColumnId = MainStackPanel.Children.IndexOf(_destinationListBox);
+                //c.Column = columnRepository.Find((int)c.ColumnId);
+                cardsRepository.Edit(c);
+            }
+
+            ReadFromDb();
+
+        }
+
+        private void MoveTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
             //using (KanbanBoardContext db = new KanbanBoardContext())
             //{
             //    cardsRepository = new Repository<Card>(db);
-            //    columnRepository = new Repository<Column>(db);
-                
-            //    CardButton b = (CardButton)e.Data.GetData("Object");
-            //    //MessageBox.Show(b.Tag.ToString());
-            //    Card c = cardsRepository.Find((int)b.Tag);
-            //    c.ColumnId = MainStackPanel.Children.IndexOf(_destinationListBox);
-            //    //c.Column = columnRepository.Find((int)c.ColumnId);
+            //    Card c = new Card();
+            //    c = cardsRepository.Find((int)(sender as Button).Tag);
+            //    c.ColumnId++;
             //    cardsRepository.Edit(c);
             //}
-
-            //ReadFromDb();
-
         }
+
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
         {
             CardEditWindow cardEditWindow = new CardEditWindow();
@@ -168,3 +200,41 @@ namespace PresentationLayer
         }
     }
 }
+/*   <ListBox Name="main_listBox" Margin="5" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal">
+
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="15" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                            <Button Content="AddNewTask" Click="AddNewTaskBtn_Click"></Button>
+                            <ListBox ItemsSource="{Binding Cards}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel>
+                                        </StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="15" BorderBrush="Black" BorderThickness="1">
+                                            <StackPanel Margin="10">
+                                                <local:CardButton Content="{Binding Name}"></local:CardButton>
+                                                <!--<TextBox Text="{Binding Name}"></TextBox>-->
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+*/
