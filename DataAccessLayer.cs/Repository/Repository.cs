@@ -50,5 +50,24 @@ namespace DataAccessLayer.cs.Repository
             set.Remove(entity);
             context.SaveChanges();
         }
+
+        public IEnumerable<T> GetWithInclude(params Expression<Func<T, object>>[] includeProperties)
+        {
+            return GetAllInclude(includeProperties).ToList();
+        }
+
+        public IEnumerable<T> GetWithInclude(Func<T, bool> predicate,
+            params Expression<Func<T, object>>[] includeProperties)
+        {
+            var query = GetAllInclude(includeProperties);
+            return query.Where(predicate).ToList();
+        }
+        public IQueryable<T> GetAllInclude(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = set.AsNoTracking();
+            return includeProperties
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
+
     }
 }
