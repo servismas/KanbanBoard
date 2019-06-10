@@ -53,7 +53,8 @@ namespace PresentationLayer.ViewModels
                  {
                      Pass = (obj as PasswordBox).Password;
                      HeshPass = CreateHeshPass(Pass);
-                     CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);   //не хоче чомусь з хеш               
+                     CurrentUser = LogOnClient.CheckCredationals("qwerty@qwerty.com", "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍"); //тестово
+                     // CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);             
                  }));
             }
 
@@ -81,7 +82,7 @@ namespace PresentationLayer.ViewModels
         public string FirstName { get; set; }
         public string SecondName { get; set; }
 
-        private string photo = "Select our Photo";
+        private string photo = "Your Photo";
         public string Photo
         {
             get
@@ -119,15 +120,15 @@ namespace PresentationLayer.ViewModels
                      newProf.FirstName = FirstName;
                      newProf.SecondName = SecondName;
                      newProf.Photo = Photo;
-                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileService.ProfileDTO)));
-                     ProfileService.ProfileDTO prof = (ProfileService.ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileService.ProfileDTO));
+                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
+                     ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
                      Mapper.Reset();
                      profileClient.AddProfile(prof);
 
                      regUser.Profile = newProf;
                      Mapper.Reset();
-                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(PresentationLayer.UserService.UserDTO)));
-                     UserService.UserDTO returnList = (UserService.UserDTO)Mapper.Map(regUser, typeof(UserDTO), typeof(PresentationLayer.UserService.UserDTO));
+                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(UserDTO)));
+                     UserDTO returnList = (UserDTO)Mapper.Map(regUser, typeof(UserDTO), typeof(UserDTO));
                      userServiceClient.AddUser(returnList);
                  }));
             }

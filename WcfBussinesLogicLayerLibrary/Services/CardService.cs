@@ -46,6 +46,22 @@ namespace WcfBussinesLogicLayerLibrary.Services
             CardRepos.Edit(cardEntyti);
         }
 
+        public List<CardDTO> GetAllCardsIncludeAttach(ColumnDTO column)
+        {
+            
+            List<Card> cards = new List<Card>();
+            List<Card> fullCards = new List<Card>();
+            foreach (var c in CardRepos.GetAllInclude(x=>x.Attachments))
+            {
+                cards.Add(c);
+                
+            }
+            
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Card>), typeof(List<CardDTO>)));
+            return (List<CardDTO>)Mapper.Map(cards, typeof(List<Card>), typeof(List<CardDTO>));
+        }
+
         public List<CardDTO> GetAllColumnCards(ColumnDTO column)
         {
             Column columnEntity = ColumnRepos.Find(column.Id);

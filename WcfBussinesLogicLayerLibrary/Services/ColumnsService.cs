@@ -70,5 +70,19 @@ namespace WcfBussinesLogicLayerLibrary.Services
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(Column), typeof(ColumnDTO)));
             return (ColumnDTO)Mapper.Map(column, typeof(Column), typeof(ColumnDTO));
         }
+
+        public List<ColumnDTO> GetUserColumnIncludeCards(BoardDTO userBoard)
+        {
+            
+            List<Column> columnsEntity = new List<Column>();
+            foreach (var c in ColumRepos.GetAllInclude(x=>x.Cards))
+            {
+                columnsEntity.Add(c);
+            }
+
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Column>), typeof(List<ColumnDTO>)));
+            return (List<ColumnDTO>)Mapper.Map(columnsEntity, typeof(List<Column>), typeof(List<ColumnDTO>));
+        }
     }
 }

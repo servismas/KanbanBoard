@@ -37,6 +37,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             AttachmentRepos.Remove(AttachmentRepos.Find(deleteAtachment.Id));
         }
 
+       
         public AttachmentDTO GetAttachmentDTO(Attachment attachment)
         {
             Mapper.Reset();

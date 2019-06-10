@@ -26,5 +26,8 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         [OperationContract]
         List<ColumnDTO> GetUserColumn(BoardDTO userBoard);
 
+        [OperationContract]
+        List<ColumnDTO> GetUserColumnIncludeCards(BoardDTO userBoard);
+
     }
 }

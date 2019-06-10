@@ -18,9 +18,10 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         void DeleteAtachment(AttachmentDTO deleteAtachment);
         [OperationContract]
         List<AttachmentDTO> GetAttachments(CardDTO card);
+
         [OperationContract]
         AttachmentDTO GetAttachmentDTO(Attachment attachment);
 
-
+        
     }
 }

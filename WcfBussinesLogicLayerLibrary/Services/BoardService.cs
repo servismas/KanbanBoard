@@ -18,11 +18,13 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         private readonly IRepository<Board> BoardRepos;
         private readonly IRepository<Team> TeamRepos;
+        
 
         public BoardService(IRepository<Board> _board, IRepository<Team> _team)
         {
             BoardRepos = _board;
             TeamRepos = _team;
+            
         }
 
         public void CreateBoard(BoardDTO newBoard)
@@ -52,6 +54,20 @@ namespace WcfBussinesLogicLayerLibrary.Services
             List<Board> boards = new List<Board>();
             foreach (var b in teamEntity.Boards)
             {
+                boards.Add(b);
+            }
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<BoardDTO>)));
+            return (List<BoardDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<BoardDTO>));
+        }
+
+        public List<BoardDTO> GetAllUsersBoardsIncludColumns(TeamDTO userTeam)
+        {
+           
+            List<Board> boards = new List<Board>();
+            foreach (Board b in BoardRepos.GetAllInclude(x=>x.Columns))
+            {
+                
                 boards.Add(b);
             }
             Mapper.Reset();

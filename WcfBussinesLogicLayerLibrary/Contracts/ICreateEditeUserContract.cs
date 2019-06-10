@@ -21,6 +21,6 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
         [OperationContract]
         void EditeUser(UserDTO editeUser);
 
-        
+       
     }
 }
