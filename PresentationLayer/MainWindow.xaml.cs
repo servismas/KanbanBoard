@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.cs;
 using DataAccessLayer.cs.Models;
 using DataAccessLayer.cs.Repository;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,14 +33,14 @@ namespace PresentationLayer
         Repository<Card> cardsRepository;
         Repository<Column> columnRepository;
         CompositeCollection cc = new CompositeCollection();
+        UserDTO curUser;
         public MainWindow()
         {
+            AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+            authoreRegisterWind.ShowDialog();
+            curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
-             AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-            // authoreRegisterWind.ShowDialog();
-            LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();                     //Test
-            UserDTO curUser=LogOnClient.CheckCredationals("qwerty@qwerty.com", "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍");       //Test
-            //UserDTO curUser = authoreRegisterWind.curUser;
+             
             ReadFromDb();
         }
         public void ReadFromDb()
