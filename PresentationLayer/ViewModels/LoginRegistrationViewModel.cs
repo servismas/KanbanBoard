@@ -20,20 +20,25 @@ namespace PresentationLayer.ViewModels
     {
         public LoginRegistrationViewModel()
         {
-           // CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
-
-           //// TeamDTO[] teamsDTO = teamClient.GetAllTeams();
-           // foreach (var team in teamClient.GetAllTeams())
-           // {
-           //     TeamName.Add(team.Name);
-           // }
-
-            
+            CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
+                      
+            foreach (var team in teamClient.GetAllTeams())
+            {
+                TeamName.Add(team.Name);
+            }
         }
 
-
+        public void CloseRegWind()
+        {
+            if (CanClose)
+            {
+                StartWind.Close();
+            }
+        }
 
         //LogOn
+        public bool CanClose { get; set; }
+        public AuthoreRegisterWind StartWind { get; set; }
         public string Login { get; set; }
         public string Pass { get; set; }
         public string HeshPass { get; set; }
@@ -44,8 +49,7 @@ namespace PresentationLayer.ViewModels
         private RelayCommand loginOK;
         public RelayCommand LoginOK
         {
-
-
+            
             get
             {
                 return loginOK ??
@@ -53,8 +57,13 @@ namespace PresentationLayer.ViewModels
                  {
                      Pass = (obj as PasswordBox).Password;
                      HeshPass = CreateHeshPass(Pass);
-                     CurrentUser = LogOnClient.CheckCredationals("qwerty@qwerty.com", "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍"); //тестово
-                     // CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);             
+                     CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);
+                     if (CurrentUser!=null)
+                          StartWind.Close();
+                     else
+                     {
+                         MessageBox.Show("Enter the correct account credentials!");
+                     }
                  }));
             }
 
@@ -109,27 +118,43 @@ namespace PresentationLayer.ViewModels
                 return registration ??
                  (registration = new RelayCommand(obj =>
                  {
+                     CurrentUser = null;
+                     try
+                     {                     
                      UserService.CreateEditeUserContractClient userServiceClient = new UserService.CreateEditeUserContractClient();
                      UserDTO regUser=new UserDTO();
                      regUser.IsDeleted = false;
                      regUser.Mail = Login;
                      regUser.Password = CreateHeshPass(Pass = (obj as PasswordBox).Password);
+
                      ProfileService.CreateEditeProfileContractClient profileClient = new ProfileService.CreateEditeProfileContractClient();
                      ProfileDTO newProf = new ProfileDTO();
-
                      newProf.FirstName = FirstName;
                      newProf.SecondName = SecondName;
                      newProf.Photo = Photo;
+                     Mapper.Reset();
                      Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
                      ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
-                     Mapper.Reset();
-                     profileClient.AddProfile(prof);
+                
+                     //profileClient.AddProfile(prof);
 
                      regUser.Profile = newProf;
-                     Mapper.Reset();
-                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(UserDTO)));
-                     UserDTO returnList = (UserDTO)Mapper.Map(regUser, typeof(UserDTO), typeof(UserDTO));
-                     userServiceClient.AddUser(returnList);
+                     //Mapper.Reset();
+                     //Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(UserDTO)));
+                     //UserDTO returnUser = (UserDTO)Mapper.Map(regUser, typeof(UserDTO), typeof(UserDTO));
+                     userServiceClient.AddUser(regUser);
+                     CurrentUser = regUser;
+                     }
+                     catch (Exception ex)
+                     {
+
+                         MessageBox.Show(ex.Message);
+                     }
+
+                     if (CurrentUser != null)
+                         StartWind.Close();
+                     else
+                         MessageBox.Show("Some error");
                  }));
             }
 

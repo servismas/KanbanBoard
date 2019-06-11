@@ -21,13 +21,14 @@ namespace PresentationLayer
     /// </summary>
     public partial class AuthoreRegisterWind : Window
     {
-        public UserDTO curUser = null;
+       // public UserDTO curUser = null;
+        LoginRegistrationViewModel loginClass = new LoginRegistrationViewModel();
         public AuthoreRegisterWind()
         {
             InitializeComponent();
-            LoginRegistrationViewModel loginClass = new LoginRegistrationViewModel();
+            loginClass.StartWind = this;
             DataContext = loginClass;
-            curUser = loginClass.CurrentUser;
+           // curUser = loginClass.CurrentUser;
         }
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
