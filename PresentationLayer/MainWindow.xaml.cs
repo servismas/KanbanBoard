@@ -36,8 +36,10 @@ namespace PresentationLayer
         {
             InitializeComponent();
              AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-             authoreRegisterWind.ShowDialog();
-             UserDTO curUser = authoreRegisterWind.curUser;
+            // authoreRegisterWind.ShowDialog();
+            LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();                     //Test
+            UserDTO curUser=LogOnClient.CheckCredationals("qwerty@qwerty.com", "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍");       //Test
+            //UserDTO curUser = authoreRegisterWind.curUser;
             ReadFromDb();
         }
         public void ReadFromDb()
