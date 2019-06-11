@@ -1,4 +1,5 @@
-﻿using PresentationLayer.ViewModels;
+﻿using MahApps.Metro.Controls;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace PresentationLayer
     /// <summary>
     /// Interaction logic for AuthoreRegisterWind.xaml
     /// </summary>
-    public partial class AuthoreRegisterWind : Window
+    public partial class AuthoreRegisterWind : MetroWindow
     {
        // public UserDTO curUser = null;
         LoginRegistrationViewModel loginClass = new LoginRegistrationViewModel();
