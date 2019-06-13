@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.cs;
 using DataAccessLayer.cs.Models;
 using DataAccessLayer.cs.Repository;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace PresentationLayer
     /// Interaction logic for CardEditWindow.xaml
     /// </summary>
     /// 
-    public partial class CardEditWindow : Window
+    public partial class CardEditWindow : MetroWindow
     {
         int cardId;
         Attachment attachment;

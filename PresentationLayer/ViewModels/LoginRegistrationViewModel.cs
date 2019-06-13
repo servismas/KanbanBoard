@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
-using PresentationLayer.TeamService;
+//using PresentationLayer.TeamService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,36 +17,46 @@ using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace PresentationLayer.ViewModels
 {
-    public class LoginRegistrationViewModel :INotifyPropertyChanged
+    
+    public class LoginRegistrationViewModel :INotifyPropertyChanged,IDataErrorInfo
     {
+        private TeamService.CreateEditeTeamContractClient teamClient = new TeamService.CreateEditeTeamContractClient();
+        private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
         public LoginRegistrationViewModel()
         {
-            CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
+            Login = "Your email";
+           // List<TeamDTO> teamstest = new List<TeamDTO>() { new TeamDTO { Name = "SuperTeam", Boards = null, Users = null }};
+            int num = teamClient.GetAllTeams().Length; ///сюда маэ йти лист ДТО
 
-            // TeamDTO[] teamsDTO = teamClient.GetAllTeams();
-            foreach (var team in teamClient.GetAllTeams())
+            TeamName = new List<string>();
+            foreach (var team in teamClient.GetAllTeams()) //і сюди
             {
                 TeamName.Add(team.Name);
             }
-
-
         }
 
-
+        public void CloseRegWind()
+        {
+            if (CanClose)
+            {
+                StartWind.Close();
+            }
+        }
 
         //LogOn
+        public bool CanClose { get; set; }
+        public AuthoreRegisterWind StartWind { get; set; }
         public string Login { get; set; }
         public string Pass { get; set; }
         public string HeshPass { get; set; }
         public UserDTO CurrentUser { get; set; }
 
-        private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
+        
 
         private RelayCommand loginOK;
         public RelayCommand LoginOK
         {
-
-
+            
             get
             {
                 return loginOK ??
@@ -53,8 +64,14 @@ namespace PresentationLayer.ViewModels
                  {
                      Pass = (obj as PasswordBox).Password;
                      HeshPass = CreateHeshPass(Pass);
-                    // CurrentUser = LogOnClient.CheckCredationals("qwerty@qwerty.com", "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍"); //тестово
-                      CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);             
+                     CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);
+                     if (CurrentUser!=null)
+                          StartWind.Close();
+                     else
+                     {
+                         StartWind.ShowMessageAsync("Error", "Enter the correct account credentials!");
+                         //MessageBox.Show("Enter the correct account credentials!");
+                     }
                  }));
             }
 
@@ -83,6 +100,11 @@ namespace PresentationLayer.ViewModels
         public string SecondName { get; set; }
 
         private string photo = "Your Photo";
+
+        public List<string> TeamName { get; set; }
+        public string SelectTeam { get; set; }
+
+        public TeamDTO CurrentTeam { get; set; }
         public string Photo
         {
             get
@@ -97,7 +119,7 @@ namespace PresentationLayer.ViewModels
 
             }
         }
-        public List<string> TeamName { get; set; }
+        
 
         private RelayCommand registration;
         public RelayCommand Registration
@@ -109,29 +131,64 @@ namespace PresentationLayer.ViewModels
                 return registration ??
                  (registration = new RelayCommand(obj =>
                  {
+                     CurrentUser = null;
+                     try
+                     {                     
                      UserService.CreateEditeUserContractClient userServiceClient = new UserService.CreateEditeUserContractClient();
                      UserDTO regUser=new UserDTO();
                      regUser.IsDeleted = false;
                      regUser.Mail = Login;
                      regUser.Password = CreateHeshPass(Pass = (obj as PasswordBox).Password);
+
                      ProfileService.CreateEditeProfileContractClient profileClient = new ProfileService.CreateEditeProfileContractClient();
                      ProfileDTO newProf = new ProfileDTO();
-
                      newProf.FirstName = FirstName;
                      newProf.SecondName = SecondName;
                      newProf.Photo = Photo;
-
                      Mapper.Reset();
                      Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
                      ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
-                     
-                     profileClient.AddProfile(prof);
 
+                         foreach (var team in teamClient.GetAllTeams())
+                         {
+                             CurrentTeam = null;
+                             string lowTeam = team.Name.ToLower();
+                             SelectTeam = SelectTeam.ToLower();
+
+                             if (lowTeam== SelectTeam)
+                             {
+                                 CurrentTeam = team;
+                                 return;
+                             }
+
+                         }
+
+                         if (CurrentTeam==null)
+                         {
+                             CurrentTeam.Name = SelectTeam;
+                             CurrentTeam.Users.Add(CurrentUser);
+                         }
+
+
+                     regUser.Team.Add(CurrentTeam);
                      regUser.Profile = newProf;
-                     Mapper.Reset();
-                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(UserDTO)));
-                     UserDTO returnList = (UserDTO)Mapper.Map(regUser, typeof(UserDTO), typeof(UserDTO));
-                     userServiceClient.AddUser(returnList);
+                     
+                     userServiceClient.AddUser(regUser);
+                     CurrentUser = regUser;
+                     }
+                     catch (Exception ex)
+                     {
+
+                         StartWind.ShowMessageAsync("Error", ex.Message);
+                         //  MessageBox.Show(ex.Message);
+                     }
+
+                     if (CurrentUser != null)
+                         StartWind.Close();
+                     else
+                         StartWind.ShowMessageAsync("Error", "Some error");
+
+                     // MessageBox.Show("Some error");
                  }));
             }
 
@@ -181,7 +238,31 @@ namespace PresentationLayer.ViewModels
 
         }
 
+        public string Error { get; set; }
 
+        public string this[string columnName]
+        {
+            get
+            {
+
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "Login":
+                        if (Check(Login) == false)
+                        {
+                            error = "Enter the correct login, it must be an email";
+                        }
+                        break;
+
+                }
+
+
+                return error;
+            }
+
+
+        }
 
 
 

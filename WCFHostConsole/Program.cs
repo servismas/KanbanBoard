@@ -68,6 +68,7 @@ namespace WCFHostConsole
 
                 ServiceHost userHost = new ServiceHost(userService);
                 userHost.Open();
+
                 Console.WriteLine("User Service started successfully!");
 
                 Console.ReadLine();

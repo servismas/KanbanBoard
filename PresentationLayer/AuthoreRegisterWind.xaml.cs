@@ -1,4 +1,5 @@
-﻿using PresentationLayer.ViewModels;
+﻿using MahApps.Metro.Controls;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +20,16 @@ namespace PresentationLayer
     /// <summary>
     /// Interaction logic for AuthoreRegisterWind.xaml
     /// </summary>
-    public partial class AuthoreRegisterWind : Window
+    public partial class AuthoreRegisterWind : MetroWindow
     {
-        public UserDTO curUser = null;
+       // public UserDTO curUser = null;
+        LoginRegistrationViewModel loginClass = new LoginRegistrationViewModel();
         public AuthoreRegisterWind()
         {
             InitializeComponent();
-            LoginRegistrationViewModel loginClass = new LoginRegistrationViewModel();
+            loginClass.StartWind = this;
             DataContext = loginClass;
-            curUser = loginClass.CurrentUser;
+            TeamBox.ItemsSource = loginClass.TeamName;
         }
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
