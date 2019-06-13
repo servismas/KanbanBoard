@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
-using PresentationLayer.TeamService;
+//using PresentationLayer.TeamService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,13 +20,16 @@ namespace PresentationLayer.ViewModels
     
     public class LoginRegistrationViewModel :INotifyPropertyChanged,IDataErrorInfo
     {
-        private CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
+        private TeamService.CreateEditeTeamContractClient teamClient = new TeamService.CreateEditeTeamContractClient();
         private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
         public LoginRegistrationViewModel()
         {
             Login = "Your email";
-                      
-            foreach (var team in teamClient.GetAllTeams())
+           // List<TeamDTO> teamstest = new List<TeamDTO>() { new TeamDTO { Name = "SuperTeam", Boards = null, Users = null }};
+            int num = teamClient.GetAllTeams().Length; ///сюда маэ йти лист ДТО
+
+            TeamName = new List<string>();
+            foreach (var team in teamClient.GetAllTeams()) //і сюди
             {
                 TeamName.Add(team.Name);
             }

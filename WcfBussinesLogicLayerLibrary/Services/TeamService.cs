@@ -53,11 +53,12 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 teams.Add(team);
             }
+
+            
                 Mapper.Reset();
                 Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
-                returnList = (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
-               
-           
+            returnList=(List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
+            LogerClass.WriteLog(returnList.ToArray().ToString());
             return returnList;
         }
 

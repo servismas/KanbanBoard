@@ -58,6 +58,7 @@
     <Compile Include="Contracts\ICreateEditeTeamContract.cs" />
     <Compile Include="Contracts\ICreateEditeUserContract.cs" />
     <Compile Include="Contracts\ILogOnUserContract.cs" />
+    <Compile Include="LogerClass.cs" />
     <Compile Include="ModelsDTO\AttachmentDTO.cs" />
     <Compile Include="ModelsDTO\BoardDTO.cs" />
     <Compile Include="ModelsDTO\CardDTO.cs" />

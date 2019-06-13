@@ -29,7 +29,7 @@ namespace PresentationLayer
             InitializeComponent();
             loginClass.StartWind = this;
             DataContext = loginClass;
-           // curUser = loginClass.CurrentUser;
+            TeamBox.ItemsSource = loginClass.TeamName;
         }
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
