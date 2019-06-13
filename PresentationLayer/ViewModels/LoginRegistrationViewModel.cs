@@ -16,11 +16,14 @@ using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace PresentationLayer.ViewModels
 {
+    
     public class LoginRegistrationViewModel :INotifyPropertyChanged
     {
+        private CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
+        private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
         public LoginRegistrationViewModel()
         {
-            CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
+            
                       
             foreach (var team in teamClient.GetAllTeams())
             {
@@ -44,7 +47,7 @@ namespace PresentationLayer.ViewModels
         public string HeshPass { get; set; }
         public UserDTO CurrentUser { get; set; }
 
-        private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
+        
 
         private RelayCommand loginOK;
         public RelayCommand LoginOK
@@ -92,6 +95,11 @@ namespace PresentationLayer.ViewModels
         public string SecondName { get; set; }
 
         private string photo = "Your Photo";
+
+        public List<string> TeamName { get; set; }
+        public string SelectTeam { get; set; }
+
+        public TeamDTO CurrentTeam { get; set; }
         public string Photo
         {
             get
@@ -106,7 +114,7 @@ namespace PresentationLayer.ViewModels
 
             }
         }
-        public List<string> TeamName { get; set; }
+        
 
         private RelayCommand registration;
         public RelayCommand Registration
@@ -135,13 +143,31 @@ namespace PresentationLayer.ViewModels
                      Mapper.Reset();
                      Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
                      ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
-                
-                     //profileClient.AddProfile(prof);
 
+                         foreach (var team in teamClient.GetAllTeams())
+                         {
+                             CurrentTeam = null;
+                             string lowTeam = team.Name.ToLower();
+                             SelectTeam = SelectTeam.ToLower();
+
+                             if (lowTeam== SelectTeam)
+                             {
+                                 CurrentTeam = team;
+                                 return;
+                             }
+
+                         }
+
+                         if (CurrentTeam==null)
+                         {
+                             CurrentTeam.Name = SelectTeam;
+                             CurrentTeam.Users.Add(CurrentUser);
+                         }
+
+
+                     regUser.Team.Add(CurrentTeam);
                      regUser.Profile = newProf;
-                     //Mapper.Reset();
-                     //Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(UserDTO)));
-                     //UserDTO returnUser = (UserDTO)Mapper.Map(regUser, typeof(UserDTO), typeof(UserDTO));
+                     
                      userServiceClient.AddUser(regUser);
                      CurrentUser = regUser;
                      }
