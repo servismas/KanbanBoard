@@ -56,8 +56,7 @@ namespace DataAccessLayer.cs.Settings
 
             user1.Teams.Add(team);
             user2.Teams.Add(team);
-            user1.TeamId = team.Id;
-            user2.TeamId = team.Id;
+
 
             team.Boards.Add(board);
 
@@ -78,6 +77,10 @@ namespace DataAccessLayer.cs.Settings
             board.Columns.Add(column3);
             board.Columns.Add(column4);
 
+            context.SaveChanges();
+
+            user1.TeamId = team.Id;
+            user2.TeamId = team.Id;
 
             context.SaveChanges();
         }
