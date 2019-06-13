@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using PresentationLayer.TeamService;
 using System;
@@ -17,7 +18,7 @@ using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 namespace PresentationLayer.ViewModels
 {
     
-    public class LoginRegistrationViewModel :INotifyPropertyChanged
+    public class LoginRegistrationViewModel :INotifyPropertyChanged,IDataErrorInfo
     {
         private CreateEditeTeamContractClient teamClient = new CreateEditeTeamContractClient();
         private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
@@ -65,7 +66,8 @@ namespace PresentationLayer.ViewModels
                           StartWind.Close();
                      else
                      {
-                         MessageBox.Show("Enter the correct account credentials!");
+                         StartWind.ShowMessageAsync("Error", "Enter the correct account credentials!");
+                         //MessageBox.Show("Enter the correct account credentials!");
                      }
                  }));
             }
@@ -174,13 +176,16 @@ namespace PresentationLayer.ViewModels
                      catch (Exception ex)
                      {
 
-                         MessageBox.Show(ex.Message);
+                         StartWind.ShowMessageAsync("Error", ex.Message);
+                         //  MessageBox.Show(ex.Message);
                      }
 
                      if (CurrentUser != null)
                          StartWind.Close();
                      else
-                         MessageBox.Show("Some error");
+                         StartWind.ShowMessageAsync("Error", "Some error");
+
+                     // MessageBox.Show("Some error");
                  }));
             }
 
@@ -230,7 +235,31 @@ namespace PresentationLayer.ViewModels
 
         }
 
+        public string Error { get; set; }
 
+        public string this[string columnName]
+        {
+            get
+            {
+
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "Login":
+                        if (Check(Login) == false)
+                        {
+                            error = "Enter the correct login, it must be an email";
+                        }
+                        break;
+
+                }
+
+
+                return error;
+            }
+
+
+        }
 
 
 
