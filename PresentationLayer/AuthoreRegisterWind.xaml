@@ -20,7 +20,15 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="User Name: "/>
-            <TextBox Text="{Binding Login}"/>
+            <TextBox >
+                <TextBox.Text>
+                    <Binding Path="Login">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock Text="Your Pasword:"/>
             <PasswordBox Name="textPass"/>
 
