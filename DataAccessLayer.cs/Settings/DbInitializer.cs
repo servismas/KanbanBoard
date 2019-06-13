@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.cs.Settings
 {
-     public class DbInitializer : CreateDatabaseIfNotExists<KanbanBoardContext>
-    //public class DbInitializer : DropCreateDatabaseAlways<KanbanBoardContext>
+    //public class DbInitializer : CreateDatabaseIfNotExists<KanbanBoardContext>
+    public class DbInitializer : DropCreateDatabaseAlways<KanbanBoardContext>
     {
         protected override void Seed(KanbanBoardContext context)
         {
@@ -56,6 +56,8 @@ namespace DataAccessLayer.cs.Settings
 
             user1.Teams.Add(team);
             user2.Teams.Add(team);
+            user1.TeamId = team.Id;
+            user2.TeamId = team.Id;
 
             team.Boards.Add(board);
 
