@@ -24,7 +24,7 @@ namespace PresentationLayer.ViewModels
         private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
         public LoginRegistrationViewModel()
         {
-            
+            Login = "Your email";
                       
             foreach (var team in teamClient.GetAllTeams())
             {
