@@ -55,7 +55,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 attachments.Add(a);
             }
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Attachment), typeof(AttachmentDTO));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Attachment), typeof(AttachmentDTO)));
             return (List<AttachmentDTO>)Mapper.Map(attachments, typeof(List<Attachment>), typeof(List<AttachmentDTO>));
         }
     }

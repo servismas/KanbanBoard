@@ -92,7 +92,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             //LogerClass.WriteLog(currentTeam.Name);
             //returnBoard = currentTeam.Boards[currentTeam.Boards.Count];
             //LogerClass.WriteLog(returnBoard.Name);
-            //return returnBoard;
+            return null;
             
         }
     }

@@ -166,7 +166,7 @@ namespace PresentationLayer.ViewModels
                          //}
 
                      teamClient.CreateNewTeam(CurrentTeam);
-                     regUser.Team.Add(CurrentTeam);
+                     regUser.Teams.Add(CurrentTeam);
                      regUser.Profile = newProf;
                      
                      userServiceClient.AddUser(regUser);

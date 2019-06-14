@@ -24,11 +24,11 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void AddUser(UserDTO newUser)
         {
-            LogerClass.WriteLog(newUser.Team.Count.ToString());
+            //LogerClass.WriteLog(newUser.Team.Count.ToString());
             Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(User)));
             User userEntyti = (User)Mapper.Map(newUser, typeof(UserDTO), typeof(User));
-            LogerClass.WriteLog(userEntyti.);
+            //LogerClass.WriteLog(userEntyti.);
             UsersRepos.Add(userEntyti);
         }
 
