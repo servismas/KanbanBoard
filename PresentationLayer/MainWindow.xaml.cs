@@ -42,7 +42,7 @@ namespace PresentationLayer
             curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
 
-            Zaglushka();
+            //Zaglushka();
             column1 = new ObservableCollection<Card>();
             column2 = new ObservableCollection<Card>();
             column3 = new ObservableCollection<Card>();
