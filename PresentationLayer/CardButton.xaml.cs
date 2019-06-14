@@ -50,7 +50,20 @@ namespace PresentationLayer
             CardEditWindow cardEditWindow = new CardEditWindow((int)(sender as Button).Tag);
             cardEditWindow.Owner = (_element as MainWindow);
             cardEditWindow.Show();
-           // cardEditWindow.ShowDialog();
+            // cardEditWindow.ShowDialog();
+        }
+
+        private void DrugBtnUI_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && (e.OriginalSource is Button))
+            {
+                // Package the data.
+                DataObject data = new DataObject();
+                data.SetData("Object", this);
+
+                // Inititate the drag-and-drop operation.
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
+            }
         }
 
         //private void DrugBtnUI_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -66,4 +79,3 @@ namespace PresentationLayer
         //    }
         //}
     }
-}

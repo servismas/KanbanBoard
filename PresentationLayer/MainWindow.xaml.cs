@@ -28,149 +28,102 @@ namespace PresentationLayer
     public partial class MainWindow : MetroWindow
     {
         //public Card card;
-        public int counter=1;
-        public static ObservableCollection <Card> cards1, cards2, cards3, cards4;
+        public static ObservableCollection<Card> column1, column2, column3, column4;
         public static ObservableCollection<Column> board;
         Repository<Card> cardsRepository;
         Repository<Column> columnRepository;
-        CompositeCollection cc = new CompositeCollection();
+        Repository<User> userRepository;
         UserDTO curUser;
+        User curUserDb;//для заглушки
         public MainWindow()
         {
             AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
             authoreRegisterWind.ShowDialog();
             curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
-             
+
+            Zaglushka();
+            column1 = new ObservableCollection<Card>();
+            column2 = new ObservableCollection<Card>();
+            column3 = new ObservableCollection<Card>();
+            column4 = new ObservableCollection<Card>();
+            borderListBox1.ItemsSource = column1;
+            borderListBox2.ItemsSource = column2;
+            borderListBox3.ItemsSource = column3;
+            borderListBox4.ItemsSource = column4;
             ReadFromDb();
+        }
+        public void Zaglushka()
+        {
+            curUser = new UserDTO();
+            curUserDb = new User();
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                userRepository = new Repository<User>(db);
+                curUserDb = userRepository.Find(1);
+            }
+            curUser.Id = curUserDb.Id;
+            curUser.Mail = curUserDb.Mail;
+            curUser.IsDeleted = curUserDb.IsDeleted;
+            curUser.Password = curUserDb.Password;
+            //curUser.Profile = curUserDb.Profile;
+            curUser.ProfileId = curUserDb.ProfileId;
+            //curUser.Team = curUserDb.Teams.Last();
+            curUser.TeamId = curUserDb.TeamId;
         }
         public void ReadFromDb()
         {
             board = new ObservableCollection<Column>();
 
-            cards1 = new ObservableCollection<Card>();
-            cards2 = new ObservableCollection<Card>();
-            cards3 = new ObservableCollection<Card>();
-            cards4 = new ObservableCollection<Card>();
+            column1.Clear();
+            column2.Clear();
+            column3.Clear();
+            column4.Clear();
+
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 cardsRepository = new Repository<Card>(db);
                 columnRepository = new Repository<Column>(db);
-                main_listBox.ItemsSource = board;
 
-                foreach (Column column in columnRepository.GetAll())
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 1))
                 {
-                    board.Add(column);
-                    //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == column.Id))
-                    //{
-                    //    board.
-                    //    cards1.Add(card);
-                    //}
-                }
-                foreach (Card card in board[0].Cards)
-                {
-                    
-                    CardButton b = new CardButton();
-                    b.Content = card.Name;
-                    main_listBox.Items.Add(b);
-                    //cards1.Add(card);
+                    column1.Add(card);
                 }
                 foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 2))
                 {
-                    cards2.Add(card);
+                    column2.Add(card);
                 }
                 foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 3))
                 {
-                    cards3.Add(card);
+                    column3.Add(card);
                 }
                 foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 4))
                 {
-                    cards4.Add(card);
+                    column4.Add(card);
                 }
-
-
-                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 1))
-                //{
-                //    cards1.Add(card);
-                //}
-                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 2))
-                //{
-                //    cards2.Add(card);
-                //}
-                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 3))
-                //{
-                //    cards3.Add(card);
-                //}
-                //foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 4))
-                //{
-                //    cards4.Add(card);
-                //}
-                
-                
-                
-                //cards2.Add(new Card { Name = "xdfsdfg", Description = "dfgasdfgasfdgasfgsafgasfg" });
             }
-            //borderListBox.ItemsSource = cards1;
-            //borderListBox2.ItemsSource = cards2;
-            //borderListBox3.ItemsSource = cards3;
-            //borderListBox4.ItemsSource = cards4;
         }
+
         private void ListBox_Drop(object sender, DragEventArgs e)
         {
-            //UIElement _element = (UIElement)e.Data.GetData("Object");
-            ////ListBox _sourceListBox = (ListBox)_element;
-            //ListBox _destinationListBox = (ListBox)sender;
-            //while (/*(VisualTreeHelper.GetParent(_element) != null) || */!(_element is ListBox))
-            //{
-            //    _element = (UIElement)VisualTreeHelper.GetParent(_element);
-            //}
-            //using (KanbanBoardContext db = new KanbanBoardContext())
-            //{
-            //    cardsRepository = new Repository<Card>(db);
-            //    columnRepository = new Repository<Column>(db);
-                
-            //    CardButton b = (CardButton)e.Data.GetData("Object");
-            //    //MessageBox.Show(b.Tag.ToString());
-            //    Card c = cardsRepository.Find((int)b.Tag);
-            //    c.ColumnId = MainStackPanel.Children.IndexOf(_destinationListBox);
-            //    //c.Column = columnRepository.Find((int)c.ColumnId);
-            //    cardsRepository.Edit(c);
-            //}
+            CardButton b = (CardButton)e.Data.GetData("Object");
 
-            //ReadFromDb();
-
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                cardsRepository = new Repository<Card>(db);
+                Card c = cardsRepository.Find((int)b.Tag);
+                int newColumnId = Convert.ToInt32((sender as ListBox).Tag);
+                c.ColumnId = newColumnId;
+                cardsRepository.Edit(c);
+            }
+            ReadFromDb();
         }
+
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
         {
             CardEditWindow cardEditWindow = new CardEditWindow();
             cardEditWindow.Owner = this;
             cardEditWindow.ShowDialog();
-        }
-        private void Button_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                MessageBox.Show("Button_MouseMove");
-                // Package the data.
-                DataObject data = new DataObject();
-                data.SetData("Object", this);
-
-                // Inititate the drag-and-drop operation.
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
-            }
-        }
-        private void Button_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                MessageBox.Show("Button_PreviewMouseMove");
-                // Package the data.
-                DataObject data = new DataObject();
-                data.SetData("Object", this);
-
-                // Inititate the drag-and-drop operation.
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
-            }
         }
     }
 }
