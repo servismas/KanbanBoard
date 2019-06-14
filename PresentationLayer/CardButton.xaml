@@ -10,7 +10,7 @@
     <Grid>
         <Button 
             x:Name="drugBtnUI" 
-            Height="20" Click="DrugBtn_Click" Tag="{Binding Id}" Content="{Binding Name}" MouseMove="DrugBtn_MouseMove" PreviewMouseMove="DrugBtnUI_PreviewMouseMove">
+            Height="20" Click="DrugBtn_Click" Tag="{Binding Id}" Content="{Binding Name}" MouseMove="DrugBtn_MouseMove">
         </Button>
     </Grid>
 </UserControl>
