@@ -58,7 +58,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             }
             
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Card>), typeof(List<CardDTO>)));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Card), typeof(CardDTO)));
             return (List<CardDTO>)Mapper.Map(cards, typeof(List<Card>), typeof(List<CardDTO>));
         }
 
@@ -71,7 +71,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 cards.Add(c);
             }
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Card>), typeof(List<CardDTO>)));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Card), typeof(CardDTO)));
             return (List<CardDTO>)Mapper.Map(cards, typeof(List<Card>), typeof(List<CardDTO>));
         }
     }

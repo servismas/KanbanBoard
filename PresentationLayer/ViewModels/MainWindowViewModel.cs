@@ -21,6 +21,7 @@ namespace PresentationLayer.ViewModels
             Photo = new BitmapImage(new Uri(user.Profile.Photo));
 
             MainUser = user;
+            GetBoard(MainUser);
         }
         private UserDTO MainUser { get; set; }
         public string FirstName { get; set; }
@@ -33,10 +34,10 @@ namespace PresentationLayer.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void GetBoard(UserDTO MainUser)
+        public void GetBoard(UserDTO user)
         {
             PresentationLayer.BoardService.CreateEditeBoardContractClient boardClient = new BoardService.CreateEditeBoardContractClient();
-            boardClient.
+            boardClient.GetCurrentUserBoard(user);
         }
 
     }

@@ -59,7 +59,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
             }
 
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Column>), typeof(List<ColumnDTO>)));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Column), typeof(ColumnDTO)));
             return (List<ColumnDTO>)Mapper.Map( columnsEntity, typeof(List<Column>), typeof(List<ColumnDTO>));
             
         }

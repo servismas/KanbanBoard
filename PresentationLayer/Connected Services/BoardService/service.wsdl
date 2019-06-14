@@ -44,6 +44,12 @@
   <wsdl:message name="ICreateEditeBoardContract_GetAllUsersBoardsIncludColumns_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllUsersBoardsIncludColumnsResponse" />
   </wsdl:message>
+  <wsdl:message name="ICreateEditeBoardContract_GetCurrentUserBoard_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentUserBoard" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditeBoardContract_GetCurrentUserBoard_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentUserBoardResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICreateEditeBoardContract">
     <wsdl:operation name="CreateBoard">
       <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditeBoardContract/CreateBoard" message="tns:ICreateEditeBoardContract_CreateBoard_InputMessage" />
@@ -68,6 +74,10 @@
     <wsdl:operation name="GetAllUsersBoardsIncludColumns">
       <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditeBoardContract/GetAllUsersBoardsIncludColumns" message="tns:ICreateEditeBoardContract_GetAllUsersBoardsIncludColumns_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditeBoardContract/GetAllUsersBoardsIncludColumnsResponse" message="tns:ICreateEditeBoardContract_GetAllUsersBoardsIncludColumns_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentUserBoard">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditeBoardContract/GetCurrentUserBoard" message="tns:ICreateEditeBoardContract_GetCurrentUserBoard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditeBoardContract/GetCurrentUserBoardResponse" message="tns:ICreateEditeBoardContract_GetCurrentUserBoard_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BoardService" type="tns:ICreateEditeBoardContract">
@@ -119,6 +129,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllUsersBoardsIncludColumns">
       <soap:operation soapAction="http://tempuri.org/ICreateEditeBoardContract/GetAllUsersBoardsIncludColumns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentUserBoard">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditeBoardContract/GetCurrentUserBoard" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

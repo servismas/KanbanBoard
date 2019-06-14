@@ -86,14 +86,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public BoardDTO GetCurrentUserBoard(UserDTO currUser)
         {
+            //BoardDTO returnBoard = null;
 
-          //  Team currentTeam = currUser.Team[TeamRepos.GetAll().Last()];
-
-
-            Board returnBoard=null;
-            Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Board), typeof(BoardDTO)));
-            return (BoardDTO)Mapper.Map(returnBoard, typeof(Board), typeof(BoardDTO));
+            //TeamDTO currentTeam =currUser.Team[currUser.Team.Count];
+            //LogerClass.WriteLog(currentTeam.Name);
+            //returnBoard = currentTeam.Boards[currentTeam.Boards.Count];
+            //LogerClass.WriteLog(returnBoard.Name);
+            //return returnBoard;
+            
         }
     }
 }

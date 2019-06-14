@@ -52,6 +52,12 @@ namespace PresentationLayer.BoardService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeBoardContract/GetAllUsersBoardsIncludColumns", ReplyAction="http://tempuri.org/ICreateEditeBoardContract/GetAllUsersBoardsIncludColumnsRespon" +
             "se")]
         System.Threading.Tasks.Task<WcfBussinesLogicLayerLibrary.ModelsDTO.BoardDTO[]> GetAllUsersBoardsIncludColumnsAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.TeamDTO userTeam);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeBoardContract/GetCurrentUserBoard", ReplyAction="http://tempuri.org/ICreateEditeBoardContract/GetCurrentUserBoardResponse")]
+        WcfBussinesLogicLayerLibrary.ModelsDTO.BoardDTO GetCurrentUserBoard(WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO currUser);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICreateEditeBoardContract/GetCurrentUserBoard", ReplyAction="http://tempuri.org/ICreateEditeBoardContract/GetCurrentUserBoardResponse")]
+        System.Threading.Tasks.Task<WcfBussinesLogicLayerLibrary.ModelsDTO.BoardDTO> GetCurrentUserBoardAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO currUser);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -127,6 +133,14 @@ namespace PresentationLayer.BoardService {
         
         public System.Threading.Tasks.Task<WcfBussinesLogicLayerLibrary.ModelsDTO.BoardDTO[]> GetAllUsersBoardsIncludColumnsAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.TeamDTO userTeam) {
             return base.Channel.GetAllUsersBoardsIncludColumnsAsync(userTeam);
+        }
+        
+        public WcfBussinesLogicLayerLibrary.ModelsDTO.BoardDTO GetCurrentUserBoard(WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO currUser) {
+            return base.Channel.GetCurrentUserBoard(currUser);
+        }
+        
+        public System.Threading.Tasks.Task<WcfBussinesLogicLayerLibrary.ModelsDTO.BoardDTO> GetCurrentUserBoardAsync(WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO currUser) {
+            return base.Channel.GetCurrentUserBoardAsync(currUser);
         }
     }
 }

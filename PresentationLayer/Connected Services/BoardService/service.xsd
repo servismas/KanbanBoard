@@ -80,4 +80,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCurrentUserBoard">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO" minOccurs="0" name="currUser" nillable="true" type="q10:UserDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCurrentUserBoardResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO" minOccurs="0" name="GetCurrentUserBoardResult" nillable="true" type="q11:BoardDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

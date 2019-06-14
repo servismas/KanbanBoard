@@ -71,7 +71,7 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 teams.Add(t);
             }
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
+            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Team), typeof(TeamDTO)));
             return (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
         }
     }
