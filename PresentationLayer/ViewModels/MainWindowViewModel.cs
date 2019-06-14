@@ -19,8 +19,10 @@ namespace PresentationLayer.ViewModels
 
             BoardName = "TestBoard";
             Photo = new BitmapImage(new Uri(user.Profile.Photo));
+
+            MainUser = user;
         }
-       // public string MainUser { get; set; }
+        private UserDTO MainUser { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         //public string Photo { get; set; }
@@ -30,5 +32,12 @@ namespace PresentationLayer.ViewModels
         public BitmapImage Photo { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void GetBoard(UserDTO MainUser)
+        {
+            PresentationLayer.BoardService.CreateEditeBoardContractClient boardClient = new BoardService.CreateEditeBoardContractClient();
+            boardClient.
+        }
+
     }
 }

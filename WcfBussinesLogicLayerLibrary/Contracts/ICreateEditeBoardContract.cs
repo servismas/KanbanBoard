@@ -29,5 +29,9 @@ namespace WcfBussinesLogicLayerLibrary.Contracts
 
         [OperationContract]
         List<BoardDTO> GetAllUsersBoardsIncludColumns(TeamDTO userTeam);
+
+        [OperationContract]
+        BoardDTO GetCurrentUserBoard(UserDTO currUser);
     }
+    
 }
