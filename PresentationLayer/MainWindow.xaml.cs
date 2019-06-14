@@ -41,8 +41,9 @@ namespace PresentationLayer
             authoreRegisterWind.ShowDialog();
             curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
-             
-            ReadFromDb();
+            this.DataContext = new MainWindowViewModel(curUser);
+            InitializeComponent();
+           //ReadFromDb();
         }
         public void ReadFromDb()
         {

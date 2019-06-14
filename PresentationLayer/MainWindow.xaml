@@ -8,7 +8,34 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ListBox Name="main_listBox" Margin="5" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="MenuGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="25" Text="{Binding BoardName}" Margin="5"/>
+            <StackPanel Grid.Column="1">
+                
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Image Source="{Binding Photo}"/>
+                
+                <Expander Header=" User Profile">
+                    <StackPanel>
+                        <TextBlock Text="{Binding FirstName}"/>
+                        <TextBlock Text="{Binding SecondName}"/>
+                        <TextBlock Text="{Binding Email}"/>
+                    </StackPanel>                    
+                </Expander>
+            </StackPanel>
+
+        </Grid>
+        <ListBox Grid.Row="1" Name="main_listBox" Margin="5" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal">
