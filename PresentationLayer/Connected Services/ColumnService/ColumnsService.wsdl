@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ColumnsService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8736/Design_Time_Addresses/service?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8736/Design_Time_Addresses/service?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8736/Design_Time_Addresses/service?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfBussinesLogicLayerLibrary.ModelsDTO" />
+      <xsd:import schemaLocation="http://localhost:8736/Design_Time_Addresses/service?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataAccessLayer.cs.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICreateEditColumnsContract_AddNewColumn_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewColumn" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_AddNewColumn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewColumnResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_EditeColumnName_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditeColumnName" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_EditeColumnName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditeColumnNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_DeleteColumn_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteColumn" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_DeleteColumn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteColumnResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_GetColumn_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetColumn" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_GetColumn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetColumnResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_GetUserColumn_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserColumn" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_GetUserColumn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserColumnResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_GetUserColumnIncludeCards_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserColumnIncludeCards" />
+  </wsdl:message>
+  <wsdl:message name="ICreateEditColumnsContract_GetUserColumnIncludeCards_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserColumnIncludeCardsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICreateEditColumnsContract">
+    <wsdl:operation name="AddNewColumn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/AddNewColumn" message="tns:ICreateEditColumnsContract_AddNewColumn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/AddNewColumnResponse" message="tns:ICreateEditColumnsContract_AddNewColumn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditeColumnName">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/EditeColumnName" message="tns:ICreateEditColumnsContract_EditeColumnName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/EditeColumnNameResponse" message="tns:ICreateEditColumnsContract_EditeColumnName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteColumn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/DeleteColumn" message="tns:ICreateEditColumnsContract_DeleteColumn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/DeleteColumnResponse" message="tns:ICreateEditColumnsContract_DeleteColumn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetColumn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/GetColumn" message="tns:ICreateEditColumnsContract_GetColumn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/GetColumnResponse" message="tns:ICreateEditColumnsContract_GetColumn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserColumn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/GetUserColumn" message="tns:ICreateEditColumnsContract_GetUserColumn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/GetUserColumnResponse" message="tns:ICreateEditColumnsContract_GetUserColumn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserColumnIncludeCards">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/GetUserColumnIncludeCards" message="tns:ICreateEditColumnsContract_GetUserColumnIncludeCards_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICreateEditColumnsContract/GetUserColumnIncludeCardsResponse" message="tns:ICreateEditColumnsContract_GetUserColumnIncludeCards_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Column" type="tns:ICreateEditColumnsContract">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewColumn">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditColumnsContract/AddNewColumn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditeColumnName">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditColumnsContract/EditeColumnName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteColumn">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditColumnsContract/DeleteColumn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetColumn">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditColumnsContract/GetColumn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserColumn">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditColumnsContract/GetUserColumn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserColumnIncludeCards">
+      <soap:operation soapAction="http://tempuri.org/ICreateEditColumnsContract/GetUserColumnIncludeCards" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ColumnsService">
+    <wsdl:port name="Column" binding="tns:Column">
+      <soap:address location="http://localhost:8736/Design_Time_Addresses/service/ColumnService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

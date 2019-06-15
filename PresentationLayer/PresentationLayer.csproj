@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
@@ -80,6 +80,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\CardService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ColumnService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\LogONService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -154,6 +164,29 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\CardService\CardService.wsdl" />
+    <None Include="Connected Services\CardService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CardService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CardService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ColumnService\ColumnsService.wsdl" />
+    <None Include="Connected Services\ColumnService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ColumnService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ColumnService\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ColumnService\service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\LogONService\service.wsdl" />
     <None Include="Connected Services\LogONService\service.xsd">
       <SubType>Designer</SubType>
@@ -199,6 +232,8 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DataAccessLayer.cs.Models.Profile.datasource" />
+    <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.CardDTO.datasource" />
+    <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.ColumnDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.TeamDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO.datasource" />
@@ -224,6 +259,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CardService\" />
+    <WCFMetadataStorage Include="Connected Services\ColumnService\" />
     <WCFMetadataStorage Include="Connected Services\LogONService\" />
     <WCFMetadataStorage Include="Connected Services\ProfileService\" />
     <WCFMetadataStorage Include="Connected Services\TeamService\" />
@@ -273,6 +310,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\LogONService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CardService\service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CardService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CardService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CardService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ColumnService\service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ColumnService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ColumnService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ColumnService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

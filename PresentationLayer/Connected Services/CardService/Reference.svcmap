@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a913592b-eb39-4d27-bf1a-816a294e7294" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8735/Design_Time_Addresses/service" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.disco" MetadataType="Disco" ID="040ba4ac-60e1-46d3-930f-495086388b1b" SourceId="1" SourceUrl="http://localhost:8735/Design_Time_Addresses/service?disco" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="178280b4-84d0-439b-8207-0596bf3f240a" SourceId="1" SourceUrl="http://localhost:8735/Design_Time_Addresses/service?xsd=xsd1" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="5d20e3ae-40b0-4628-b22e-6b0e8ca333bd" SourceId="1" SourceUrl="http://localhost:8735/Design_Time_Addresses/service?xsd=xsd2" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="e2b332f0-e775-4f7e-9a2e-11146d4614c3" SourceId="1" SourceUrl="http://localhost:8735/Design_Time_Addresses/service?xsd=xsd0" />
+    <MetadataFile FileName="CardService.wsdl" MetadataType="Wsdl" ID="b810a586-b5da-4812-af1a-de2e5a3b5b92" SourceId="1" SourceUrl="http://localhost:8735/Design_Time_Addresses/service?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

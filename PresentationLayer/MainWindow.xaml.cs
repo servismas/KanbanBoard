@@ -1,7 +1,10 @@
-﻿using DataAccessLayer.cs;
+﻿using AutoMapper;
+using DataAccessLayer.cs;
 using DataAccessLayer.cs.Models;
 using DataAccessLayer.cs.Repository;
 using MahApps.Metro.Controls;
+using PresentationLayer.CardService;
+using PresentationLayer.ColumnService;
 using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -33,13 +36,20 @@ namespace PresentationLayer
         Repository<Card> cardsRepository;
         Repository<Column> columnRepository;
         Repository<User> userRepository;
+        Repository<Team> TeamRepos;
         UserDTO curUser;
         User curUserDb;//для заглушки
+
+
+        CreateEditColumnsContractClient columnsClient = new CreateEditColumnsContractClient();
+        CreateEditeCardContractClient cardsClient = new CreateEditeCardContractClient();
+
+
         public MainWindow()
         {
-           // AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-           // authoreRegisterWind.ShowDialog();
-           // curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
+            AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+            authoreRegisterWind.ShowDialog();
+            //curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
 
             Zaglushka();
@@ -52,6 +62,11 @@ namespace PresentationLayer
             borderListBox2.ItemsSource = column2;
             borderListBox3.ItemsSource = column3;
             borderListBox4.ItemsSource = column4;
+
+            BoardDTO b = new BoardDTO() { Id = 1 };
+
+            var res = columnsClient.GetUserColumn(b);
+
             ReadFromDb();
         }
         public void Zaglushka()
@@ -72,6 +87,16 @@ namespace PresentationLayer
             //curUser.Team = curUserDb.Teams.Last();
             curUser.TeamId = curUserDb.TeamId;
         }
+
+        public void GetCards()
+        {
+            column1.Clear();
+            column2.Clear();
+            column3.Clear();
+            column4.Clear();
+        }
+
+        
         public void ReadFromDb()
         {
             board = new ObservableCollection<Column>();
