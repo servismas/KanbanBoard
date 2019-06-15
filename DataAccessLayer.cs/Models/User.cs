@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace DataAccessLayer.cs.Models
         [Required]
         public string Password { get; set; }
         public bool? IsDeleted { get; set; }
+        //[Key]
+        [ForeignKey("Profile")]
         public int? ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
         public int? TeamId { get; set; }

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿//using AutoMapper;
 using DataAccessLayer.cs;
 using DataAccessLayer.cs.Models;
 using DataAccessLayer.cs.Repository;
@@ -33,12 +33,18 @@ namespace PresentationLayer
         //public Card card;
         public static ObservableCollection<Card> column1, column2, column3, column4;
         public static ObservableCollection<Column> board;
+        public Column column;
+
+        Repository<Attachment> attachmentRepos;
+        Repository<Board> boardRepos;
         Repository<Card> cardsRepository;
         Repository<Column> columnRepository;
+        Repository<Profile> profileRepos;
+        Repository<Team> teamRepos;
         Repository<User> userRepository;
-        Repository<Team> TeamRepos;
+
         UserDTO curUser;
-        User curUserDb;//для заглушки
+        public static User curUserDb { get; set; }//для заглушки
 
 
         CreateEditColumnsContractClient columnsClient = new CreateEditColumnsContractClient();
@@ -47,12 +53,13 @@ namespace PresentationLayer
 
         public MainWindow()
         {
-            AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-            authoreRegisterWind.ShowDialog();
-            //curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
+            //AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+            //authoreRegisterWind.ShowDialog();
+            // curUser = GetDTOUser(); //(authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
+            curUserDb = GetUser(1);
             InitializeComponent();
 
-            Zaglushka();
+            board = new ObservableCollection<Column>();
 
             column1 = new ObservableCollection<Card>();
             column2 = new ObservableCollection<Card>();
@@ -63,31 +70,80 @@ namespace PresentationLayer
             borderListBox3.ItemsSource = column3;
             borderListBox4.ItemsSource = column4;
 
-            BoardDTO b = new BoardDTO() { Id = 1 };
+            ReadFromDb(curUserDb.Id);
 
-            var res = columnsClient.GetUserColumn(b);
+            column1Name_tb.DataContext = board[0];
+            column2Name_tb.DataContext = board[1];
+            column3Name_tb.DataContext = board[2];
+            column4Name_tb.DataContext = board[3];
+            //borderListBox1.ItemsSource = board[0].Cards as ObservableCollection<Card>;
+            //borderListBox2.ItemsSource = board[1].Cards as ObservableCollection<Card>;
+            //borderListBox3.ItemsSource = board[2].Cards as ObservableCollection<Card>;
+            //borderListBox4.ItemsSource = board[3].Cards as ObservableCollection<Card>;
+            //BoardDTO b = new BoardDTO() { Id = 1 };
 
-            ReadFromDb();
+            //  var res = columnsClient.GetUserColumn(b);
+
         }
-        public void Zaglushka()
+
+        public User GetUser(int _id)
         {
-            curUser = new UserDTO();
-            curUserDb = new User();
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 userRepository = new Repository<User>(db);
-                curUserDb = userRepository.Find(1);
+                return userRepository.Find(_id);
             }
-            curUser.Id = curUserDb.Id;
-            curUser.Mail = curUserDb.Mail;
-            curUser.IsDeleted = curUserDb.IsDeleted;
-            curUser.Password = curUserDb.Password;
-            //curUser.Profile = curUserDb.Profile;
-            curUser.ProfileId = curUserDb.ProfileId;
-            //curUser.Team = curUserDb.Teams.Last();
-            curUser.TeamId = curUserDb.TeamId;
         }
+        //public UserDTO GetDTOUser()
+        //{
 
+
+        //    curUser = new UserDTO();
+        //    curUserDb = new User();
+        //    using (KanbanBoardContext db = new KanbanBoardContext())
+        //    {
+        //        userRepository = new Repository<User>(db);
+
+
+
+
+        //        //AutoMapper.Mapper.Initialize(new Action<AutoMapper.IMapperConfigurationExpression>(x => x.CreateMap<User, UserDTO>()));
+        //        //var res = userRepository.GetAll();
+        //        //return AutoMapper.Mapper.Map<List<User>, List<UserDTO>>(res.ToList());
+
+
+
+
+        //        curUserDb = userRepository.Find(1);
+        //    }
+        //    AutoMapper.Mapper.Initialize(new Action<AutoMapper.IMapperConfigurationExpression>(x => x.CreateMap<User, UserDTO>()));
+        //    return Mapper.Map<UserDTO>(curUserDb);
+
+
+
+        //    //curUser.Id = curUserDb.Id;
+        //    //curUser.Mail = curUserDb.Mail;
+        //    //curUser.IsDeleted = curUserDb.IsDeleted;
+        //    //curUser.Password = curUserDb.Password;
+        //    ////curUser.Profile = curUserDb.Profile;
+        //    //curUser.ProfileId = curUserDb.ProfileId;
+        //    ////curUser.Team = curUserDb.Teams.Last();
+        //    //curUser.TeamId = curUserDb.TeamId;
+        //    //return curUser;
+        //}
+
+        //[Obsolete]
+        //public List<ColumnDTO> GetAllCollumns()
+        //{
+        //    using (KanbanBoardContext db = new KanbanBoardContext())
+        //    {
+        //        columnRepository = new Repository<Column>(db);
+        //        AutoMapper.Mapper.Initialize((new Action<AutoMapper.IMapperConfigurationExpression>(x => x.CreateMap<Column, ColumnDTO>())));
+        //        var res = columnRepository.GetAll();
+        //        return AutoMapper.Mapper.Map<List<Column>, List<ColumnDTO>>(res.ToList());
+
+        //    }
+        //}
         public void GetCards()
         {
             column1.Clear();
@@ -97,21 +153,42 @@ namespace PresentationLayer
         }
 
         
-        public void ReadFromDb()
+        public void ReadFromDb(int _id)
         {
-            board = new ObservableCollection<Column>();
+            column = new Column();
+            board.Clear();
 
             column1.Clear();
             column2.Clear();
             column3.Clear();
             column4.Clear();
-
+            List<Team> listTeams = new List<Team>();
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 cardsRepository = new Repository<Card>(db);
                 columnRepository = new Repository<Column>(db);
 
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 1))
+
+                foreach (Column column in columnRepository.GetAllInclude(x => x.Cards))
+                {
+                    board.Add(column);
+                }
+
+
+                User user = (db.Users.FirstOrDefault(u => u.Id == _id));
+
+
+
+
+                //db.Teams.FirstOrDefault(t => t.Users.FirstOrDefault(u => u.Id == _id));
+
+
+                //listTeams = db.Teams.Include("Users").Include("Users.Teams").Include("Boards").Include("Boards.Columns").Include("Boards.Columns.Cards").Include("Boards.Columns.Cards.Users").ToList();
+                //listTeams[0].Users.Add(new User { Mail = "qaz@qaz.qaz", Password = "qaz" });
+                //db.SaveChanges();
+
+
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 1/*, y => y.User_Id = _id*/))
                 {
                     column1.Add(card);
                 }
@@ -128,6 +205,7 @@ namespace PresentationLayer
                     column4.Add(card);
                 }
             }
+            //var i = res[0];
         }
 
         private void ListBox_Drop(object sender, DragEventArgs e)
@@ -142,7 +220,7 @@ namespace PresentationLayer
                 c.ColumnId = newColumnId;
                 cardsRepository.Edit(c);
             }
-            ReadFromDb();
+            ReadFromDb(curUserDb.Id);
         }
 
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)

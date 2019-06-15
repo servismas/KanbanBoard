@@ -6,41 +6,63 @@
         xmlns:local="clr-namespace:PresentationLayer"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="696.5">
     <Grid>
-        <StackPanel Name="MainStackPanel" Orientation="Horizontal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="329*"/>
+            <ColumnDefinition Width="463*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Name="MainStackPanel" Orientation="Horizontal" Grid.ColumnSpan="2">
 
             <StackPanel>
                 <Button BorderThickness="0" Background="LightGray" HorizontalContentAlignment="Left" Content="Add new task" Click="AddNewTaskBtn_Click"/>
             </StackPanel>
-            <ListBox MinWidth="50" x:Name="borderListBox1" Tag="1" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox MinWidth="50" x:Name="borderListBox2" Tag="2" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox MinWidth="50" x:Name="borderListBox3" Tag="3" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox MinWidth="50" x:Name="borderListBox4" Tag="4" AllowDrop="True" Drop="ListBox_Drop">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Grid ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="13.5"/>
+                    <RowDefinition Height="12.5"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="column1Name_tb" Grid.Column="0" Text="{Binding Name}" Margin="5,5,0,5" HorizontalAlignment="Center" Grid.RowSpan="2"></TextBlock>
+                <TextBlock x:Name="column2Name_tb" Grid.Column="1" Text="{Binding Name}" Margin="5,5,0,5" HorizontalAlignment="Center" Grid.RowSpan="2"></TextBlock>
+                <TextBlock x:Name="column3Name_tb" Grid.Column="2" Text="{Binding Name}" Margin="5,5,0,5" HorizontalAlignment="Center" Grid.RowSpan="2"></TextBlock>
+                <TextBlock x:Name="column4Name_tb" Grid.Column="3" Text="{Binding Name}" Margin="5,5,0,5" HorizontalAlignment="Center" Grid.RowSpan="2"></TextBlock>
+
+                <ListBox Grid.Row="2" Grid.Column="0" MinWidth="50" x:Name="borderListBox1" Tag="1" AllowDrop="True" Drop="ListBox_Drop">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox Grid.Row="2" Grid.Column="1" MinWidth="50" x:Name="borderListBox2" Tag="2" AllowDrop="True" Drop="ListBox_Drop">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox Grid.Row="2" Grid.Column="2" MinWidth="50" x:Name="borderListBox3" Tag="3" AllowDrop="True" Drop="ListBox_Drop">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox Grid.Row="2" Grid.Column="3" MinWidth="50" x:Name="borderListBox4" Tag="4" AllowDrop="True" Drop="ListBox_Drop">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:CardButton Tag="{Binding Id}" Content="{Binding Name}"></local:CardButton>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
 
         </StackPanel>
     </Grid>

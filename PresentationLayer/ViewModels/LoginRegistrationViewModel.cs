@@ -26,12 +26,12 @@ namespace PresentationLayer.ViewModels
         {
             Login = "Your email";
            // List<TeamDTO> teamstest = new List<TeamDTO>() { new TeamDTO { Name = "SuperTeam", Boards = null, Users = null }};
-            int num = teamClient.GetAllTeams().Length; ///сюда маэ йти лист ДТО
+            //int num = teamClient.GetAllTeams().Length; ///сюда маэ йти лист ДТО
 
             TeamName = new List<string>();
-            foreach (var team in teamClient.GetAllTeams()) //і сюди
+            //foreach (var team in teamClient.GetAllTeams()) //і сюди
             {
-                TeamName.Add(team.Name);
+                TeamName.Add("testTeam"/*team.Name*/);
             }
         }
 
@@ -64,7 +64,7 @@ namespace PresentationLayer.ViewModels
                  {
                      Pass = (obj as PasswordBox).Password;
                      HeshPass = CreateHeshPass(Pass);
-                     CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);
+                     CurrentUser = new UserDTO() { Id = 1 };/*LogOnClient.CheckCredationals(Login, HeshPass);*/
                      if (CurrentUser!=null)
                           StartWind.Close();
                      else

@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.cs.Settings
 {
-    public class DbInitializer : CreateDatabaseIfNotExists<KanbanBoardContext>
-    //public class DbInitializer : DropCreateDatabaseAlways<KanbanBoardContext>
+    //public class DbInitializer : CreateDatabaseIfNotExists<KanbanBoardContext>
+    public class DbInitializer : DropCreateDatabaseAlways<KanbanBoardContext>
     {
         protected override void Seed(KanbanBoardContext context)
         {
@@ -21,10 +21,10 @@ namespace DataAccessLayer.cs.Settings
 
             Board board = new Board { Name = "testBoard" };
 
-            Column column1 = new Column { Name = "testColumn1" };
-            Column column2 = new Column { Name = "testColumn2" };
-            Column column3 = new Column { Name = "testColumn3" };
-            Column column4 = new Column { Name = "testColumn4" };
+            Column column1 = new Column { Name = "Tasks" };
+            Column column2 = new Column { Name = "In progress" };
+            Column column3 = new Column { Name = "Delayed" };
+            Column column4 = new Column { Name = "Ready" };
 
             Card card1 = new Card { Name = "testCard1", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description1 from database" };
             Card card2 = new Card { Name = "testCard2", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description2 from database" };

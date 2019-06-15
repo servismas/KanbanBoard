@@ -33,6 +33,7 @@ namespace PresentationLayer
 
             InitializeComponent();
             // cardId = _cardId;
+            cardCreationDate_tb.Text = DateTime.Now.ToString();
             if (_cardId != 0)
             {
                 cardId = _cardId;
@@ -44,7 +45,7 @@ namespace PresentationLayer
 
                     cardName_tb.Text = card.Name;
                     cardDescription_tb.Text = card.Description;
-                    //card.CreationDate = DateTime.Now=
+                    cardCreationDate_tb.Text = card.CreationDate.ToString();
                     cardExpireDate_dp.SelectedDate = (DateTime)card.ExpireDate;
                     //card.ColumnId = 1;//має приходить в конструктор
                     //card.Column = db.Columns.Find(card.ColumnId);
@@ -112,7 +113,7 @@ namespace PresentationLayer
                 //this.DialogResult = true;
                 //this.Closed +=
                 //ReadFromDb();
-                (this.Owner as MainWindow).ReadFromDb();
+                (this.Owner as MainWindow).ReadFromDb(MainWindow.curUserDb.Id);
                 this.Close();
             }
         }
