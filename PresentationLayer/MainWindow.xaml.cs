@@ -58,7 +58,7 @@ namespace PresentationLayer
             // curUser = GetDTOUser(); //(authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             curUserDb = GetUser(1);
             InitializeComponent();
-
+            
             board = new ObservableCollection<Column>();
 
             column1 = new ObservableCollection<Card>();

@@ -5,6 +5,7 @@ using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,9 @@ namespace PresentationLayer
         int cardId;
         Attachment attachment;
         Card card;
+
+        Repository<Card> cardRep;
+        Repository<Attachment> attachmentRep;
         public CardEditWindow(int _cardId = 0)
         {
 
@@ -40,8 +44,12 @@ namespace PresentationLayer
                 using (KanbanBoardContext db = new KanbanBoardContext())
                 {
                     card = new Card();
-                    Repository<Card> cardRep = new Repository<Card>(db);
-                    card = cardRep.Find(_cardId);
+                    cardRep = new Repository<Card>(db);
+                    //card = db.Cards.Include("Attachments").FirstOrDefault(x => x.Id == _cardId);
+                    //card = cardRep.Find(_cardId);
+                    card = cardRep.GetWithInclude(c => c.Id == _cardId, c => c.Attachments).FirstOrDefault(x => x.Id == _cardId);
+
+                    attachment_lb.ItemsSource = card.Attachments;
 
                     cardName_tb.Text = card.Name;
                     cardDescription_tb.Text = card.Description;
@@ -55,66 +63,76 @@ namespace PresentationLayer
 
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
-
-            using (KanbanBoardContext db = new KanbanBoardContext())
+            if (cardExpireDate_dp.SelectedDate != null)
             {
-                // Card card = new Card();
-                Repository<Card> cardRep = new Repository<Card>(db);
-                //card = rep.Find(1);
-
-
-                if (card == null)
+                using (KanbanBoardContext db = new KanbanBoardContext())
                 {
-                    card = new Card();
-                    card.CreationDate = DateTime.Now;
-                    card.ColumnId = 1; // перевырить чи не треба додавать Column
-                    card.ExpireDate = DateTime.Now.AddDays(10);
+                    // Card card = new Card();
+                    cardRep = new Repository<Card>(db);
+                    attachmentRep = new Repository<Attachment>(db);
+                    //card = rep.Find(1);
 
+
+                    if (card == null)
+                    {
+                        card = new Card();
+                        card.CreationDate = DateTime.Now;
+                        card.ColumnId = 1; // перевырить чи не треба додавать Column
+                                           //card.ExpireDate = DateTime.Now.AddDays(10);
+                        card.ExpireDate = cardExpireDate_dp.SelectedDate;
+                        card.Name = cardName_tb.Text;
+                        card.Description = cardDescription_tb.Text;
+                        cardRep.Add(card);
+
+                    }
+                    else
+                    {
+                        card.ExpireDate = cardExpireDate_dp.SelectedDate;
+                        card.Name = cardName_tb.Text;
+                        card.Description = cardDescription_tb.Text;
+                    }
+
+
+                    //card.CreationDate = DateTime.Now;
+                    //card.ColumnId = cardId;//має приходить в конструктор //не трогать якшо едітиться???
+                    //card.Column = db.Columns.Find(card.ColumnId);
+
+                    //cardRep.Add(card);
+
+                    //OpenFileDialog ofd = new OpenFileDialog();
+                    //if (ofd.ShowDialog() == true)
+                    //{
+                    //    attachment.Path = ofd.FileName;
+                    if (attachment != null)
+                    {
+                        attachment.CardId = card.Id;
+                        attachmentRep.Add(attachment);
+                        //attachment.Card = card;
+
+                        card.Attachments.Add(attachment);
+                    }
+                    //}
+
+
+                    //if (card.Id == cardRep.Find(card.Id).Id)
+                    //{
+                    //try/////////////////////////костиль
+                    {
+                        cardRep.Edit(card);
+                    }
+                   // catch (Exception)
+                    {
+                    //    cardRep.Add(card);
+                    }
+                    //cardRep.Add(card);
+                    //cardRep.Edit(card);
+                    //MainWindow.cards.Add(card);
+                    //this.DialogResult = true;
+                    //this.Closed +=
+                    //ReadFromDb();
+                    (this.Owner as MainWindow).ReadFromDb(MainWindow.curUserDb.Id);
+                    this.Close();
                 }
-                else
-                    card.ExpireDate = cardExpireDate_dp.SelectedDate;
-
-
-                card.Name = cardName_tb.Text;
-                card.Description = cardDescription_tb.Text;
-                //card.CreationDate = DateTime.Now;
-                //card.ColumnId = cardId;//має приходить в конструктор //не трогать якшо едітиться???
-                //card.Column = db.Columns.Find(card.ColumnId);
-
-                //cardRep.Add(card);
-
-                //Repository<Attachment> attachmentRep = new Repository<Attachment>(db);
-                //OpenFileDialog ofd = new OpenFileDialog();
-                //if (ofd.ShowDialog() == true)
-                //{
-                //    attachment.Path = ofd.FileName;
-                if (attachment != null)
-                {
-                    attachment.CardId = card.Id;
-                    attachment.Card = card;
-                    card.Attachments.Add(attachment);
-                }
-                //}
-
-
-                //if (card.Id == cardRep.Find(card.Id).Id)
-                //{
-                try/////////////////////////костиль
-                {
-                    cardRep.Edit(card);
-                }
-                catch (Exception)
-                {
-                    cardRep.Add(card);
-                }
-                //cardRep.Add(card);
-                //cardRep.Edit(card);
-                //MainWindow.cards.Add(card);
-                //this.DialogResult = true;
-                //this.Closed +=
-                //ReadFromDb();
-                (this.Owner as MainWindow).ReadFromDb(MainWindow.curUserDb.Id);
-                this.Close();
             }
         }
 
@@ -127,8 +145,13 @@ namespace PresentationLayer
                 attachment.Path = ofd.FileName;
                 //attachment.CardId = card.Id;
                 //attachment.Card = card;
+
             }
         }
 
+        private void Attachment_lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Process.Start(((sender as ListBox).SelectedItem as Attachment).Path);
+        }
     }
 }

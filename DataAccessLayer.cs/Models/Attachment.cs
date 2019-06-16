@@ -9,13 +9,17 @@ namespace DataAccessLayer.cs.Models
 {
     public class Attachment
     {
-        
+
         public int Id { get; set; }
         public string Path { get; set; }
         //[Key]
-        [ForeignKey("Card")]
+        //[ForeignKey("Card")]
         public int? CardId { get; set; }
 
         public virtual Card Card { get; set; }
+        public override string ToString()
+        {
+            return System.IO.Path.GetFileName(Path);
+        }
     }
 }

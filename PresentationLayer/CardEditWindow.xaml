@@ -6,17 +6,18 @@
         xmlns:local="clr-namespace:PresentationLayer"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="CardEditWindow" Height="412" Width="325">
-    <Grid>
-        <Label Content="Name" HorizontalAlignment="Left" Height="34" Margin="23,36,0,0" VerticalAlignment="Top" Width="93"/>
+        Title="CardEditWindow" Height="412" Width="303">
+    <Grid Margin="0,0,2,0">
+        <Label Content="Name" HorizontalAlignment="Left" Height="34" Margin="10,9,0,0" VerticalAlignment="Top" Width="93"/>
         <Label Content="CreationDate" HorizontalAlignment="Left" Height="34" Margin="23,170,0,0" VerticalAlignment="Top" Width="93"/>
-        <Label Content="ExpireDate" HorizontalAlignment="Left" Height="34" Margin="23,219,0,0" VerticalAlignment="Top" Width="93"/>
-        <TextBox x:Name="cardName_tb" HorizontalAlignment="Left" Margin="136,37,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="35" Width="162"/>
-        <TextBox x:Name="cardDescription_tb" HorizontalAlignment="Left" Height="88" Margin="23,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="275"/>
-        <TextBox x:Name="cardCreationDate_tb"  HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" IsEnabled="False" VerticalAlignment="Top" Width="162" Margin="136,174,0,0"/>
-        <DatePicker x:Name="cardExpireDate_dp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,219,0,0" Width="162"/>
+        <Label Content="ExpireDate" HorizontalAlignment="Left" Height="34" Margin="23,205,0,0" VerticalAlignment="Top" Width="93"/>
+        <TextBox x:Name="cardName_tb" HorizontalAlignment="Left" Margin="83,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="35" Width="202"/>
+        <TextBox x:Name="cardDescription_tb" HorizontalAlignment="Left" Height="88" Margin="10,50,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="275"/>
+        <TextBox x:Name="cardCreationDate_tb"  HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" IsEnabled="False" VerticalAlignment="Top" Width="149" Margin="136,174,0,0"/>
+        <DatePicker x:Name="cardExpireDate_dp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,205,0,0" Width="149"/>
         <Button x:Name="addAttachment_btn" Content="AddAttachment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" Margin="136,268,0,0" Height="25" Click="AddAttachment_btn_Click"/>
-        <Button x:Name="save_btn" Content="Save" HorizontalAlignment="Left" Height="30" Margin="23,330,0,0" VerticalAlignment="Top" Width="275" Click="Save_btn_Click"/>
+        <Button x:Name="save_btn" Content="Save" HorizontalAlignment="Left" Height="30" Margin="136,341,0,0" VerticalAlignment="Top" Width="149" Click="Save_btn_Click"/>
+        <ListBox x:Name="attachment_lb" BorderThickness="1" HorizontalAlignment="Left" Height="132" Margin="10,239,0,0" VerticalAlignment="Top" Width="106" SelectionChanged="Attachment_lb_SelectionChanged"/>
 
     </Grid>
 </Controls:MetroWindow>
