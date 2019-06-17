@@ -5,6 +5,7 @@ using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,7 @@ namespace PresentationLayer
         int cardId;
         Attachment attachment;
         Card card;
-
+        ObservableCollection<string> attactmentCollection = new ObservableCollection<string>();
         Repository<Card> cardRep;
         Repository<Attachment> attachmentRep;
         public CardEditWindow(int _cardId = 0)
@@ -49,8 +50,11 @@ namespace PresentationLayer
                     //card = cardRep.Find(_cardId);
                     card = cardRep.GetWithInclude(c => c.Id == _cardId, c => c.Attachments).FirstOrDefault(x => x.Id == _cardId);
 
-                    attachment_lb.ItemsSource = card.Attachments;
-
+                    attachment_lb.ItemsSource = attactmentCollection;
+                    foreach (Attachment a in card.Attachments)
+                    {
+                        attactmentCollection.Add(/*System.IO.Path.GetFileName*/(a.Path));
+                    } 
                     cardName_tb.Text = card.Name;
                     cardDescription_tb.Text = card.Description;
                     cardCreationDate_tb.Text = card.CreationDate.ToString();
@@ -143,6 +147,7 @@ namespace PresentationLayer
             if (ofd.ShowDialog() == true)
             {
                 attachment.Path = ofd.FileName;
+                        attactmentCollection.Add(/*System.IO.Path.GetFileName*/(attachment.Path));
                 //attachment.CardId = card.Id;
                 //attachment.Card = card;
 
@@ -151,7 +156,7 @@ namespace PresentationLayer
 
         private void Attachment_lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Process.Start(((sender as ListBox).SelectedItem as Attachment).Path);
+            Process.Start((sender as ListBox).SelectedItem.ToString());
         }
     }
 }

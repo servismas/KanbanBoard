@@ -25,9 +25,14 @@ using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace PresentationLayer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    //public class GetDTO(int id)
+    //{
+    //    using (KanbanBoardContext db = new KanbanBoardContext())
+    //    {
+    //        userRepository = new Repository<User>(db);
+    //        return userRepository.Find(_id);
+    //    }
+    //}
     public partial class MainWindow : MetroWindow
     {
         //public Card card;
@@ -45,8 +50,8 @@ namespace PresentationLayer
 
         UserDTO curUser;
         public static User curUserDb { get; set; }//для заглушки
-
-
+        Board currentBoard;
+        Team currentTeam;
         CreateEditColumnsContractClient columnsClient = new CreateEditColumnsContractClient();
         CreateEditeCardContractClient cardsClient = new CreateEditeCardContractClient();
 
@@ -57,6 +62,13 @@ namespace PresentationLayer
             //authoreRegisterWind.ShowDialog();
             // curUser = GetDTOUser(); //(authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             curUserDb = GetUser(1);
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            { 
+            boardRepos = new Repository<Board>(db);
+            currentBoard = boardRepos.Find(1);
+
+            }
+
             InitializeComponent();
             
             board = new ObservableCollection<Column>();
@@ -85,7 +97,7 @@ namespace PresentationLayer
             //  var res = columnsClient.GetUserColumn(b);
 
         }
-
+        
         public User GetUser(int _id)
         {
             using (KanbanBoardContext db = new KanbanBoardContext())

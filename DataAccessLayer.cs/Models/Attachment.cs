@@ -17,9 +17,5 @@ namespace DataAccessLayer.cs.Models
         public int? CardId { get; set; }
 
         public virtual Card Card { get; set; }
-        public override string ToString()
-        {
-            return System.IO.Path.GetFileName(Path);
-        }
     }
 }
