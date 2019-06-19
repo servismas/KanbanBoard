@@ -1,5 +1,4 @@
-﻿//using AutoMapper;
-using DataAccessLayer.cs;
+﻿using DataAccessLayer.cs;
 using DataAccessLayer.cs.Models;
 using DataAccessLayer.cs.Repository;
 using MahApps.Metro.Controls;
@@ -25,21 +24,18 @@ using WcfBussinesLogicLayerLibrary.ModelsDTO;
 
 namespace PresentationLayer
 {
-    //public class GetDTO(int id)
-    //{
-    //    using (KanbanBoardContext db = new KanbanBoardContext())
-    //    {
-    //        userRepository = new Repository<User>(db);
-    //        return userRepository.Find(_id);
-    //    }
-    //}
     public partial class MainWindow : MetroWindow
     {
         //public Card card;
         public static ObservableCollection<Card> column1, column2, column3, column4;
+        public static User currentUserDb { get; set; }//для заглушки
+        public static int curColumn1Id, curColumn2Id, curColumn3Id, curColumn4Id;
         public static ObservableCollection<Column> board;
         public static ObservableCollection<Board> boardS;
+
         public Column column;
+        Board currentBoard { get; set; }
+        Team currentTeam;
 
         Repository<Attachment> attachmentRepos;
         Repository<Board> boardRepos;
@@ -50,19 +46,10 @@ namespace PresentationLayer
         Repository<User> userRepository;
 
 
-        UserDTO currentUser;
-        public static User currentUserDb { get; set; }//для заглушки
-        public static int curColumn1Id, curColumn2Id, curColumn3Id, curColumn4Id;
-        Board currentBoard { get; set; }
-        Team currentTeam;
-        //Profile currentProfile;
 
 
         int userID = 2;
 
-
-        CreateEditColumnsContractClient columnsClient = new CreateEditColumnsContractClient();
-        CreateEditeCardContractClient cardsClient = new CreateEditeCardContractClient();
 
 
         public MainWindow()
@@ -80,19 +67,9 @@ namespace PresentationLayer
                 // currentUser = GetDTOUser(); //(authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
             GetUserBoard(userID);
-            //currentUserDb = GetUser(1);
-            //using (KanbanBoardContext db = new KanbanBoardContext())
-            //{ 
-            //boardRepos = new Repository<Board>(db);
-            //currentBoard = boardRepos.Find(1);
-
-            //}
 
             boardS = new ObservableCollection<Board>();
-            //boardName_lb.ItemsSource = boardS;
-
             board = new ObservableCollection<Column>();
-
             column1 = new ObservableCollection<Card>();
             column2 = new ObservableCollection<Card>();
             column3 = new ObservableCollection<Card>();
@@ -108,15 +85,6 @@ namespace PresentationLayer
             column2Name_tb.DataContext = board[1];
             column3Name_tb.DataContext = board[2];
             column4Name_tb.DataContext = board[3];
-            //borderListBox1.ItemsSource = board[0].Cards as ObservableCollection<Card>;
-            //borderListBox2.ItemsSource = board[1].Cards as ObservableCollection<Card>;
-            //borderListBox3.ItemsSource = board[2].Cards as ObservableCollection<Card>;
-            //borderListBox4.ItemsSource = board[3].Cards as ObservableCollection<Card>;
-            //BoardDTO b = new BoardDTO() { Id = 1 };
-
-            //  var res = columnsClient.GetUserColumn(b);
-            
-            
         }
 
         private void BoardName_cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -169,63 +137,41 @@ namespace PresentationLayer
                 currentUserDb = userRepository.Find(_userId);
                 currentTeam = teamRepos.Find((int)currentUserDb.TeamId);
                 currentBoard = boardRepos.GetWithInclude(b => b.TeamId == currentTeam.Id, b => b.Columns, b => b.Team).FirstOrDefault(b => b.TeamId == currentTeam.Id);
-                //BoardWindow.Title = currentBoard.Name;
             }
-            //currentBoard.Columns.Add(new Column());
         }
-
 
         public void ReadFromDb(int _id)//може айді і не треба
         {
             boardName_tb.DataContext = currentBoard;////////////////////////не міняється ім"я дошки
             boardName_cb.ItemsSource = boardS;
-            //column = new Column();
             board.Clear();
             boardS.Clear();
             column1.Clear();
             column2.Clear();
             column3.Clear();
             column4.Clear();
-            //List<Team> listTeams = new List<Team>();
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 cardsRepository = new Repository<Card>(db);
                 columnRepository = new Repository<Column>(db);
 
                 boardRepos = new Repository<Board>(db);
-                //columnRepository = new Repository<Column>(db);
                 var b = boardRepos.GetAll();
                 foreach (var item in b)
                 {
                     boardS.Add(item);
                 }
-                //foreach (Column column in columnRepository.GetAllInclude(x => x.Cards))
-                //{
-                //    board.Add(column);
-                //}
                 foreach (Column column in currentBoard.Columns)
                 {
                     board.Add(column);
-
                 }
+
                 borderListBox1.Tag = curColumn1Id = board[0].Id;
                 borderListBox2.Tag = curColumn2Id = board[1].Id;
                 borderListBox3.Tag = curColumn3Id = board[2].Id;
                 borderListBox4.Tag = curColumn4Id = board[3].Id;
-                // User user = (db.Users.FirstOrDefault(u => u.Id == _id));
 
-
-
-
-                //db.Teams.FirstOrDefault(t => t.Users.FirstOrDefault(u => u.Id == _id));
-
-
-                //listTeams = db.Teams.Include("Users").Include("Users.Teams").Include("Boards").Include("Boards.Columns").Include("Boards.Columns.Cards").Include("Boards.Columns.Cards.Users").ToList();
-                //listTeams[0].Users.Add(new User { Mail = "qaz@qaz.qaz", Password = "qaz" });
-                //db.SaveChanges();
-
-
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn1Id/*, y => y.User_Id = _id*/))
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn1Id))
                 {
                     column1.Add(card);
                 }
@@ -242,13 +188,11 @@ namespace PresentationLayer
                     column4.Add(card);
                 }
             }
-            //var i = res[0];
         }
 
         private void ListBox_Drop(object sender, DragEventArgs e)
         {
             CardButton b = (CardButton)e.Data.GetData("Object");
-
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 cardsRepository = new Repository<Card>(db);
@@ -266,6 +210,7 @@ namespace PresentationLayer
             cardEditWindow.Owner = this;
             cardEditWindow.ShowDialog();
         }
+
         public void AddNewDataToDB()
         {
             using (KanbanBoardContext context = new KanbanBoardContext())
@@ -341,6 +286,7 @@ namespace PresentationLayer
                 context.SaveChanges();
             }
         }
+
         public void AddNewBoard()
         {
             Column column1 = new Column { Name = "Tasks" };
@@ -376,9 +322,9 @@ namespace PresentationLayer
                 {
                     Name = "newColumn"
                 };
-
             }
         }
+
         public void AddNewProfile()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
@@ -392,6 +338,7 @@ namespace PresentationLayer
                 profileRepos.Add(newProfile);
             }
         }
+
         public void AddNewTeam()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
@@ -404,6 +351,7 @@ namespace PresentationLayer
                 teamRepos.Add(newTeam);
             }
         }
+
         public void AddNewUser()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
