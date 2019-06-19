@@ -8,9 +8,15 @@
              d:DesignHeight="450" d:DesignWidth="800"
              AllowDrop="True">
     <Grid>
-        <Button 
+        <Button
             x:Name="drugBtnUI" 
-            Height="20" Click="DrugBtn_Click" Tag="{Binding Id}" Content="{Binding Name}" Margin="1" BorderBrush="Black" MouseMove="DrugBtn_MouseMove">
+            Height="50" Click="DrugBtn_Click" Tag="{Binding Id}"  Margin="1" BorderBrush="Black" MouseMove="DrugBtn_MouseMove">
+            <StackPanel Orientation="Horizontal">
+                <Button/>
+                <Button Content="{Binding Name}"/>
+                <Button/>
+                
+            </StackPanel>
         </Button>
     </Grid>
 </UserControl>

@@ -48,7 +48,7 @@ namespace PresentationLayer
                     cardRep = new Repository<Card>(db);
                     //card = db.Cards.Include("Attachments").FirstOrDefault(x => x.Id == _cardId);
                     //card = cardRep.Find(_cardId);
-                    card = cardRep.GetWithInclude(c => c.Id == _cardId, c => c.Attachments).FirstOrDefault(x => x.Id == _cardId);
+                    card = cardRep.GetWithInclude(c => c.Id == _cardId, c => c.Attachments).FirstOrDefault(/*x => x.Id == _cardId*/);
 
                     attachment_lb.ItemsSource = attactmentCollection;
                     foreach (Attachment a in card.Attachments)
@@ -67,7 +67,7 @@ namespace PresentationLayer
 
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (cardExpireDate_dp.SelectedDate != null)
+            if (cardExpireDate_dp.SelectedDate > DateTime.Now/* != null*/)
             {
                 using (KanbanBoardContext db = new KanbanBoardContext())
                 {
@@ -81,8 +81,8 @@ namespace PresentationLayer
                     {
                         card = new Card();
                         card.CreationDate = DateTime.Now;
-                        card.ColumnId = 1; // перевырить чи не треба додавать Column
-                                           //card.ExpireDate = DateTime.Now.AddDays(10);
+                        card.ColumnId = MainWindow.curColumn1Id; // перевырить чи не треба додавать Column
+                                                                 //card.ExpireDate = DateTime.Now.AddDays(10);
                         card.ExpireDate = cardExpireDate_dp.SelectedDate;
                         card.Name = cardName_tb.Text;
                         card.Description = cardDescription_tb.Text;
@@ -124,9 +124,9 @@ namespace PresentationLayer
                     {
                         cardRep.Edit(card);
                     }
-                   // catch (Exception)
+                    // catch (Exception)
                     {
-                    //    cardRep.Add(card);
+                        //    cardRep.Add(card);
                     }
                     //cardRep.Add(card);
                     //cardRep.Edit(card);
@@ -134,10 +134,12 @@ namespace PresentationLayer
                     //this.DialogResult = true;
                     //this.Closed +=
                     //ReadFromDb();
-                    (this.Owner as MainWindow).ReadFromDb(MainWindow.curUserDb.Id);
+                    (this.Owner as MainWindow).ReadFromDb(MainWindow.currentUserDb.Id);
                     this.Close();
                 }
             }
+            else
+                MessageBox.Show("Input corect ExpireDate");
         }
 
         private void AddAttachment_btn_Click(object sender, RoutedEventArgs e)

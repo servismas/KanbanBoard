@@ -38,6 +38,7 @@ namespace PresentationLayer
         //public Card card;
         public static ObservableCollection<Card> column1, column2, column3, column4;
         public static ObservableCollection<Column> board;
+        public static ObservableCollection<Board> boardS;
         public Column column;
 
         Repository<Attachment> attachmentRepos;
@@ -48,29 +49,48 @@ namespace PresentationLayer
         Repository<Team> teamRepos;
         Repository<User> userRepository;
 
-        UserDTO curUser;
-        public static User curUserDb { get; set; }//для заглушки
-        Board currentBoard;
+
+        UserDTO currentUser;
+        public static User currentUserDb { get; set; }//для заглушки
+        public static int curColumn1Id, curColumn2Id, curColumn3Id, curColumn4Id;
+        Board currentBoard { get; set; }
         Team currentTeam;
+        //Profile currentProfile;
+
+
+        int userID = 2;
+
+
         CreateEditColumnsContractClient columnsClient = new CreateEditColumnsContractClient();
         CreateEditeCardContractClient cardsClient = new CreateEditeCardContractClient();
 
 
         public MainWindow()
         {
-            //AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-            //authoreRegisterWind.ShowDialog();
-            // curUser = GetDTOUser(); //(authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
-            curUserDb = GetUser(1);
             using (KanbanBoardContext db = new KanbanBoardContext())
-            { 
-            boardRepos = new Repository<Board>(db);
-            currentBoard = boardRepos.Find(1);
-
+            {
+                userRepository = new Repository<User>(db);
+                User u = userRepository.GetAll().FirstOrDefault(x => x.Mail == "qwerty");
+                if (u == null)
+                    AddNewDataToDB();
             }
 
+                //AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+                //authoreRegisterWind.ShowDialog();
+                // currentUser = GetDTOUser(); //(authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
-            
+            GetUserBoard(userID);
+            //currentUserDb = GetUser(1);
+            //using (KanbanBoardContext db = new KanbanBoardContext())
+            //{ 
+            //boardRepos = new Repository<Board>(db);
+            //currentBoard = boardRepos.Find(1);
+
+            //}
+
+            boardS = new ObservableCollection<Board>();
+            //boardName_lb.ItemsSource = boardS;
+
             board = new ObservableCollection<Column>();
 
             column1 = new ObservableCollection<Card>();
@@ -82,7 +102,7 @@ namespace PresentationLayer
             borderListBox3.ItemsSource = column3;
             borderListBox4.ItemsSource = column4;
 
-            ReadFromDb(curUserDb.Id);
+            ReadFromDb(currentUserDb.Id);
 
             column1Name_tb.DataContext = board[0];
             column2Name_tb.DataContext = board[1];
@@ -95,9 +115,34 @@ namespace PresentationLayer
             //BoardDTO b = new BoardDTO() { Id = 1 };
 
             //  var res = columnsClient.GetUserColumn(b);
-
+            
+            
         }
-        
+
+        private void BoardName_cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (boardS.Count == 0) return;
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                boardRepos = new Repository<Board>(db);
+                currentBoard = boardRepos.GetWithInclude(b => b.Id == ((sender as ComboBox).SelectedItem as Board).Id,
+                    b => b.Columns, b => b.Team).FirstOrDefault();
+            }
+            ReadFromDb(0);
+        }
+
+        private void BoardName_lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (boardS.Count == 0) return;
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                boardRepos = new Repository<Board>(db);
+                currentBoard = boardRepos.GetWithInclude(b => b.Id == ((sender as ListBox).SelectedItem as Board).Id,
+                    b => b.Columns, b => b.Team).FirstOrDefault();
+            }
+            ReadFromDb(0);
+        }
+
         public User GetUser(int _id)
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
@@ -106,88 +151,68 @@ namespace PresentationLayer
                 return userRepository.Find(_id);
             }
         }
-        //public UserDTO GetDTOUser()
-        //{
 
-
-        //    curUser = new UserDTO();
-        //    curUserDb = new User();
-        //    using (KanbanBoardContext db = new KanbanBoardContext())
-        //    {
-        //        userRepository = new Repository<User>(db);
-
-
-
-
-        //        //AutoMapper.Mapper.Initialize(new Action<AutoMapper.IMapperConfigurationExpression>(x => x.CreateMap<User, UserDTO>()));
-        //        //var res = userRepository.GetAll();
-        //        //return AutoMapper.Mapper.Map<List<User>, List<UserDTO>>(res.ToList());
-
-
-
-
-        //        curUserDb = userRepository.Find(1);
-        //    }
-        //    AutoMapper.Mapper.Initialize(new Action<AutoMapper.IMapperConfigurationExpression>(x => x.CreateMap<User, UserDTO>()));
-        //    return Mapper.Map<UserDTO>(curUserDb);
-
-
-
-        //    //curUser.Id = curUserDb.Id;
-        //    //curUser.Mail = curUserDb.Mail;
-        //    //curUser.IsDeleted = curUserDb.IsDeleted;
-        //    //curUser.Password = curUserDb.Password;
-        //    ////curUser.Profile = curUserDb.Profile;
-        //    //curUser.ProfileId = curUserDb.ProfileId;
-        //    ////curUser.Team = curUserDb.Teams.Last();
-        //    //curUser.TeamId = curUserDb.TeamId;
-        //    //return curUser;
-        //}
-
-        //[Obsolete]
-        //public List<ColumnDTO> GetAllCollumns()
-        //{
-        //    using (KanbanBoardContext db = new KanbanBoardContext())
-        //    {
-        //        columnRepository = new Repository<Column>(db);
-        //        AutoMapper.Mapper.Initialize((new Action<AutoMapper.IMapperConfigurationExpression>(x => x.CreateMap<Column, ColumnDTO>())));
-        //        var res = columnRepository.GetAll();
-        //        return AutoMapper.Mapper.Map<List<Column>, List<ColumnDTO>>(res.ToList());
-
-        //    }
-        //}
-        public void GetCards()
+        private void AddNewBoardBtn_Click(object sender, RoutedEventArgs e)
         {
-            column1.Clear();
-            column2.Clear();
-            column3.Clear();
-            column4.Clear();
+            AddNewBoard();
+
         }
 
-        
-        public void ReadFromDb(int _id)
+        public void GetUserBoard(int _userId)
         {
-            column = new Column();
-            board.Clear();
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                userRepository = new Repository<User>(db);
+                teamRepos = new Repository<Team>(db);
+                boardRepos = new Repository<Board>(db);
 
+                currentUserDb = userRepository.Find(_userId);
+                currentTeam = teamRepos.Find((int)currentUserDb.TeamId);
+                currentBoard = boardRepos.GetWithInclude(b => b.TeamId == currentTeam.Id, b => b.Columns, b => b.Team).FirstOrDefault(b => b.TeamId == currentTeam.Id);
+                //BoardWindow.Title = currentBoard.Name;
+            }
+            //currentBoard.Columns.Add(new Column());
+        }
+
+
+        public void ReadFromDb(int _id)//може айді і не треба
+        {
+            boardName_tb.DataContext = currentBoard;////////////////////////не міняється ім"я дошки
+            boardName_cb.ItemsSource = boardS;
+            //column = new Column();
+            board.Clear();
+            boardS.Clear();
             column1.Clear();
             column2.Clear();
             column3.Clear();
             column4.Clear();
-            List<Team> listTeams = new List<Team>();
+            //List<Team> listTeams = new List<Team>();
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 cardsRepository = new Repository<Card>(db);
                 columnRepository = new Repository<Column>(db);
 
-
-                foreach (Column column in columnRepository.GetAllInclude(x => x.Cards))
+                boardRepos = new Repository<Board>(db);
+                //columnRepository = new Repository<Column>(db);
+                var b = boardRepos.GetAll();
+                foreach (var item in b)
+                {
+                    boardS.Add(item);
+                }
+                //foreach (Column column in columnRepository.GetAllInclude(x => x.Cards))
+                //{
+                //    board.Add(column);
+                //}
+                foreach (Column column in currentBoard.Columns)
                 {
                     board.Add(column);
+
                 }
-
-
-                User user = (db.Users.FirstOrDefault(u => u.Id == _id));
+                borderListBox1.Tag = curColumn1Id = board[0].Id;
+                borderListBox2.Tag = curColumn2Id = board[1].Id;
+                borderListBox3.Tag = curColumn3Id = board[2].Id;
+                borderListBox4.Tag = curColumn4Id = board[3].Id;
+                // User user = (db.Users.FirstOrDefault(u => u.Id == _id));
 
 
 
@@ -200,19 +225,19 @@ namespace PresentationLayer
                 //db.SaveChanges();
 
 
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 1/*, y => y.User_Id = _id*/))
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn1Id/*, y => y.User_Id = _id*/))
                 {
                     column1.Add(card);
                 }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 2))
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn2Id))
                 {
                     column2.Add(card);
                 }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 3))
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn3Id))
                 {
                     column3.Add(card);
                 }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == 4))
+                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn4Id))
                 {
                     column4.Add(card);
                 }
@@ -232,7 +257,7 @@ namespace PresentationLayer
                 c.ColumnId = newColumnId;
                 cardsRepository.Edit(c);
             }
-            ReadFromDb(curUserDb.Id);
+            ReadFromDb(currentUserDb.Id);
         }
 
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
@@ -240,6 +265,158 @@ namespace PresentationLayer
             CardEditWindow cardEditWindow = new CardEditWindow();
             cardEditWindow.Owner = this;
             cardEditWindow.ShowDialog();
+        }
+        public void AddNewDataToDB()
+        {
+            using (KanbanBoardContext context = new KanbanBoardContext())
+            {
+                User user1 = new User { Mail = "qwerty", Password = "111" };
+                User user2 = new User { Mail = "asd", Password = "222" };
+
+                Team team = new Team { Name = "testTeam2" };
+
+                Board board = new Board { Name = "testBoard2" };
+
+                Column column1 = new Column { Name = "Tasks" };
+                Column column2 = new Column { Name = "In progress" };
+                Column column3 = new Column { Name = "Delayed" };
+                Column column4 = new Column { Name = "Ready" };
+
+                Card card1 = new Card { Name = "2testCard1", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description1 from database" };
+                Card card2 = new Card { Name = "2testCard2", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description2 from database" };
+                Card card3 = new Card { Name = "2testCard3", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description3 from database" };
+                //Card card4 = new Card { Name = "2testCard4", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description4 from database" };
+                //Card card5 = new Card { Name = "2testCard5", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description5 from database" };
+
+                context.Users.Add(user1);
+                context.Users.Add(user2);
+
+                context.Teams.Add(team);
+
+                context.Boards.Add(board);
+
+                context.Columns.Add(column1);
+                context.Columns.Add(column2);
+                context.Columns.Add(column3);
+                context.Columns.Add(column4);
+
+                context.Cards.Add(card1);
+                context.Cards.Add(card2);
+                context.Cards.Add(card3);
+                //context.Cards.Add(card4);
+                //context.Cards.Add(card5);
+
+
+                team.Users.Add(user1);
+                team.Users.Add(user2);
+
+                user1.Teams.Add(team);
+                user2.Teams.Add(team);
+
+
+                team.Boards.Add(board);
+
+                column1.Cards.Add(card1);
+                column1.Cards.Add(card2);
+                column1.Cards.Add(card3);
+                //column.Cards.Add(card4);
+                //column.Cards.Add(card5);
+
+                card1.Users.Add(user1);
+                card2.Users.Add(user2);
+                //card3.Users.Add(user2);
+                //card4.Users.Add(user2);
+                //card5.Users.Add(user2);
+
+                board.Columns.Add(column1);
+                board.Columns.Add(column2);
+                board.Columns.Add(column3);
+                board.Columns.Add(column4);
+
+                context.SaveChanges();
+
+                user1.TeamId = team.Id;
+                user2.TeamId = team.Id;
+
+                context.SaveChanges();
+            }
+        }
+        public void AddNewBoard()
+        {
+            Column column1 = new Column { Name = "Tasks" };
+            Column column2 = new Column { Name = "In progress" };
+            Column column3 = new Column { Name = "Delayed" };
+            Column column4 = new Column { Name = "Ready" };
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                boardRepos = new Repository<Board>(db);
+                Board newBoard = new Board()
+                {
+                    Name = "NewBoard",
+                    TeamId = currentTeam.Id, 
+                    Columns =
+                    {
+                        new Column { Name = "Tasks" },
+                        new Column { Name = "In progress" },
+                        new Column { Name = "Delayed" },
+                        new Column { Name = "Ready" }
+                    }
+                };
+                boardRepos.Add(newBoard);
+                ReadFromDb(0);
+            }
+        }
+
+        public void AddNewColumn()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                columnRepository = new Repository<Column>(db);
+                Column newColumn = new Column()
+                {
+                    Name = "newColumn"
+                };
+
+            }
+        }
+        public void AddNewProfile()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                profileRepos = new Repository<Profile>(db);
+                Profile newProfile = new Profile()
+                {
+                    FirstName = "newFirstName",
+                    SecondName = "newSecondName"
+                };
+                profileRepos.Add(newProfile);
+            }
+        }
+        public void AddNewTeam()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                teamRepos = new Repository<Team>(db);
+                Team newTeam = new Team()
+                {
+                    Name = "newTeam"
+                };
+                teamRepos.Add(newTeam);
+            }
+        }
+        public void AddNewUser()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                userRepository = new Repository<User>(db);
+                User newUser = new User()
+                {
+                    Mail = "email",
+                    Password = "pass",
+                    TeamId = currentTeam.Id
+                };
+                userRepository.Add(newUser);
+            }
         }
     }
 }
