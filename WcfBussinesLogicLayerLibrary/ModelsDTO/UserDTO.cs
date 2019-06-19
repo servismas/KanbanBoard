@@ -11,7 +11,7 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
     {
         public UserDTO()
         {
-            Team =new List<TeamDTO>();
+            Teams =new List<TeamDTO>();
         }
 
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace WcfBussinesLogicLayerLibrary.ModelsDTO
         public int? ProfileId { get; set; }
         public ProfileDTO Profile { get; set; }
         public int? TeamId { get; set; }
-        public  List<TeamDTO> Team { get; set; }
+        public  List<TeamDTO> Teams { get; set; }
     }
 }

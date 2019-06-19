@@ -18,12 +18,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         private readonly IRepository<Board> BoardRepos;
         private readonly IRepository<Team> TeamRepos;
-        
+        private readonly IRepository<User> UserRepos;
 
-        public BoardService(IRepository<Board> _board, IRepository<Team> _team)
+
+        public BoardService(IRepository<Board> _board, IRepository<Team> _team, IRepository<User> _user)
         {
             BoardRepos = _board;
             TeamRepos = _team;
+            UserRepos = _user;
             
         }
 
@@ -80,6 +82,18 @@ namespace WcfBussinesLogicLayerLibrary.Services
             Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap(typeof(Board), typeof(BoardDTO)));
             return (BoardDTO)Mapper.Map(board, typeof(Board), typeof(BoardDTO));
+        }
+
+        public BoardDTO GetCurrentUserBoard(UserDTO currUser)
+        {
+            //BoardDTO returnBoard = null;
+
+            //TeamDTO currentTeam =currUser.Team[currUser.Team.Count];
+            //LogerClass.WriteLog(currentTeam.Name);
+            //returnBoard = currentTeam.Boards[currentTeam.Boards.Count];
+            //LogerClass.WriteLog(returnBoard.Name);
+            return null;
+            
         }
     }
 }

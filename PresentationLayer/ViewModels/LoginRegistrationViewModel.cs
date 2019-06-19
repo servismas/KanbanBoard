@@ -25,14 +25,10 @@ namespace PresentationLayer.ViewModels
         public LoginRegistrationViewModel()
         {
             Login = "Your email";
-           // List<TeamDTO> teamstest = new List<TeamDTO>() { new TeamDTO { Name = "SuperTeam", Boards = null, Users = null }};
-            int num = teamClient.GetAllTeams().Length; ///сюда маэ йти лист ДТО
-
+            CurrentTeam = new TeamDTO() { Name = "MainTeam" };
             TeamName = new List<string>();
-            foreach (var team in teamClient.GetAllTeams()) //і сюди
-            {
-                TeamName.Add(team.Name);
-            }
+            TeamName.Add(CurrentTeam.Name);
+            
         }
 
         public void CloseRegWind()
@@ -149,28 +145,28 @@ namespace PresentationLayer.ViewModels
                      Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
                      ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
 
-                         foreach (var team in teamClient.GetAllTeams())
-                         {
-                             CurrentTeam = null;
-                             string lowTeam = team.Name.ToLower();
-                             SelectTeam = SelectTeam.ToLower();
+                         //foreach (var team in teamClient.GetAllTeams())   // В розробці!!!
+                         //{
+                         //    CurrentTeam = null;
+                         //    string lowTeam = team.Name.ToLower();
+                         //    SelectTeam = SelectTeam.ToLower();
 
-                             if (lowTeam== SelectTeam)
-                             {
-                                 CurrentTeam = team;
-                                 return;
-                             }
+                         //    if (lowTeam== SelectTeam)
+                         //    {
+                         //        CurrentTeam = team;
+                         //        return;
+                         //    }
 
-                         }
+                         //}
 
-                         if (CurrentTeam==null)
-                         {
-                             CurrentTeam.Name = SelectTeam;
-                             CurrentTeam.Users.Add(CurrentUser);
-                         }
+                         //if (CurrentTeam==null)
+                         //{
+                         //    CurrentTeam.Name = SelectTeam;
+                         //    CurrentTeam.Users.Add(CurrentUser);
+                         //}
 
-
-                     regUser.Team.Add(CurrentTeam);
+                     teamClient.CreateNewTeam(CurrentTeam);
+                     regUser.Teams.Add(CurrentTeam);
                      regUser.Profile = newProf;
                      
                      userServiceClient.AddUser(regUser);

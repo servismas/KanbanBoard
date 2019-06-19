@@ -27,7 +27,7 @@ namespace WCFHostConsole
 
 
             AttachmentService attachmentService = new AttachmentService(repsitoryAttach, repsitoryCard);
-            BoardService boardtService = new BoardService(repsitoryBoard, repsitoryTeam);
+            BoardService boardtService = new BoardService(repsitoryBoard, repsitoryTeam, repsitoryUser);
             CardService cardService = new CardService(repsitoryCard, repsitoryColumn);
             ColumnsService columnsService = new ColumnsService(repsitoryBoard, repsitoryColumn);
             LogOn logOn = new LogOn(repsitoryUser);

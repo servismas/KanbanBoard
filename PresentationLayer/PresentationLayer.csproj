@@ -80,6 +80,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\BoardService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\LogONService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +106,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LoginRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Page Include="CardButton.xaml">
       <SubType>Designer</SubType>
@@ -154,6 +160,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\BoardService\DataAccessLayer.cs.Models.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\BoardService\service.wsdl" />
+    <None Include="Connected Services\BoardService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\BoardService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\BoardService\WcfBussinesLogicLayerLibrary.ModelsDTO.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\LogONService\service.wsdl" />
     <None Include="Connected Services\LogONService\service.xsd">
       <SubType>Designer</SubType>
@@ -199,6 +218,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DataAccessLayer.cs.Models.Profile.datasource" />
+    <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.BoardDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.ProfileDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.TeamDTO.datasource" />
     <None Include="Properties\DataSources\WcfBussinesLogicLayerLibrary.ModelsDTO.UserDTO.datasource" />
@@ -224,6 +244,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\BoardService\" />
     <WCFMetadataStorage Include="Connected Services\LogONService\" />
     <WCFMetadataStorage Include="Connected Services\ProfileService\" />
     <WCFMetadataStorage Include="Connected Services\TeamService\" />
@@ -273,6 +294,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\LogONService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BoardService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BoardService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BoardService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

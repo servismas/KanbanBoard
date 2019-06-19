@@ -41,18 +41,9 @@ namespace PresentationLayer
            // authoreRegisterWind.ShowDialog();
            // curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
-
-            Zaglushka();
-
-            column1 = new ObservableCollection<Card>();
-            column2 = new ObservableCollection<Card>();
-            column3 = new ObservableCollection<Card>();
-            column4 = new ObservableCollection<Card>();
-            borderListBox1.ItemsSource = column1;
-            borderListBox2.ItemsSource = column2;
-            borderListBox3.ItemsSource = column3;
-            borderListBox4.ItemsSource = column4;
-            ReadFromDb();
+            this.DataContext = new MainWindowViewModel(curUser);
+            InitializeComponent();
+           //ReadFromDb();
         }
         public void Zaglushka()
         {
