@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.cs.Interfases;
+﻿using AutoMapper;
+using DataAccessLayer.cs.Interfases;
 using DataAccessLayer.cs.Models;
 using Ninject;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using WcfBussinesLogicLayerLibrary.ModelsDTO;
 using WcfBussinesLogicLayerLibrary.Services;
 
 
@@ -14,6 +16,7 @@ namespace WCFHostConsole
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             var kernel = new StandardKernel(new DbInject());
@@ -24,6 +27,19 @@ namespace WCFHostConsole
             var repsitoryTeam = kernel.Get<IRepository<Team>>();
             var repsitoryAttach = kernel.Get<IRepository<Attachment>>();
             var repsitoryProfile = kernel.Get<IRepository<Profile>>();
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<AttachmentDTO, Attachment>();
+                cfg.CreateMap<CardDTO, Card>();
+                cfg.CreateMap<ColumnDTO, Column>();
+                cfg.CreateMap<BoardDTO, Board>();
+                cfg.CreateMap<UserDTO, User>();
+                cfg.CreateMap<TeamDTO, Team>();
+                cfg.CreateMap<ProfileDTO, Profile>();
+            }
+            );
+
 
 
             AttachmentService attachmentService = new AttachmentService(repsitoryAttach, repsitoryCard);
