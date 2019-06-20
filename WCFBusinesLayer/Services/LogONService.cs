@@ -30,7 +30,22 @@ namespace WCFBusinesLayer.Services
                     if (entUser.Password==pass)
                     {
                         LogerClass.WriteLog(entUser.Mail + " "+entUser.GetType().ToString());
-                        user = AutoMapper.Mapper.Map<UserDTO>(entUser);
+
+                        //user = AutoMapper.Mapper.Map<UserDTO>(entUser);
+
+                        user.Id = entUser.Id;
+                        user.IsDeleted = entUser.IsDeleted;
+                        user.Mail = entUser.Mail;
+                        user.Password = entUser.Password;
+                        user.Profile.Id = entUser.Profile.Id;
+                        user.Profile.Photo = entUser.Profile.Photo;
+                        user.Profile.FirstName = entUser.Profile.FirstName;
+                        user.Profile.SecondName = entUser.Profile.SecondName;
+                        user.ProfileId = entUser.ProfileId;
+                        user.TeamId = entUser.TeamId;
+                        user.Teams = null;
+                        
+
                         LogerClass.WriteLog(user.Mail + " " + user.GetType().ToString());
                     }
                 }
