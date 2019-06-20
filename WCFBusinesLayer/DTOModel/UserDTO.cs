@@ -1,30 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.cs.Models
+namespace WCFBusinesLayer.DTOModel
 {
-    public class User
+    public class UserDTO
     {
-        public User()
+        public UserDTO()
         {
-            Teams = new List<Team>();
+            Teams = new List<TeamDTO>();
         }
         public int Id { get; set; }
-        [Required]
+       
         public string Mail { get; set; }
-        [Required]
+       
         public string Password { get; set; }
         public bool? IsDeleted { get; set; }
 
-        [ForeignKey("Profile")]
         public int? ProfileId { get; set; }
-        public virtual Profile Profile { get; set; }
+        public virtual ProfileDTO Profile { get; set; }
         public int? TeamId { get; set; }
-        public virtual ICollection<Team> Teams { get; set; }
+        public virtual ICollection<TeamDTO> Teams { get; set; }
     }
 }

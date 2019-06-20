@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
-//using PresentationLayer.TeamService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using WcfBussinesLogicLayerLibrary.ModelsDTO;
+using WCFBusinesLayer.DTOModel;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace PresentationLayer.ViewModels
@@ -20,15 +19,15 @@ namespace PresentationLayer.ViewModels
     
     public class LoginRegistrationViewModel :INotifyPropertyChanged,IDataErrorInfo
     {
-        private TeamService.CreateEditeTeamContractClient teamClient = new TeamService.CreateEditeTeamContractClient();
-        private LogONService.LogOnUserContractClient LogOnClient = new LogONService.LogOnUserContractClient();
+       // private TeamService.CreateEditeTeamContractClient teamClient = new TeamService.CreateEditeTeamContractClient();
+        private LogService.LogONContractClient  LogOnClient = new LogService.LogONContractClient();
         public LoginRegistrationViewModel()
         {
             Login = "Your email";
             CurrentTeam = new TeamDTO() { Name = "MainTeam" };
             TeamName = new List<string>();
             TeamName.Add(CurrentTeam.Name);
-            
+
         }
 
         public void CloseRegWind()
@@ -58,6 +57,10 @@ namespace PresentationLayer.ViewModels
                 return loginOK ??
                  (loginOK = new RelayCommand(obj =>
                  {
+                     try
+                     {
+
+                     
                      Pass = (obj as PasswordBox).Password;
                      HeshPass = CreateHeshPass(Pass);
                      CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);
@@ -67,6 +70,12 @@ namespace PresentationLayer.ViewModels
                      {
                          StartWind.ShowMessageAsync("Error", "Enter the correct account credentials!");
                          //MessageBox.Show("Enter the correct account credentials!");
+                     }
+                     }
+                     catch (Exception ex)
+                     {
+
+                         StartWind.ShowMessageAsync("Error",ex.Message);
                      }
                  }));
             }
@@ -130,13 +139,13 @@ namespace PresentationLayer.ViewModels
                      CurrentUser = null;
                      try
                      {                     
-                     UserService.CreateEditeUserContractClient userServiceClient = new UserService.CreateEditeUserContractClient();
+                    // UserService.CreateEditeUserContractClient userServiceClient = new UserService.CreateEditeUserContractClient();
                      UserDTO regUser=new UserDTO();
                      regUser.IsDeleted = false;
                      regUser.Mail = Login;
                      regUser.Password = CreateHeshPass(Pass = (obj as PasswordBox).Password);
 
-                     ProfileService.CreateEditeProfileContractClient profileClient = new ProfileService.CreateEditeProfileContractClient();
+                   //  ProfileService.CreateEditeProfileContractClient profileClient = new ProfileService.CreateEditeProfileContractClient();
                      ProfileDTO newProf = new ProfileDTO();
                      newProf.FirstName = FirstName;
                      newProf.SecondName = SecondName;
@@ -165,11 +174,11 @@ namespace PresentationLayer.ViewModels
                          //    CurrentTeam.Users.Add(CurrentUser);
                          //}
 
-                     teamClient.CreateNewTeam(CurrentTeam);
+                    // teamClient.CreateNewTeam(CurrentTeam);
                      regUser.Teams.Add(CurrentTeam);
                      regUser.Profile = newProf;
                      
-                     userServiceClient.AddUser(regUser);
+                   //  userServiceClient.AddUser(regUser);
                      CurrentUser = regUser;
                      }
                      catch (Exception ex)

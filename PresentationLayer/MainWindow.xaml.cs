@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WcfBussinesLogicLayerLibrary.ModelsDTO;
+using WCFBusinesLayer.DTOModel;
 
 namespace PresentationLayer
 {
@@ -37,9 +37,9 @@ namespace PresentationLayer
         User curUserDb;//для заглушки
         public MainWindow()
         {
-           // AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-           // authoreRegisterWind.ShowDialog();
-           // curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
+            AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+            authoreRegisterWind.ShowDialog();
+            curUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
             this.DataContext = new MainWindowViewModel(curUser);
             InitializeComponent();

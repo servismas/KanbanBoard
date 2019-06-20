@@ -73,9 +73,9 @@
       <Project>{865EE140-59BB-4B45-B3CB-35E2E053DDCE}</Project>
       <Name>DataAccessLayer.cs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WcfBussinesLogicLayerLibrary\WcfBussinesLogicLayerLibrary.csproj">
-      <Project>{D87ED364-71EF-4AEE-9BF1-82762B7F696A}</Project>
-      <Name>WcfBussinesLogicLayerLibrary</Name>
+    <ProjectReference Include="..\WCFBusinesLayer\WCFBusinesLayer.csproj">
+      <Project>{bbf03392-b480-4a61-b569-885b69a9ba5e}</Project>
+      <Name>WCFBusinesLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

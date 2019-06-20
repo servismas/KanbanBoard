@@ -10,7 +10,7 @@ using WcfBussinesLogicLayerLibrary.ModelsDTO;
 namespace WcfBussinesLogicLayerLibrary.Contracts
 {
     [ServiceContract]
-    interface ICreateEditeProfileContract
+    public interface ICreateEditeProfileContract
     {
         [OperationContract]
         void AddProfile(ProfileDTO newProfile);

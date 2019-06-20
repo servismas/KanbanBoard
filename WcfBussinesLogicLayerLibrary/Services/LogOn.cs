@@ -41,11 +41,16 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
             if (userEntity != null)
             {
-                Mapper.Reset();
-                Mapper.Initialize(cfg => cfg.CreateMap(typeof(User), typeof(UserDTO)));
-                currentUser = (UserDTO)Mapper.Map(userEntity, typeof(User), typeof(UserDTO));
-            }       
-            Mapper.Reset();
+                //Mapper.Reset();
+                //Mapper.Initialize(cfg => cfg.CreateMap(typeof(User), typeof(UserDTO)));
+                // currentUser = (UserDTO)Mapper.Map(userEntity, typeof(User), typeof(UserDTO));
+                //currentUser = Mapper.Map<UserDTO>(userEntity);
+                LogerClass.WriteLog(userEntity.Mail);
+                currentUser = Mapper.Map<UserDTO>(userEntity);
+                LogerClass.WriteLog(currentUser.Password);
+            }
+           // Mapper.Map<HistoryEventEntity, HistoryEventDTO>(historyEvent)
+          //  Mapper.Reset();
             return currentUser;
         }
     }

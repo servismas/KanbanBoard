@@ -12,7 +12,7 @@
             <RowDefinition Height="0.25*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid x:Name="MenuGrid">
+        <Grid  x:Name="MenuGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -35,7 +35,7 @@
             </StackPanel>
 
         </Grid>
-        <ListBox Grid.Row="1" Name="main_listBox" Margin="5" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" >
+        <!--<ListBox Grid.Row="1" Name="main_listBox" Margin="5" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -72,6 +72,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-        </StackPanel>
+        </StackPanel>-->
+                
     </Grid>
 </Controls:MetroWindow>

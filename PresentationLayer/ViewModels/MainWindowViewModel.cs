@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using WcfBussinesLogicLayerLibrary.ModelsDTO;
+using WCFBusinesLayer.DTOModel;
+
 
 namespace PresentationLayer.ViewModels
 {
@@ -36,8 +37,8 @@ namespace PresentationLayer.ViewModels
 
         public void GetBoard(UserDTO user)
         {
-            PresentationLayer.BoardService.CreateEditeBoardContractClient boardClient = new BoardService.CreateEditeBoardContractClient();
-            boardClient.GetCurrentUserBoard(user);
+          //  PresentationLayer.BoardService.CreateEditeBoardContractClient boardClient = new BoardService.CreateEditeBoardContractClient();
+           // boardClient.GetCurrentUserBoard(user);
         }
 
     }
