@@ -23,7 +23,7 @@ namespace WCFBusinesLayer.Services
         public UserDTO CheckCredationals(string login, string pass)
         {
             UserDTO user = null;
-            foreach (var entUser in UserRepos.GetAll())
+            foreach (User entUser in UserRepos.GetAll())
             {
                 if (entUser.Mail==login)
                 {
@@ -31,19 +31,19 @@ namespace WCFBusinesLayer.Services
                     {
                         LogerClass.WriteLog(entUser.Mail + " "+entUser.GetType().ToString());
 
-                        //user = AutoMapper.Mapper.Map<UserDTO>(entUser);
+                        user =(UserDTO) AutoMapper.Mapper.Map(entUser, typeof(User), typeof(UserDTO));
 
-                        user.Id = entUser.Id;
-                        user.IsDeleted = entUser.IsDeleted;
-                        user.Mail = entUser.Mail;
-                        user.Password = entUser.Password;
-                        user.Profile.Id = entUser.Profile.Id;
-                        user.Profile.Photo = entUser.Profile.Photo;
-                        user.Profile.FirstName = entUser.Profile.FirstName;
-                        user.Profile.SecondName = entUser.Profile.SecondName;
-                        user.ProfileId = entUser.ProfileId;
-                        user.TeamId = entUser.TeamId;
-                        user.Teams = null;
+                        //user.Id = entUser.Id;
+                        //user.IsDeleted = entUser.IsDeleted;
+                        //user.Mail = entUser.Mail;
+                        //user.Password = entUser.Password;
+                        //user.Profile.Id = entUser.Profile.Id;
+                        //user.Profile.Photo = entUser.Profile.Photo;
+                        //user.Profile.FirstName = entUser.Profile.FirstName;
+                        //user.Profile.SecondName = entUser.Profile.SecondName;
+                        //user.ProfileId = entUser.ProfileId;
+                        //user.TeamId = entUser.TeamId;
+                        //user.Teams = null;
                         
 
                         LogerClass.WriteLog(user.Mail + " " + user.GetType().ToString());

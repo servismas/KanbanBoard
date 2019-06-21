@@ -18,19 +18,19 @@ namespace WCFHostConsole
 
         static void Main(string[] args)
         {
-            Mapper.Initialize(cfg =>
-            {
-                //cfg.CreateMap<AttachmentDTO, Attachment>();
-                //cfg.CreateMap<CardDTO, Card>();
-                //cfg.CreateMap<ColumnDTO, Column>();
-                //cfg.CreateMap<BoardDTO, Board>();
-                cfg.CreateMap<UserDTO, User>();
-                //cfg.CreateMap<TeamDTO, Team>();
-                //cfg.CreateMap<ProfileDTO, DataAccessLayer.cs.Models.Profile>();
-            }
-            );
+            //Mapper.Initialize(cfg =>
+            //{
+            //    //cfg.CreateMap<AttachmentDTO, Attachment>();
+            //    //cfg.CreateMap<CardDTO, Card>();
+            //    //cfg.CreateMap<ColumnDTO, Column>();
+            //    //cfg.CreateMap<BoardDTO, Board>();
+            //    cfg.CreateMap<UserDTO, User>();
+            //    //cfg.CreateMap<TeamDTO, Team>();
+            //    //cfg.CreateMap<ProfileDTO, DataAccessLayer.cs.Models.Profile>();
+            //}
+            //);
 
-
+            // AutoMapper.Mapper.Initialize(new Action<AutoMapper.IMapperConfigurationExpression>(x => x.CreateMap<User,UserDTO>()));
 
 
             var kernel = new StandardKernel(new DbInject());
