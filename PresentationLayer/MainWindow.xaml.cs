@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.cs;
+﻿using AutoMapper;
+using DataAccessLayer.cs;
 using DataAccessLayer.cs.Models;
 using DataAccessLayer.cs.Repository;
 using MahApps.Metro.Controls;
@@ -21,6 +22,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WcfBussinesLogicLayerLibrary.ModelsDTO;
+using Profile = DataAccessLayer.cs.Models.Profile;
+
+//using System.ServiceModel;
 
 namespace PresentationLayer
 {
@@ -39,7 +43,7 @@ namespace PresentationLayer
 
         Repository<Attachment> attachmentRepos;
         Repository<Board> boardRepos;
-        Repository<Card> cardsRepository;
+        Repository<Card> cardRepository;
         Repository<Column> columnRepository;
         Repository<Profile> profileRepos;
         Repository<Team> teamRepos;
@@ -49,7 +53,6 @@ namespace PresentationLayer
 
 
         int userID = 2;
-
 
 
         public MainWindow()
@@ -85,46 +88,121 @@ namespace PresentationLayer
             column2Name_tb.DataContext = board[1];
             column3Name_tb.DataContext = board[2];
             column4Name_tb.DataContext = board[3];
+
+
+            var w = GetAllAttachmentsDTO();
+            var y = GetAllBoardsDTO();
+            var q = GetAllCardsDTO();
+            var e = GetAllColumnsDTO();
+            var i = GetAllProfilesDTO();
+            var r = GetAllTeamsDTO();
+            var t = GetAllUsersDTO();
         }
 
-        private void BoardName_cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public UserDTO GetUserDTO()
         {
-            if (boardS.Count == 0) return;
+            UserDTO userDTO = new UserDTO();
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
-                boardRepos = new Repository<Board>(db);
-                currentBoard = boardRepos.GetWithInclude(b => b.Id == ((sender as ComboBox).SelectedItem as Board).Id,
-                    b => b.Columns, b => b.Team).FirstOrDefault();
+                userRepository = new Repository<User>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<User, UserDTO>()));
+                userDTO = Mapper.Map<User, UserDTO>(userRepository.Find(1));
+                Mapper.Reset();
             }
-            ReadFromDb(0);
+            return userDTO;
         }
-
-        private void BoardName_lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public List<AttachmentDTO> GetAllAttachmentsDTO()
         {
-            if (boardS.Count == 0) return;
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
-                boardRepos = new Repository<Board>(db);
-                currentBoard = boardRepos.GetWithInclude(b => b.Id == ((sender as ListBox).SelectedItem as Board).Id,
-                    b => b.Columns, b => b.Team).FirstOrDefault();
+                attachmentRepos = new Repository<Attachment>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Attachment, AttachmentDTO>()));
+                var res = Mapper.Map<List<Attachment>, List<AttachmentDTO>>(attachmentRepos.GetAll().ToList());
+                Mapper.Reset();
+                return res;
             }
-            ReadFromDb(0);
         }
-
-        public User GetUser(int _id)
+        public AttachmentDTO GetAttachmentDTO()
+        {
+            AttachmentDTO attachmentDTO = new AttachmentDTO();
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                attachmentRepos = new Repository<Attachment>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Attachment, AttachmentDTO>()));
+                var res = Mapper.Map<Attachment, AttachmentDTO>(attachmentRepos.Find(1));
+                Mapper.Reset();
+                return res;
+            }
+        }
+        public List<CardDTO> GetAllCardsDTO()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                cardRepository = new Repository<Card>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Card, CardDTO>()));
+                var res = Mapper.Map<List<Card>, List<CardDTO>>(cardRepository.GetAll().ToList());
+                Mapper.Reset();
+                return res;
+            }
+        }
+        public List<ProfileDTO> GetAllProfilesDTO()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                profileRepos = new Repository<Profile>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Card, CardDTO>()));
+                var res = Mapper.Map<List<Profile>, List<ProfileDTO>>(profileRepos.GetAll().ToList());
+                Mapper.Reset();
+                return res;
+            }
+        }
+        public List<UserDTO> GetAllUsersDTO()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
                 userRepository = new Repository<User>(db);
-                return userRepository.Find(_id);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<User, UserDTO>()));
+                var res = Mapper.Map<List<User>, List<UserDTO>>(userRepository.GetAll().ToList());
+                Mapper.Reset();
+                return res;
+            }
+        }
+        public List<ColumnDTO> GetAllColumnsDTO()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                columnRepository = new Repository<Column>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Column, ColumnDTO>()));
+                var res = Mapper.Map<List<Column>, List<ColumnDTO>>(columnRepository.GetAll().ToList());
+                Mapper.Reset();
+                return res;
+            }
+        }
+        public List<BoardDTO> GetAllBoardsDTO()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                boardRepos = new Repository<Board>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Board, BoardDTO>()));
+                var res = Mapper.Map<List<Board>, List<BoardDTO>>(boardRepos.GetAll().ToList());
+                Mapper.Reset();
+                return res;
+            }
+        }
+        public List<TeamDTO> GetAllTeamsDTO()
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                teamRepos = new Repository<Team>(db);
+                Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Team, TeamDTO>()));
+                var teams = teamRepos.GetAll().ToList();
+                var res =
+                Mapper.Map<List<Team>, List<TeamDTO>>(teams);
+                Mapper.Reset();
+                return res;
             }
         }
 
-        private void AddNewBoardBtn_Click(object sender, RoutedEventArgs e)
-        {
-            AddNewBoard();
-
-        }
 
         public void GetUserBoard(int _userId)
         {
@@ -139,7 +217,6 @@ namespace PresentationLayer
                 currentBoard = boardRepos.GetWithInclude(b => b.TeamId == currentTeam.Id, b => b.Columns, b => b.Team).FirstOrDefault(b => b.TeamId == currentTeam.Id);
             }
         }
-
         public void ReadFromDb(int _id)//може айді і не треба
         {
             boardName_tb.DataContext = currentBoard;////////////////////////не міняється ім"я дошки
@@ -152,7 +229,7 @@ namespace PresentationLayer
             column4.Clear();
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
-                cardsRepository = new Repository<Card>(db);
+                cardRepository = new Repository<Card>(db);
                 columnRepository = new Repository<Column>(db);
 
                 boardRepos = new Repository<Board>(db);
@@ -171,45 +248,60 @@ namespace PresentationLayer
                 borderListBox3.Tag = curColumn3Id = board[2].Id;
                 borderListBox4.Tag = curColumn4Id = board[3].Id;
 
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn1Id))
+                foreach (Card card in cardRepository.GetAll(x => x.ColumnId == curColumn1Id))
                 {
                     column1.Add(card);
                 }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn2Id))
+                foreach (Card card in cardRepository.GetAll(x => x.ColumnId == curColumn2Id))
                 {
                     column2.Add(card);
                 }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn3Id))
+                foreach (Card card in cardRepository.GetAll(x => x.ColumnId == curColumn3Id))
                 {
                     column3.Add(card);
                 }
-                foreach (Card card in cardsRepository.GetAll(x => x.ColumnId == curColumn4Id))
+                foreach (Card card in cardRepository.GetAll(x => x.ColumnId == curColumn4Id))
                 {
                     column4.Add(card);
                 }
             }
         }
+        private void BoardName_cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (boardS.Count == 0) return;
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                boardRepos = new Repository<Board>(db);
+                currentBoard = boardRepos.GetWithInclude(b => b.Id == ((sender as ComboBox).SelectedItem as Board).Id,
+                    b => b.Columns, b => b.Team).FirstOrDefault();
+            }
+            ReadFromDb(0);
+        }
+        private void AddNewBoardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewBoard();
 
+        }
         private void ListBox_Drop(object sender, DragEventArgs e)
         {
             CardButton b = (CardButton)e.Data.GetData("Object");
             using (KanbanBoardContext db = new KanbanBoardContext())
             {
-                cardsRepository = new Repository<Card>(db);
-                Card c = cardsRepository.Find((int)b.Tag);
+                cardRepository = new Repository<Card>(db);
+                Card c = cardRepository.Find((int)b.Tag);
                 int newColumnId = Convert.ToInt32((sender as ListBox).Tag);
                 c.ColumnId = newColumnId;
-                cardsRepository.Edit(c);
+                cardRepository.Edit(c);
             }
             ReadFromDb(currentUserDb.Id);
         }
-
         private void AddNewTaskBtn_Click(object sender, RoutedEventArgs e)
         {
             CardEditWindow cardEditWindow = new CardEditWindow();
             cardEditWindow.Owner = this;
             cardEditWindow.ShowDialog();
         }
+
 
         public void AddNewDataToDB()
         {
@@ -286,7 +378,6 @@ namespace PresentationLayer
                 context.SaveChanges();
             }
         }
-
         public void AddNewBoard()
         {
             Column column1 = new Column { Name = "Tasks" };
@@ -312,7 +403,6 @@ namespace PresentationLayer
                 ReadFromDb(0);
             }
         }
-
         public void AddNewColumn()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
@@ -324,7 +414,6 @@ namespace PresentationLayer
                 };
             }
         }
-
         public void AddNewProfile()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
@@ -338,7 +427,6 @@ namespace PresentationLayer
                 profileRepos.Add(newProfile);
             }
         }
-
         public void AddNewTeam()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
@@ -351,7 +439,6 @@ namespace PresentationLayer
                 teamRepos.Add(newTeam);
             }
         }
-
         public void AddNewUser()
         {
             using (KanbanBoardContext db = new KanbanBoardContext())
@@ -365,6 +452,27 @@ namespace PresentationLayer
                 };
                 userRepository.Add(newUser);
             }
+        }
+
+
+        public User GetUser(int _id)
+        {
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                userRepository = new Repository<User>(db);
+                return userRepository.Find(_id);
+            }
+        }
+        private void BoardName_lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (boardS.Count == 0) return;
+            using (KanbanBoardContext db = new KanbanBoardContext())
+            {
+                boardRepos = new Repository<Board>(db);
+                currentBoard = boardRepos.GetWithInclude(b => b.Id == ((sender as ListBox).SelectedItem as Board).Id,
+                    b => b.Columns, b => b.Team).FirstOrDefault();
+            }
+            ReadFromDb(0);
         }
     }
 }

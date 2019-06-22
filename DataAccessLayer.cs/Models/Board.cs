@@ -12,7 +12,7 @@ namespace DataAccessLayer.cs.Models
     {
         public Board()
         {
-            Columns = new ObservableCollection<Column>();
+            Columns = new List<Column>();
         }
         public int Id { get; set; }
         [Required]

@@ -34,11 +34,14 @@ namespace DataAccessLayer.cs.Repository
         {
             return set.Find(id);
         }
-
         public IEnumerable<T> GetAll()
         {
-            return set.AsNoTracking().AsEnumerable();
+            return set.AsEnumerable();
         }
+        //public IEnumerable<T> GetAll()
+        //{
+        //    return set.AsNoTracking().AsEnumerable();
+        //}
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> pred)
         {
