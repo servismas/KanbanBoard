@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.cs.Interfases;
+﻿using AutoMapper;
+using DataAccessLayer.cs.Interfases;
 using DataAccessLayer.cs.Models;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,10 @@ namespace WCFBusinesLayer.Services
                     if (entUser.Password==pass)
                     {
                         LogerClass.WriteLog(entUser.Mail + " "+entUser.GetType().ToString());
-
-                        user =(UserDTO) AutoMapper.Mapper.Map(entUser, typeof(User), typeof(UserDTO));
+                        Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<User, UserDTO>()));
+                        user = Mapper.Map<User, UserDTO>(entUser);
+                        Mapper.Reset();
+                        //user =(UserDTO) AutoMapper.Mapper.Map(entUser, typeof(User), typeof(UserDTO));
 
                         //user.Id = entUser.Id;
                         //user.IsDeleted = entUser.IsDeleted;
@@ -44,7 +47,7 @@ namespace WCFBusinesLayer.Services
                         //user.ProfileId = entUser.ProfileId;
                         //user.TeamId = entUser.TeamId;
                         //user.Teams = null;
-                        
+
 
                         LogerClass.WriteLog(user.Mail + " " + user.GetType().ToString());
                     }

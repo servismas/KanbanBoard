@@ -37,12 +37,14 @@ namespace DataAccessLayer.cs.Repository
 
         public IEnumerable<T> GetAll()
         {
-            return set.AsNoTracking().AsEnumerable();
+            //return set.AsNoTracking().AsEnumerable();
+            return set.AsEnumerable();
         }
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> pred)
         {
-            return set.AsNoTracking().Where(pred).AsEnumerable();
+            // return set.AsNoTracking().Where(pred).AsEnumerable();
+            return set.Where(pred).AsEnumerable();
         }
 
         public void Remove(T entity)
