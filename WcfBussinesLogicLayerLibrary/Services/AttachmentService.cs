@@ -26,9 +26,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
         }
         public void AddNewAttachment(AttachmentDTO newAttachment)
         {
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<AttachmentDTO, Attachment>()));
+            Attachment attachmentEntyti = Mapper.Map<AttachmentDTO, Attachment>(newAttachment);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(AttachmentDTO), typeof(Attachment)));
-            Attachment attachmentEntyti = (Attachment)Mapper.Map(newAttachment, typeof(AttachmentDTO), typeof(Attachment));
+
+
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(AttachmentDTO), typeof(Attachment)));
+            //Attachment attachmentEntyti = (Attachment)Mapper.Map(newAttachment, typeof(AttachmentDTO), typeof(Attachment));
             AttachmentRepos.Add(attachmentEntyti);
         }
 
@@ -40,9 +45,13 @@ namespace WcfBussinesLogicLayerLibrary.Services
        
         public AttachmentDTO GetAttachmentDTO(Attachment attachment)
         {
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Attachment, AttachmentDTO>()));
+            AttachmentDTO attach= Mapper.Map<Attachment, AttachmentDTO>(attachment);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Attachment), typeof(AttachmentDTO)));
-            return (AttachmentDTO)Mapper.Map(attachment, typeof(Attachment), typeof(AttachmentDTO));
+            return attach;
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(Attachment), typeof(AttachmentDTO)));
+            //return (AttachmentDTO)Mapper.Map(attachment, typeof(Attachment), typeof(AttachmentDTO));
         }
 
         
@@ -54,9 +63,16 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 attachments.Add(a);
             }
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Attachment, AttachmentDTO>()));
+            var res = Mapper.Map<List<Attachment>, List<AttachmentDTO>>(attachments);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Attachment>), typeof(List<AttachmentDTO>)));
-            return (List<AttachmentDTO>)Mapper.Map(attachments, typeof(List<Attachment>), typeof(List<AttachmentDTO>));
+
+            return res;
+
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Attachment>), typeof(List<AttachmentDTO>)));
+            //return (List<AttachmentDTO>)Mapper.Map(attachments, typeof(List<Attachment>), typeof(List<AttachmentDTO>));
         }
     }
 }

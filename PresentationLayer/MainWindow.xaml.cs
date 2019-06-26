@@ -49,22 +49,22 @@ namespace PresentationLayer
 
 
         int userID = 2;
-
+        UserDTO currentUser = null;
 
 
         public MainWindow()
         {
-            using (KanbanBoardContext db = new KanbanBoardContext())
-            {
-                userRepository = new Repository<User>(db);
-                User u = userRepository.GetAll().FirstOrDefault(x => x.Mail == "qwerty");
-                if (u == null)
-                    AddNewDataToDB();
-            }
+            //using (KanbanBoardContext db = new KanbanBoardContext())
+            //{
+            //    userRepository = new Repository<User>(db);
+            //    User u = userRepository.GetAll().FirstOrDefault(x => x.Mail == "qwerty");
+            //    if (u == null)
+            //        AddNewDataToDB();
+            //}
 
-                //AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
-                //authoreRegisterWind.ShowDialog();
-                // currentUser = GetDTOUser(); //(authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
+            AuthoreRegisterWind authoreRegisterWind = new AuthoreRegisterWind();
+            authoreRegisterWind.ShowDialog();
+            currentUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
             GetUserBoard(userID);
 

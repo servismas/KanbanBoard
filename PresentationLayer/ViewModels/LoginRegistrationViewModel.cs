@@ -64,7 +64,7 @@ namespace PresentationLayer.ViewModels
                  {
                      Pass = (obj as PasswordBox).Password;
                      HeshPass = CreateHeshPass(Pass);
-                     CurrentUser = new UserDTO() { Id = 1 };/*LogOnClient.CheckCredationals(Login, HeshPass);*/
+                     CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);
                      if (CurrentUser!=null)
                           StartWind.Close();
                      else

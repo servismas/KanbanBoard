@@ -29,9 +29,15 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void CreateBoard(BoardDTO newBoard)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
+            //Board boardEntyti = (Board)Mapper.Map(newBoard, typeof(BoardDTO), typeof(Board));
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<BoardDTO, Board>()));
+            Board boardEntyti = Mapper.Map<BoardDTO, Board>(newBoard);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
-            Board boardEntyti = (Board)Mapper.Map(newBoard, typeof(BoardDTO), typeof(Board));
+
+
             BoardRepos.Add(boardEntyti);
         }
 
@@ -42,9 +48,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditeBoardName(BoardDTO editBoard)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
+            //Board boardEntyti = (Board)Mapper.Map(editBoard, typeof(BoardDTO), typeof(Board));
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<BoardDTO, Board>()));
+            Board boardEntyti = Mapper.Map<BoardDTO, Board>(editBoard);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(BoardDTO), typeof(Board)));
-            Board boardEntyti = (Board)Mapper.Map(editBoard, typeof(BoardDTO), typeof(Board));
+
             BoardRepos.Edit(boardEntyti);
         }
 
@@ -56,9 +67,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 boards.Add(b);
             }
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Board, BoardDTO>()));
+            var res = Mapper.Map<List<Board>, List<BoardDTO>>(boards);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<BoardDTO>)));
-            return (List<BoardDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<BoardDTO>));
+            return res;
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<BoardDTO>)));
+            //return (List<BoardDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<BoardDTO>));
         }
 
         public List<BoardDTO> GetAllUsersBoardsIncludColumns(TeamDTO userTeam)
@@ -66,20 +82,28 @@ namespace WcfBussinesLogicLayerLibrary.Services
            
             List<Board> boards = new List<Board>();
             foreach (Board b in BoardRepos.GetAllInclude(x=>x.Columns))
-            {
-                
+            {                
                 boards.Add(b);
             }
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<BoardDTO>)));
+            //return (List<BoardDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<BoardDTO>));
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Board, BoardDTO>()));
+            var res = Mapper.Map<List<Board>, List<BoardDTO>>(boards);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Board>), typeof(List<BoardDTO>)));
-            return (List<BoardDTO>)Mapper.Map(boards, typeof(List<Board>), typeof(List<BoardDTO>));
+            return res;
         }
 
         public BoardDTO GetBoard(Board board)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(Board), typeof(BoardDTO)));
+            //return (BoardDTO)Mapper.Map(board, typeof(Board), typeof(BoardDTO));
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Board, BoardDTO>()));
+            BoardDTO boardDto = Mapper.Map<Board, BoardDTO>(board);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Board), typeof(BoardDTO)));
-            return (BoardDTO)Mapper.Map(board, typeof(Board), typeof(BoardDTO));
+            return boardDto;
         }
     }
 }
