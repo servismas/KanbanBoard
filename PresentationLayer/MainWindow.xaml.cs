@@ -66,6 +66,7 @@ namespace PresentationLayer
             authoreRegisterWind.ShowDialog();
             currentUser = (authoreRegisterWind.DataContext as LoginRegistrationViewModel).CurrentUser;
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel(currentUser);
             GetUserBoard(userID);
 
             boardS = new ObservableCollection<Board>();

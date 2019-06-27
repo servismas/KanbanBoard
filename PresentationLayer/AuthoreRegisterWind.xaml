@@ -40,11 +40,11 @@
             <Button Visibility="Collapsed" Content="{Binding Photo}" Name="PhotoBox" Margin="0,5,0,3" Command="{Binding AddPhoto}"/>
             <TextBlock Visibility="Collapsed" Text="Our Team" Name="TeamBlock"/>
             <ComboBox Visibility="Collapsed" ItemsSource="{Binding TeamName}" Name="TeamBox" IsEditable="True" SelectedValue="{Binding SelectTeam}"/>
-            
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>                    
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Content="LogOn" Margin="10" Command="{Binding LoginOK}" CommandParameter="{Binding ElementName=textPass}" Name="LogBtn"/>
                 <Button Grid.Column="1" Content="Registration" Margin="10" Name="RegBtn" Click="RegBtn_Click"/>

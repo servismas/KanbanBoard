@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
-//using PresentationLayer.TeamService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,14 +24,10 @@ namespace PresentationLayer.ViewModels
         public LoginRegistrationViewModel()
         {
             Login = "Your email";
-           // List<TeamDTO> teamstest = new List<TeamDTO>() { new TeamDTO { Name = "SuperTeam", Boards = null, Users = null }};
-            //int num = teamClient.GetAllTeams().Length; ///сюда маэ йти лист ДТО
-
+            CurrentTeam = new TeamDTO() { Name = "MainTeam" };
             TeamName = new List<string>();
-            //foreach (var team in teamClient.GetAllTeams()) //і сюди
-            {
-                TeamName.Add("testTeam"/*team.Name*/);
-            }
+            TeamName.Add(CurrentTeam.Name);
+
         }
 
         public void CloseRegWind()
@@ -51,33 +46,43 @@ namespace PresentationLayer.ViewModels
         public string HeshPass { get; set; }
         public UserDTO CurrentUser { get; set; }
 
-        
+
 
         private RelayCommand loginOK;
         public RelayCommand LoginOK
         {
-            
+
             get
             {
                 return loginOK ??
                  (loginOK = new RelayCommand(obj =>
                  {
-                     Pass = (obj as PasswordBox).Password;
-                     HeshPass = CreateHeshPass(Pass);
-                     CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);
-                     if (CurrentUser!=null)
-                          StartWind.Close();
-                     else
+                     try
                      {
-                         StartWind.ShowMessageAsync("Error", "Enter the correct account credentials!");
-                         //MessageBox.Show("Enter the correct account credentials!");
+
+
+                         Pass = (obj as PasswordBox).Password;
+                         HeshPass = CreateHeshPass(Pass);
+                         CurrentUser = LogOnClient.CheckCredationals(Login, HeshPass);
+                         if (CurrentUser != null)
+                             StartWind.Close();
+                         else
+                         {
+                             StartWind.ShowMessageAsync("Error", "Enter the correct account credentials!");
+                             
+                         }
+                     }
+                     catch (Exception ex)
+                     {
+
+                         StartWind.ShowMessageAsync("Error", ex.Message);
                      }
                  }));
             }
 
 
         }
-        
+
         public bool Check(string Login)
         {
             string mask = @"^\S\w*@\S\w*\.\S\w{2,3}";
@@ -119,7 +124,7 @@ namespace PresentationLayer.ViewModels
 
             }
         }
-        
+
 
         private RelayCommand registration;
         public RelayCommand Registration
@@ -131,23 +136,25 @@ namespace PresentationLayer.ViewModels
                 return registration ??
                  (registration = new RelayCommand(obj =>
                  {
-                     CurrentUser = null;
+                     CurrentUser = null;                     
                      try
-                     {                     
-                     UserService.CreateEditeUserContractClient userServiceClient = new UserService.CreateEditeUserContractClient();
-                     UserDTO regUser=new UserDTO();
-                     regUser.IsDeleted = false;
-                     regUser.Mail = Login;
-                     regUser.Password = CreateHeshPass(Pass = (obj as PasswordBox).Password);
+                     {
 
-                     ProfileService.CreateEditeProfileContractClient profileClient = new ProfileService.CreateEditeProfileContractClient();
-                     ProfileDTO newProf = new ProfileDTO();
-                     newProf.FirstName = FirstName;
-                     newProf.SecondName = SecondName;
-                     newProf.Photo = Photo;
-                     Mapper.Reset();
-                     Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
-                     ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
+                         UserService.CreateEditeUserContractClient userServiceClient = new UserService.CreateEditeUserContractClient();
+                         UserDTO regUser = new UserDTO();
+                         regUser.IsDeleted = false;
+                         regUser.Mail = Login;
+                         regUser.Password = CreateHeshPass(Pass = (obj as PasswordBox).Password);
+
+                         ProfileService.CreateEditeProfileContractClient profileClient = new ProfileService.CreateEditeProfileContractClient();
+                         ProfileDTO newProf = new ProfileDTO();
+                         newProf.FirstName = FirstName;
+                         newProf.SecondName = SecondName;
+                         newProf.Photo = Photo;
+                        
+                         //Mapper.Initialize(cfg => cfg.CreateMap(typeof(ProfileDTO), typeof(ProfileDTO)));
+                         //ProfileDTO prof = (ProfileDTO)Mapper.Map(newProf, typeof(ProfileDTO), typeof(ProfileDTO));
+                         //Mapper.Reset();
 
                          foreach (var team in teamClient.GetAllTeams())
                          {
@@ -155,7 +162,7 @@ namespace PresentationLayer.ViewModels
                              string lowTeam = team.Name.ToLower();
                              SelectTeam = SelectTeam.ToLower();
 
-                             if (lowTeam== SelectTeam)
+                             if (lowTeam == SelectTeam)
                              {
                                  CurrentTeam = team;
                                  return;
@@ -163,24 +170,25 @@ namespace PresentationLayer.ViewModels
 
                          }
 
-                         if (CurrentTeam==null)
+                         if (CurrentTeam == null)
                          {
                              CurrentTeam.Name = SelectTeam;
                              CurrentTeam.Users.Add(CurrentUser);
                          }
 
 
-                     regUser.Team.Add(CurrentTeam);
-                     regUser.Profile = newProf;
-                     
-                     userServiceClient.AddUser(regUser);
-                     CurrentUser = regUser;
+                         regUser.Team.Add(CurrentTeam);
+                         regUser.Profile = newProf;
+
+                         userServiceClient.AddUser(regUser);
+                         CurrentUser = regUser;
+                         
                      }
                      catch (Exception ex)
                      {
 
                          StartWind.ShowMessageAsync("Error", ex.Message);
-                         //  MessageBox.Show(ex.Message);
+                         
                      }
 
                      if (CurrentUser != null)
@@ -188,7 +196,7 @@ namespace PresentationLayer.ViewModels
                      else
                          StartWind.ShowMessageAsync("Error", "Some error");
 
-                     // MessageBox.Show("Some error");
+                     
                  }));
             }
 
@@ -227,8 +235,8 @@ namespace PresentationLayer.ViewModels
                  {
                      OpenFileDialog ofd = new OpenFileDialog();
                      ofd.Filter = "jpg|*.jpg|bmp|*.bmp|png|*.png";
-                     DialogResult rez =ofd.ShowDialog();
-                     if (rez==DialogResult.OK)
+                     DialogResult rez = ofd.ShowDialog();
+                     if (rez == DialogResult.OK)
                      {
                          Photo = ofd.FileName;
                      }
@@ -263,8 +271,5 @@ namespace PresentationLayer.ViewModels
 
 
         }
-
-
-
     }
 }
