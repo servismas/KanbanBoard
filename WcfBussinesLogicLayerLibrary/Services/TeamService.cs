@@ -26,9 +26,13 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void CreateNewTeam(TeamDTO newTeam)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(TeamDTO), typeof(Team)));
+            //Team teamEntyti = (Team)Mapper.Map(newTeam, typeof(TeamDTO), typeof(Team));
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<TeamDTO, Team>()));
+            Team teamEntyti = Mapper.Map<TeamDTO, Team>(newTeam);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(TeamDTO), typeof(Team)));
-            Team teamEntyti = (Team)Mapper.Map(newTeam, typeof(TeamDTO), typeof(Team));
+            
             TeamRepos.Add(teamEntyti);
         }
 
@@ -39,9 +43,13 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditTeam(TeamDTO editTeam)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(TeamDTO), typeof(Team)));
+            //Team teamEntyti = (Team)Mapper.Map(editTeam, typeof(TeamDTO), typeof(Team));
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<TeamDTO, Team>()));
+            Team teamEntyti = Mapper.Map<TeamDTO, Team>(editTeam);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(TeamDTO), typeof(Team)));
-            Team teamEntyti = (Team)Mapper.Map(editTeam, typeof(TeamDTO), typeof(Team));
+
             TeamRepos.Edit(teamEntyti);
         }
 
@@ -54,11 +62,15 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 teams.Add(team);
             }
 
-            
-                Mapper.Reset();
-                Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
-            returnList=(List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
-            LogerClass.WriteLog(returnList.ToArray().ToString());
+
+            //    Mapper.Reset();
+            //    Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
+            //returnList=(List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
+            //LogerClass.WriteLog(returnList.ToArray().ToString());
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Team, TeamDTO>()));
+            returnList = Mapper.Map<List<Team>, List<TeamDTO>>(teams);
+            Mapper.Reset();
+
             return returnList;
         }
 
@@ -70,9 +82,15 @@ namespace WcfBussinesLogicLayerLibrary.Services
             {
                 teams.Add(t);
             }
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
+            //return (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Team, TeamDTO>()));
+            var returnList = Mapper.Map<List<Team>, List<TeamDTO>>(teams);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Team>), typeof(List<TeamDTO>)));
-            return (List<TeamDTO>)Mapper.Map(teams, typeof(List<Team>), typeof(List<TeamDTO>));
+
+            return returnList;
         }
     }
 }

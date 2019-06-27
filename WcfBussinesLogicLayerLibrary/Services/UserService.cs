@@ -24,9 +24,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void AddUser(UserDTO newUser)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(User)));
+            //User userEntyti = (User)Mapper.Map(newUser, typeof(UserDTO), typeof(User));
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<UserDTO, User>()));
+            User userEntyti = Mapper.Map<UserDTO, User>(newUser);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(User)));
-            User userEntyti = (User)Mapper.Map(newUser, typeof(UserDTO), typeof(User));
+
+
             UsersRepos.Add(userEntyti);
         }
 
@@ -37,9 +42,12 @@ namespace WcfBussinesLogicLayerLibrary.Services
 
         public void EditeUser(UserDTO editeUser)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(User)));
+            //User userEntyti = (User)Mapper.Map(editeUser, typeof(UserDTO), typeof(User));
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<UserDTO, User>()));
+            User userEntyti = Mapper.Map<UserDTO, User>(editeUser);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(UserDTO), typeof(User)));
-            User userEntyti = (User)Mapper.Map(editeUser, typeof(UserDTO), typeof(User));
             UsersRepos.Edit(userEntyti);
         }
 

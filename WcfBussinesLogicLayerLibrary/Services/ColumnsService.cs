@@ -67,17 +67,25 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 columnsEntity.Add(c);
             }
             ///stop
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Column>), typeof(List<ColumnDTO>)));
+            //return (List<ColumnDTO>)Mapper.Map( columnsEntity, typeof(List<Column>), typeof(List<ColumnDTO>));
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Column, ColumnDTO>()));
+            var res = Mapper.Map<List<Column>, List<ColumnDTO>>(columnsEntity);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Column>), typeof(List<ColumnDTO>)));
-            return (List<ColumnDTO>)Mapper.Map( columnsEntity, typeof(List<Column>), typeof(List<ColumnDTO>));
-            
+            return res;
         }
 
         public ColumnDTO GetColumn(Column column)
         {
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(Column), typeof(ColumnDTO)));
+            //return (ColumnDTO)Mapper.Map(column, typeof(Column), typeof(ColumnDTO));
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Column, ColumnDTO>()));
+            ColumnDTO columnDto = Mapper.Map<Column, ColumnDTO>(column);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(Column), typeof(ColumnDTO)));
-            return (ColumnDTO)Mapper.Map(column, typeof(Column), typeof(ColumnDTO));
+            return columnDto;
         }
 
         public List<ColumnDTO> GetUserColumnIncludeCards(BoardDTO userBoard)
@@ -89,9 +97,14 @@ namespace WcfBussinesLogicLayerLibrary.Services
                 columnsEntity.Add(c);
             }
 
+            //Mapper.Reset();
+            //Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Column>), typeof(List<ColumnDTO>)));
+            //return (List<ColumnDTO>)Mapper.Map(columnsEntity, typeof(List<Column>), typeof(List<ColumnDTO>));
+
+            Mapper.Initialize(new Action<IMapperConfigurationExpression>(x => x.CreateMap<Column, ColumnDTO>()));
+            var res = Mapper.Map<List<Column>, List<ColumnDTO>>(columnsEntity);
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap(typeof(List<Column>), typeof(List<ColumnDTO>)));
-            return (List<ColumnDTO>)Mapper.Map(columnsEntity, typeof(List<Column>), typeof(List<ColumnDTO>));
+            return res;
         }
     }
 }
