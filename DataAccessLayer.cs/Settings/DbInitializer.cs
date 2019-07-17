@@ -10,12 +10,16 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.cs.Settings
 {
     public class DbInitializer : CreateDatabaseIfNotExists<KanbanBoardContext>
-    //public class DbInitializer : DropCreateDatabaseAlways<KanbanBoardContext>
+   // public class DbInitializer : DropCreateDatabaseAlways<KanbanBoardContext>
     {
         protected override void Seed(KanbanBoardContext context)
         {
             User user1 = new User { Mail = "qwerty@qwerty.com", Password = "�࿬쿢䘰囘燶朗㾨ꋷﱊｴ쐺쬌꤅꽿蟡얂翾邊谮蘷쮥␶荜ഓ倽⩣戜悧緖䤍" };
             User user2 = new User { Mail = "asd@asd.com", Password = "䄑㹩豤ꂨᤑཀ⿿䶚體䪛滻禐퍤��滻砊汇䎋༁�쒆䐡셵茙渀ฤ궕" };
+
+            Profile profile1 = new Profile { FirstName = "TestName", SecondName = "TestSurname" };
+            context.Profiles.Add(profile1);            
+            user1.Profile = profile1;
 
             Team team = new Team { Name = "testTeam" };
 
@@ -33,6 +37,10 @@ namespace DataAccessLayer.cs.Settings
             Card card5 = new Card { Name = "testCard5", CreationDate = DateTime.Now, ExpireDate = DateTime.Now.AddDays(10), Description = "Description5 from database" };
 
             context.Users.Add(user1);
+
+           
+
+
             context.Users.Add(user2);
 
             context.Teams.Add(team);

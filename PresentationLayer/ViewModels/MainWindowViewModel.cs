@@ -17,8 +17,8 @@ namespace PresentationLayer.ViewModels
             FirstName = "Name: " + user.Profile.FirstName;
             SecondName = "Surname: " + user.Profile.SecondName;
 
-            BoardName = "TestBoard";
-            Photo = new BitmapImage(new Uri(user.Profile.Photo));
+            BoardName = "Board";
+            //Photo = new BitmapImage(new Uri(user.Profile.Photo));
 
             MainUser = user;
             GetBoard(MainUser);
@@ -36,9 +36,23 @@ namespace PresentationLayer.ViewModels
 
         public void GetBoard(UserDTO user)
         {
-            //  PresentationLayer.BoardService.CreateEditeBoardContractClient boardClient = new BoardService.CreateEditeBoardContractClient();
-            // boardClient.GetCurrentUserBoard(user);
-        }
+            TeamService.CreateEditeTeamContractClient teamClient = new TeamService.CreateEditeTeamContractClient();
+            List<TeamDTO> teamList = new List<TeamDTO>();
+            foreach (var tm in teamClient.GetAllUsersTeams(user))
+            {
+                teamList.Add(tm);
+            }
 
+            BoardService.CreateEditeBoardContractClient boardClient = new BoardService.CreateEditeBoardContractClient();
+
+            
+            List<BoardDTO> boardList = new List<BoardDTO>();
+            foreach (var br in boardClient.GetAllUsersBoards(teamList[teamList.Count]))
+            {
+                boardList.Add(br);
+            }
+
+            BoardName = boardList[boardList.Count].Name;
+        }
     }
 }

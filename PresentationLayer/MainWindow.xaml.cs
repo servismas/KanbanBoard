@@ -54,6 +54,7 @@ namespace PresentationLayer
 
         public MainWindow()
         {
+            
             //using (KanbanBoardContext db = new KanbanBoardContext())
             //{
             //    userRepository = new Repository<User>(db);
